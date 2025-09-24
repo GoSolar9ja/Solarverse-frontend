@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Important files
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /manifest.json
+
+# Block sensitive paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+Disallow: /*.json$
+
+# Block search results
+Disallow: /search
+
+# Sitemap location
+Sitemap: https://gosolar9ja.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1

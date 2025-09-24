@@ -1,0 +1,13 @@
+{
+  "name": "@solar-verse/theme",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./styles": "./styles/index.css"
+  },
+  "dependencies": {
+    "postcss": "^8.5.6",
+
+    "tailwindcss": "^4.1.13"
+  }
+}
