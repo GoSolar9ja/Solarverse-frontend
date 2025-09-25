@@ -55,7 +55,7 @@
   /* 24px */
   --text-h3: 1.875rem;
   /* 30px */
-  --text-h2-sm:! 1.875rem;
+  --text-h2-sm:  ! 1.875rem;
   /* 30px */
   --text-h2: 1.875rem;
   /* 30px */
@@ -69,4 +69,26 @@
   --text-color-error: var(--error);
   --text-color-faded-light: var(--faded-light-100);
   --text-color-faded-dark: var(--faded-dark-100);
+}
+
+
+@font-face {
+  font-family: "Avenir";
+  src: url("../fonts/Avenir\ LT\ Std\ 45\ Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("../fonts/Avenir\ LT\ Std\ 85\ Heavy.otf") format("opentype");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Avenir";
+  src: url("../fonts/Avenir\ LT\ Std\ 65\ Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: medium;
 }

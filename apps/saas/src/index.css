@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "@solar-verse/ui/styles.css";
-@import "@solar-verse/assets/fonts";
+@import "@solar-verse/theme/styles";
 
 
 
