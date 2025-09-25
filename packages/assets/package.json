@@ -1,9 +1,0 @@
-{
-  "name": "@solar-verse/assets",
-  "version": "0.0.0",
-  "private": true,
-  "exports": {
-    "./fonts": "./styles/fonts.css"
-  }
-
-}
