@@ -1,5 +1,5 @@
 {
-  "name": "gosolar-monorepo",
+  "name": "solar-verse",
   "private": true,
   "scripts": {
     "build": "turbo run build",

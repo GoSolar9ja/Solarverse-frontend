@@ -48,7 +48,8 @@
     "zod": "^4.0.10",
     "@solar-verse/ui": "workspace:*",
     "@solar-verse/utils": "workspace:*",
-    "@solar-verse/theme": "workspace:*"
+    "@solar-verse/theme": "workspace:*",
+    "@solar-verse/assets": "workspace:*"
 
   },
   "devDependencies": {
