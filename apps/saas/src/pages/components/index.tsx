@@ -1,13 +1,22 @@
 "use client";
-import { Button } from "@solar-verse/ui";
+import {
+  Button,
+  ComponentVisibility,
+  Image,
+  UploadField,
+} from "@solar-verse/ui";
 import { InputField } from "@solar-verse/ui";
 import { PasswordField } from "@solar-verse/ui";
 import { SelectInput } from "@solar-verse/ui";
 import { Typography } from "@solar-verse/ui";
 
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
-import { Form, FormikProvider, useFormik } from "formik";
-import { UserIcon, MailIcon, SearchIcon } from "lucide-react";
+import {
+  createValidationSchema,
+  fileToBase64,
+  schemaValidation,
+} from "@solar-verse/utils";
+import { FieldArray, Form, FormikProvider, useFormik } from "formik";
+import { UserIcon, MailIcon, SearchIcon, XIcon } from "lucide-react";
 import * as Yup from "yup";
 
 const initialProductListValue = {
@@ -19,8 +28,12 @@ const initialProductListValue = {
 };
 
 export default function Components() {
-  const { numberFieldValidation, fieldValidation, emailValidation } =
-    schemaValidation;
+  const {
+    numberFieldValidation,
+    fieldValidation,
+    emailValidation,
+    listSelectionValidation,
+  } = schemaValidation;
 
   const formik = useFormik({
     initialValues: {
@@ -30,6 +43,8 @@ export default function Components() {
       search: "",
       category: "",
       productList: [initialProductListValue],
+      images: [] as Array<File & { url: string }>,
+      image: [] as Array<File & { url: string }>,
     },
     validationSchema: createValidationSchema({
       name: fieldValidation().required("Name is required"),
@@ -37,6 +52,11 @@ export default function Components() {
       password: fieldValidation().required("Password is required"),
       search: fieldValidation(),
       category: fieldValidation().required("Category is required"),
+      image: listSelectionValidation().max(1, "Image is required"),
+      images: listSelectionValidation().min(
+        1,
+        "At least one image is required"
+      ),
       productList: Yup.array().of(
         createValidationSchema({
           name: fieldValidation().required("Product name is required"),
@@ -53,6 +73,7 @@ export default function Components() {
 
   const { handleSubmit } = formik;
 
+  console.log(formik.values.images);
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:!px-8">
@@ -499,6 +520,129 @@ export default function Components() {
                   validate
                 />
 
+                <div className="mt-5 space-y-5">
+                  <Typography.h4 variant={"primary"}>
+                    Single File Upload
+                  </Typography.h4>
+                  <div className="flex gap-5 w-full">
+                    <UploadField
+                      containerProps={{ className: "flex-1" }}
+                      showUploadList={false}
+                      fieldProps={{
+                        name: "image",
+                        multiple: false,
+                        accept: "image/*",
+                        onChange: (e) => {
+                          const file = e.target.files![0];
+                          console.log(file);
+                          fileToBase64(file).then((base64) => {
+                            formik.setFieldValue("image", [
+                              {
+                                name: file.name,
+                                url: base64,
+                              },
+                            ]);
+                          });
+                        },
+                      }}
+                      validate
+                    />
+
+                    <ComponentVisibility
+                      visible={formik.values.image.length > 0}
+                    >
+                      <div className="flex gap-5 size-[60px]">
+                        {" "}
+                        <Image src={formik.values.image[0]?.url || ""} />
+                      </div>
+                    </ComponentVisibility>
+                  </div>
+                  <UploadField
+                    fieldProps={{
+                      name: "image",
+                      multiple: false,
+                      accept: "image/*",
+                    }}
+                    validate
+                  />
+                </div>
+
+                <div className="mt-5 space-y-5">
+                  <Typography.h4 variant={"primary"}>
+                    Multiple File Upload
+                  </Typography.h4>
+                  <div className="flex gap-5 w-full">
+                    <FieldArray name="images">
+                      {({ push, remove }) => (
+                        <>
+                          <UploadField
+                            containerProps={{ className: "flex-1" }}
+                            showUploadList={false}
+                            fieldProps={{
+                              name: "images",
+                              multiple: true,
+                              accept: "image/*",
+                              onChange: (e) => {
+                                Array.from(e.target.files || []).map(
+                                  (item) => ({
+                                    name: item.name,
+                                    url: fileToBase64(item).then((base64) => {
+                                      push({ name: item.name, url: base64 });
+                                    }),
+                                  })
+                                );
+                              },
+                            }}
+                            validate
+                          />
+
+                          <ComponentVisibility
+                            visible={formik.values.images.length > 0}
+                          >
+                            <div className="flex gap-5 ">
+                              {" "}
+                              {formik.values.images.map((image, index) => (
+                                <div className="relative">
+                                  <Image
+                                    containerClassName="size-[60px]"
+                                    key={index}
+                                    src={image.url || ""}
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => remove(index)}
+                                    className="absolute -top-3 -right-3 bg-gray-100 rounded-full p-1"
+                                  >
+                                    <XIcon className="w-4 h-4 text-red-500" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          </ComponentVisibility>
+                        </>
+                      )}
+                    </FieldArray>
+                  </div>
+                  <UploadField
+                    fieldProps={{
+                      name: "images",
+                      multiple: true,
+                      accept: "image/*",
+                    }}
+                    validate
+                  />
+                </div>
+
+                {/* <UploadField fieldProps={{ name: "images" }} validate>
+                  {(props) => (
+                    <div
+                      className="rounded-lg text-center cursor-pointer p-2"
+                      {...props}
+                    >
+                      knfknef
+                    </div>
+                  )}
+                </UploadField> */}
                 <div className="pt-4">
                   <Typography.h4 variant="primary100" className="mb-4">
                     Product List

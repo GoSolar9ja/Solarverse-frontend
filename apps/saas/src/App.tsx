@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { Suspense } from "react";
 import GlobalProvider from "./lib/providers/global-provider";
 
