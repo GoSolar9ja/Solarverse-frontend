@@ -1,5 +1,5 @@
 import { useTheme } from "next-themes";
-import { Toaster as Sonner, ToasterProps } from "sonner";
+import { Toaster as Sonner, toast, ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme();
@@ -18,6 +18,16 @@ const Toaster = ({ ...props }: ToasterProps) => {
       {...props}
     />
   );
+};
+
+export const successToast = (message: string) => {
+  toast("Event has been created", {
+    description: "Sunday, December 03, 2023 at 9:00 AM",
+    action: {
+      label: "Undo",
+      onClick: () => console.log("Undo"),
+    },
+  });
 };
 
 export { Toaster };
