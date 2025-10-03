@@ -5,6 +5,7 @@ import MissionVisionSection from "./mission-vision-section";
 import StandForSection from "./stand-for-section";
 import HowWeWorkSection from "./how-we-work-section";
 import WhyGoSolarSection from "./why-gosolar-section";
+import TeamSection from "./team-section";
 
 export default function AboutTemplate() {
   return (
@@ -14,6 +15,7 @@ export default function AboutTemplate() {
       <StandForSection />
       <HowWeWorkSection />
       <WhyGoSolarSection />
+      <TeamSection />
     </article>
   );
 }

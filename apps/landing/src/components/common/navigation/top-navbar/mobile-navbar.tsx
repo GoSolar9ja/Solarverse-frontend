@@ -22,7 +22,8 @@ const MobileNavBar = () => {
         <div className="flex items-center justify-between py-4">
           <Image
             src={IMAGE_URLS.logo}
-            containerClassName="h-[50px] w-[120px]"
+            objectFit="contain"
+            containerClassName="h-[50px] w-[120px] scale-180"
             alt="logo"
           />
 

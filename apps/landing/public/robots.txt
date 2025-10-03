@@ -17,7 +17,7 @@ Disallow: /*.json$
 Disallow: /search
 
 # Sitemap location
-Sitemap: https://gosolar9ja.com/sitemap.xml
+Sitemap: https://solarverse.com/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 1

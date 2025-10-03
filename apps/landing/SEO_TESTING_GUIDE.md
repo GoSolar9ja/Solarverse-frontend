@@ -1,4 +1,4 @@
-# SEO Testing Guide for GoSolar9ja
+# SEO Testing Guide for Solar Verse
 
 ## CORS Error Resolution
 

@@ -44,7 +44,7 @@ export default function HowGoSolarWorks() {
       header={
         <div>
           <Typography.h2 weight={"semibold"}>
-            How GoSolar9ja Works{" "}
+            How Solar Verse Works{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
             Steps that helps you navigate your way to good solar installation

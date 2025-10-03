@@ -63,7 +63,8 @@ export default function FooterSection() {
           <div className="sm:!w-auto w-full">
             <Image
               src={IMAGE_URLS.logo}
-              containerClassName="h-[96px] w-[192px]"
+              objectFit="contain"
+              containerClassName="h-[65px] scale-180 w-[192px]"
               alt="logo"
             />
 
@@ -103,11 +104,11 @@ export default function FooterSection() {
               </div>
               <div className="flex gap-3">
                 <Mail />
-                <Typography.h5>gosolar@gmail.com</Typography.h5>
+                <Typography.h5>solarverse@gmail.com</Typography.h5>
               </div>
               <div className="flex gap-3">
                 <MapPin />
-                <Typography.h5>Ikrodu Lagos State Nigeria</Typography.h5>
+                <Typography.h5>Ikorodu Lagos State Nigeria</Typography.h5>
               </div>
             </div>
           </div>
@@ -115,7 +116,7 @@ export default function FooterSection() {
       </DefaultLayout>
       <div className="py-3 border-t text-center mt-10 text-white border-t-[#FFFFFF80]">
         <Typography.body1>
-          © {year} GoSolar9ja. All rights reserved.
+          © {year} Solar Verse. All rights reserved.
         </Typography.body1>
       </div>
     </footer>

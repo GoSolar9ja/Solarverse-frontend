@@ -22,11 +22,11 @@ export default function AboutUsSection() {
               About Us ___ Our Story
             </Typography.h2>
             <Typography.h5 className="text-lg  mt-10">
-              GoSolar9ja was born from a simple idea: make solar energy
-              accessible, affordable, and stress-free for Nigerian homeowners.
-              Our platform bridges the gap between solar professionals and
-              families who want reliable, clean energy without being overcharged
-              or underserved.{" "}
+              Solarverse, a subsidiary of New Kingdom Electric LLP, was founded
+              on a simple idea: to make solar energy accessible, affordable, and
+              stress-free for Nigerian households and businesses. Our platform
+              bridges the gap between solar professionals and customers who want
+              reliable, clean energy without being overcharged or underserved.
             </Typography.h5>
           </div>
           <div className="absolute top-full left-0 w-full md:!h-[420px] h-[200px] ">

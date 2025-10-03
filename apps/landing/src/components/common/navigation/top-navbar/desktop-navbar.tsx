@@ -20,7 +20,8 @@ const DesktopNavBar = () => {
           <Link href={"/"}>
             <Image
               src={IMAGE_URLS.logo}
-              containerClassName="h-[65px] w-[150px]"
+              objectFit="contain"
+              containerClassName="h-[60px] w-[150px] scale-150"
               alt="logo"
             />
           </Link>
