@@ -1,20 +1,21 @@
-import IMAGE_PATHS from "@/assets/images";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@solar-verse/ui";
+import { Link } from "react-router-dom";
 import { InputField } from "@solar-verse/ui";
 import { PasswordField } from "@solar-verse/ui";
 import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solar-verse/ui";
 
-import { useState } from "react";
-import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
+import { USER_TYPE } from "@/lib/constants";
+import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solar-verse/ui";
+import { Button } from "@solar-verse/ui";
 
-export default function Signup() {
+export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
-  const [showToast, setShowToast] = useState(false);
-  const navigate = useNavigate();
+
+  const { login } = useAuthContext();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -26,17 +27,22 @@ export default function Signup() {
     }),
     onSubmit: (values, { resetForm }) => {
       console.log("Form submitted:", values);
-      // Show toast
-      setShowToast(true);
 
-      // Auto-hide toast after 3 seconds
-      setTimeout(() => {
-        setShowToast(false);
-        // redirect to reset-confirm page
-        navigate(ROUTE_KEYS.USER_OPTION);
-      }, 5000);
+      // 🔹 Mock backend auth (replace with API call later)
+      const mockUser = {
+        email: values.email,
+        token: "fake-jwt-token",
+        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
+      };
+
+      login({ token: mockUser.token, userType: mockUser.profile });
+      // Save to localStorage
+
+      // Update context
 
       resetForm();
+
+      // Redirect to dashboard (Protected route)
     },
   });
 
@@ -54,33 +60,15 @@ export default function Signup() {
   };
 
   return (
-    <div className="w-full mx-auto flex flex-col justify-center items-center bg-white h-fit">
-      {/* Toast Notification */}
-      <div
-        className={`flex w-full max-w-[294px] h-[40px] md:!max-w-[383px] p-[15px] rounded-[10px] mt-[10px] border bg-[#45E26F]/12 border-[#45E26F] justify-center items-center lg:!ml-[180px]
-        transition-all duration-700 ease-in-out
-        ${
-          showToast
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-5 pointer-events-none"
-        }
-        `}
-      >
-        <Typography.body1
-          weight={"medium"}
-          className="tracking-[1.5%] text-[#000000]"
-        >
-          A verification link has been sent to your email
-        </Typography.body1>
-      </div>
+    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white h-fit">
       <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-fit h-fit md:!h-fit  mb-6">
+          <div className=" mb-6">
             <Image
-              src={IMAGE_PATHS.transparentLogoImg}
+              src={IMAGE_PATHS.logoImg}
               alt="App logo"
-              containerClassName="w-full max-w-[100px] md:!max-w-[200px] h-fit"
+              containerClassName="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px]"
             />
           </div>
 
@@ -94,10 +82,10 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.googleImg}
                 alt="google-logo"
-                containerClassName="w-full max-w-[22px] h-fit"
+                containerClassName="w-5 h-5"
               />
               <span className="text-lg font-normal text-[#111214]">
-                Sign up with Google
+                Sign in with Google
               </span>
             </button>
 
@@ -110,10 +98,10 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.facebookImg}
                 alt="facebook-logo"
-                containerClassName="w-full max-w-[22px] h-fit"
+                containerClassName="w-5 h-5"
               />
               <span className="text-lg font-normal text-[#111214]">
-                Sign up with Facebook
+                Sign in with Facebook
               </span>
             </button>
 
@@ -124,10 +112,10 @@ export default function Signup() {
                   className=" tracking-[1%] text-[#111214]"
                   weight={"bold"}
                 >
-                  Sign Up with Email
+                  Login with Email
                 </Typography.h2>
-                <Typography.body1 className="font-normal text-[18px] tracking-[1%] text-center text-[#5A5F61]">
-                  Please enter email and password to create an account
+                <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
+                  Please enter email and password to login to your account
                 </Typography.body1>
               </div>
 
@@ -150,19 +138,27 @@ export default function Signup() {
                     validate
                   />
 
-                  <Button.PrimarySolid
-                    className="w-full h-12  text-white "
-                    type="submit"
-                  >
-                    Continue
-                  </Button.PrimarySolid>
+                  <div className="flex flex-col items-center gap-6 pt-4 w-full">
+                    <Button.PrimarySolid
+                      className="w-full h-12 text-white "
+                      type="submit"
+                    >
+                      Submit
+                    </Button.PrimarySolid>
+                    <Link
+                      to="/forgot-password"
+                      className="font-semibold text-[14px] md:!text-lg underline text-[#E49F13]"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
                 </Form>
               </FormikProvider>
 
-              <h4 className="font-semibold mt-8 text-lg text-center">
-                Already a user?{" "}
-                <Link to="/sign-in" className="text-primary font-semibold">
-                  Login
+              <h4 className="font-semibol inline-flex gap-2 mt-8 text-lg text-center">
+                Not yet a user?
+                <Link to="/sign-up" className="text-primary font-semibold">
+                  Create an Account
                 </Link>
               </h4>
             </div>

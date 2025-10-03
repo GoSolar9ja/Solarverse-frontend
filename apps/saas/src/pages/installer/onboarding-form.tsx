@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+// import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
 import { Button } from "@solar-verse/ui";
 import { InputField } from "@solar-verse/ui";
@@ -66,14 +66,14 @@ const BirthdayPicker: React.FC<BirthdayPickerProps> = ({ value, onChange }) => {
   );
 };
 
-const HomeOwnerOnboardingForm = () => {
+const InstallerOnboardingForm = () => {
   const { login } = useAuthContext();
 
   const {
     fieldValidation,
     phoneNumberValidation,
     booleanValidation,
-    emailValidation,
+    numberFieldValidation,
   } = schemaValidation;
   // const navigate = useNavigate();
 
@@ -83,9 +83,13 @@ const HomeOwnerOnboardingForm = () => {
     initialValues: {
       firstName: "",
       lastName: "",
-      email: "",
+      businessName: "",
+      businessLogo: "",
+      businessRegNo: "",
+      businessLocation: "",
       gender: "",
       birthday: "",
+      nin:"",
       phone: "",
       otp: "",
       acceptTerms: false,
@@ -93,11 +97,15 @@ const HomeOwnerOnboardingForm = () => {
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
       lastName: fieldValidation().required("Last name is required"),
-      email: emailValidation(),
+      nin: fieldValidation().length(11, "NIN must be 11 digits").required("nin is required"),
+      businessName: fieldValidation().required("Business name is required"),
+      businessRegNo: numberFieldValidation().optional(),
+      businessLocation: fieldValidation().required("Business location is required"),
+      businessLogo: fieldValidation().required("Please upload Business logo"), 
       gender: fieldValidation().required("Gender is required"),
       birthday: fieldValidation().required("Birthday is required"),
       phone: phoneNumberValidation().required("Phone number is required"),
-      otp: Yup.string()
+      otp: fieldValidation()
         .length(6, "OTP must be 6 digits")
         .required("Click on Verify to generate OTP")
         .test("match-otp", "Invalid OTP", function (value) {
@@ -110,9 +118,8 @@ const HomeOwnerOnboardingForm = () => {
       console.log("Form submitted:", values);
       // 🔹 Mock backend auth (replace with API call later)
       const mockUser = {
-        email: values.email,
         token: "fake-jwt-token",
-        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
+        profile: USER_TYPE.INSTALLER, // or "home" — this would normally come from backend
       };
 
       login({ token: mockUser.token, userType: mockUser.profile });
@@ -160,8 +167,50 @@ const HomeOwnerOnboardingForm = () => {
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
             {/* Name & Email Section */}
-            <div className="flex flex-col gap-3  w-full max-w-[850px] h-fit lg:!py-[20px] lg:!ml-[8%]">
-              <div className="flex flex-col md:!flex-row  items-center gap-6 lg:!justify-between w-full max-w-[850px] h-fit  ">
+            <div className="flex flex-col gap-3  w-full max-w-[850px] h-fit lg:!py-[20px] lg:!ml-[13%]">
+              <div className="grid grid-cols-1 md:!grid-cols-2  items-center gap-6 lg:!justify-between  w-full max-w-[850px] h-fit  ">
+              <div className="space-y-6 flex flex-col w-full max-w-[285px]">
+                  <InputField.primary
+                    label="First Name"
+                    name="firstName"
+                    placeholder="Enter first name"
+                    rounded="full"
+                    value={formik.values.firstName} // 👈 add
+                    onChange={formik.handleChange}
+                    validate
+                  />
+                  <InputField.primary
+                    label="Business Name"
+                    name="businessName"
+                    placeholder="Solar Pro"
+                    rounded="full"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    validate
+                  />
+                  
+                </div>
+              <div className="space-y-6 flex flex-col w-full max-w-[285px]">
+                  <InputField.primary
+                    label="First Name"
+                    name="firstName"
+                    placeholder="Enter first name"
+                    rounded="full"
+                    value={formik.values.firstName} // 👈 add
+                    onChange={formik.handleChange}
+                    validate
+                  />
+                  <InputField.primary
+                    label="Business Name"
+                    name="businessName"
+                    placeholder="Solar Pro"
+                    rounded="full"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    validate
+                  />
+                  
+                </div>
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">
                   <InputField.primary
                     label="First Name"
@@ -173,17 +222,19 @@ const HomeOwnerOnboardingForm = () => {
                     validate
                   />
                   <InputField.primary
-                    label="Email"
-                    name="email"
-                    placeholder="Enter your email"
+                    label="Business Name"
+                    name="businessName"
+                    placeholder="Solar Pro"
                     rounded="full"
-                    className="w-full h-12"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
                     validate
                   />
+                  
                 </div>
 
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  <InputField.primary
+                <InputField.primary
                     label="Last Name"
                     name="lastName"
                     placeholder="Enter last name"
@@ -192,6 +243,7 @@ const HomeOwnerOnboardingForm = () => {
                     onChange={formik.handleChange}
                     validate
                   />
+                  
                   <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
                     Gender
                   </Typography.body1>
@@ -324,4 +376,4 @@ const HomeOwnerOnboardingForm = () => {
   );
 };
 
-export default HomeOwnerOnboardingForm;
+export default InstallerOnboardingForm;

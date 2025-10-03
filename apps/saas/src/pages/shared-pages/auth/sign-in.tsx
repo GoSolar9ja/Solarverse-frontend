@@ -66,7 +66,7 @@ export default function Signin() {
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
           <div className=" mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
               containerClassName="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px]"
             />
@@ -82,7 +82,7 @@ export default function Signin() {
               <Image
                 src={IMAGE_PATHS.googleImg}
                 alt="google-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign in with Google
@@ -98,7 +98,7 @@ export default function Signin() {
               <Image
                 src={IMAGE_PATHS.facebookImg}
                 alt="facebook-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign in with Facebook
@@ -169,6 +169,7 @@ export default function Signin() {
         <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
           <Image
             containerClassName="w-full h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

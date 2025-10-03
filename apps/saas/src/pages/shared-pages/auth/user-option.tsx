@@ -30,11 +30,11 @@ export default function Usersoption() {
       <div className="flex flex-col w-full h-[747px] gap-16 max-w-[400px] md:!max-w-[1027px] items-center bg-[#FFFFFF] p-[30px]">
         {/* Logo and Title */}
         <div className="flex flex-col items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115px] md:!max-w-[295px] mb-6">
+        <div className="w-fit md:!mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full h-full object-contain"
+              containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
             />
           </div>
           <Typography.body1

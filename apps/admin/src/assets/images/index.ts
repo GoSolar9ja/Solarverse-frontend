@@ -2,9 +2,7 @@ const IMAGE_PATHS = {
   //all image paths here
 
   installerImg: "/images/auth/installer.png",
-  transparentLogoImg: "/images/auth/logo-transparent.png",
-  darkLogoImg: "/images/auth/logo-dark.png",
-  whiteLogoImg: "/images/auth/logo-white.png",
+  logoImg: "/images/auth/logo.png",
   avatarImg: "/images/auth/profile-photo.png",
   googleImg: "/images/auth/google-logo.png",
   facebookImg: "/images/auth/facebook-logo.png",
