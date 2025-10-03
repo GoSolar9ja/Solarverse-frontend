@@ -2,3 +2,9 @@
 @import "./base.css";
 @import "./colors.config.css";
 @import "./typography.config.css";
+
+body {
+  background: white;
+  color: var(--foreground);
+  font-family: "Avenir", sans-serif;
+}

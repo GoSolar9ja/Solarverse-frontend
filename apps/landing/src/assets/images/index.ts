@@ -1,5 +1,5 @@
 export const IMAGE_URLS = {
-  logo: "/images/gosolar-logo.png",
+  logo: "/images/solar-verse-logo.png",
   hero: "/images/hero-img.png",
   heroUserImg1: "/images/hero-user-1.png",
   heroUserImg2: "/images/hero-user-2.png",
@@ -36,4 +36,6 @@ export const IMAGE_URLS = {
   hubImg: "/images/hub-img.png",
   installerStoryImg: "/images/installer-story-img.png",
   powerupCarrer: "/images/powerup-carrer-img.png",
+  coFounderOne: "/images/josephine.jpeg",
+  coFounderTwo: "/images/adesola.jpeg",
 };

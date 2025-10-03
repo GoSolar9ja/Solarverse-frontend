@@ -42,7 +42,7 @@ export default function SingleBlogTemplate() {
               </Typography.body2>
             </Typography.body1>
             <Typography.body1 weight={"medium"}>
-              GoSolar9ja Update
+              Solar Verse Update
             </Typography.body1>
           </div>
 

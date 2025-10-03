@@ -46,7 +46,7 @@ const BaseSelectInput = ({
             <span
               className={cn({
                 "text-black text-xs md:!text-base": value,
-                "text-gray-400": !value,
+                "text-gray-400": value,
               })}
             >
               {placeholder}

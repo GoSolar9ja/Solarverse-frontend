@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the SEO optimizations implemented for the GoSolar9ja website.
+This document outlines the SEO optimizations implemented for the Solar Verse website.
 
 ## ✅ Implemented SEO Features
 

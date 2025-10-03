@@ -31,7 +31,7 @@ export default function PoorElectricitySection() {
 
           <div className="max-w-[611px] flex-1">
             <Typography.h4 className="text-[#11121499]">
-              Tired of unreliable power? With GoSolar9ja, you can power your
+              Tired of unreliable power? With Solar Verse, you can power your
               home or commercial property with clean, affordable solar energy
               and enjoy round-the-clock electricity without the noise, smoke, or
               expense of a generator.{" "}

@@ -57,7 +57,7 @@ export default function Components() {
         {/* Header */}
         <div className="text-center mb-12">
           <Typography.h1 variant="primary" className="mb-4">
-            Gosolar9ja UI Components
+            UI Components
           </Typography.h1>
           <Typography.body1 variant="fadedDark" className="max-w-2xl mx-auto">
             A comprehensive showcase of all available UI components and their

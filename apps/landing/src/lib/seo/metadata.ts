@@ -46,11 +46,11 @@ export function generateMetadata(config: SEOConfig = {}): Metadata {
 
     // Robots
     robots: {
-      index: !noIndex,
-      follow: !noIndex,
+      index: noIndex,
+      follow: noIndex,
       googleBot: {
-        index: !noIndex,
-        follow: !noIndex,
+        index: noIndex,
+        follow: noIndex,
         "max-video-preview": -1,
         "max-image-preview": "large",
         "max-snippet": -1,
@@ -81,8 +81,8 @@ export function generateMetadata(config: SEOConfig = {}): Metadata {
       title: fullTitle,
       description,
       images: [ogImage],
-      creator: "@gosolar9ja", // Update with actual Twitter handle
-      site: "@gosolar9ja", // Update with actual Twitter handle
+      creator: "@solarverse", // Update with actual Twitter handle
+      site: "@solarverse", // Update with actual Twitter handle
     },
 
     // Additional meta tags

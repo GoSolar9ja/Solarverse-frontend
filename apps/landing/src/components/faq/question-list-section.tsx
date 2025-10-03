@@ -13,9 +13,9 @@ export default function QuestionListSection() {
   const faqs = [
     {
       id: "item-1",
-      question: "What is GoSolar9ja?",
+      question: "What is Solar Verse?",
       answer:
-        "GoSolar9ja is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
+        "Solar Verse is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
     },
     {
       id: "item-2",
@@ -31,7 +31,7 @@ export default function QuestionListSection() {
     },
     {
       id: "item-4",
-      question: "How much does it cost to use GoSolar9ja?",
+      question: "How much does it cost to use Solar Verse?",
       answer:
         "Using the platform is free for homeowners. You only pay for your chosen installation package. We may charge installers a small commission or subscription fee for using the platform.",
     },
@@ -69,7 +69,7 @@ export default function QuestionListSection() {
       id: "item-10",
       question: "How do I contact support?",
       answer:
-        "You can reach us through the Contact Us page, use the live chatbot on the site, or email us at support@gosolar9ja.com. We're always here to help!",
+        "You can reach us through the Contact Us page, use the live chatbot on the site, or email us at support@solarverse.com. We're always here to help!",
     },
   ];
 

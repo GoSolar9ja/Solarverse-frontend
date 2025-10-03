@@ -13,7 +13,7 @@ export default function FaqSection() {
       id: "item-1",
       question: "How do I trust the installers?",
       answer:
-        "Every installer on GoSolar9ja is verified through a strict background and certification process. We check their licenses, certifications, and previous work history to ensure quality service.",
+        "Every installer on Solar Verse is verified through a strict background and certification process. We check their licenses, certifications, and previous work history to ensure quality service.",
     },
     {
       id: "item-2",
