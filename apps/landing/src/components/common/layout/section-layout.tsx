@@ -1,7 +1,7 @@
+import React from "react";
 import NetFrameIllustration from "@/assets/illustrations/net-frame-illustration";
 import { DefaultLayout } from "@solar-verse/ui";
 import { cn } from "@solar-verse/utils";
-import React from "react";
 
 const SectionLayout = ({
   header,
