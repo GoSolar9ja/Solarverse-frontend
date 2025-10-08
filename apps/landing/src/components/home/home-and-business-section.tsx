@@ -10,7 +10,7 @@ const reviews = [
   {
     name: "Chika O., Abuja",
     description:
-      "I saved over ₦300,000 on my solar installation by comparing bids on SolarVerse. Everything was seamless!",
+      "I saved over ₦300,000 on my solar installation by comparing bids on Solarverse. Everything was seamless!",
     rating: 5,
   },
   {

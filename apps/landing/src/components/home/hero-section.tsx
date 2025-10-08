@@ -52,7 +52,7 @@ export default function HeroSection() {
           <Typography.h1 className="text-white" weight={"bold"}>
             Switch to Solar, Save Big. Power Your Future with{" "}
             <Typography.h1 inline variant={"primary"}>
-              SolarVerse
+              Solarverse
             </Typography.h1>
             .
           </Typography.h1>

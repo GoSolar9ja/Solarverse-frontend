@@ -21,7 +21,7 @@ export default function PowerupSection() {
       header={
         <div>
           <Typography.h2 weight={"semibold"}>
-            Power up with SolarVerse{" "}
+            Power up with Solarverse{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
             No More Blackouts. No More Fuel Hassles. Just Clean, Reliable Power

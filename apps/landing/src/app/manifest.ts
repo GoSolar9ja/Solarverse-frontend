@@ -4,7 +4,7 @@ import { SEO_CONSTANTS } from "@/lib/seo/constants";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: SEO_CONSTANTS.COMPANY_NAME,
-    short_name: "SolarVerse",
+    short_name: "Solarverse",
     description: SEO_CONSTANTS.COMPANY_DESCRIPTION,
     start_url: "/",
     display: "standalone",

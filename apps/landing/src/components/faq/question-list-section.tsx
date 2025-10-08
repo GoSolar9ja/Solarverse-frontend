@@ -13,9 +13,9 @@ export default function QuestionListSection() {
   const faqs = [
     {
       id: "item-1",
-      question: "What is SolarVerse?",
+      question: "What is Solarverse?",
       answer:
-        "SolarVerse is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
+        "Solarverse is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
     },
     {
       id: "item-2",
@@ -31,7 +31,7 @@ export default function QuestionListSection() {
     },
     {
       id: "item-4",
-      question: "How much does it cost to use SolarVerse?",
+      question: "How much does it cost to use Solarverse?",
       answer:
         "Using the platform is free for homeowners. You only pay for your chosen installation package. We may charge installers a small commission or subscription fee for using the platform.",
     },

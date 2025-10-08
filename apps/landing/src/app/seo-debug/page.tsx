@@ -3,8 +3,8 @@ import { SEO_CONSTANTS, PAGE_METADATA } from "@/lib/seo/constants";
 import { generateMetadata, generateStructuredData } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = generateMetadata({
-  title: "SEO Debug - SolarVerse",
-  description: "Debug and preview SEO metadata for SolarVerse website",
+  title: "SEO Debug - Solarverse",
+  description: "Debug and preview SEO metadata for Solarverse website",
   noIndex: true, // Don't index this debug page
 });
 
