@@ -14,6 +14,7 @@ export default function FooterSection() {
       id: "linkedin",
       src: IMAGE_URLS.linkedInLogo,
       alt: "LinkedIn",
+      link: "https://www.linkedin.com/in/solarverse-nigeria-154754384?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
     },
     {
       id: "gmail",
@@ -29,6 +30,7 @@ export default function FooterSection() {
       id: "instagram",
       src: IMAGE_URLS.instagramLogo,
       alt: "Instagram",
+      link: "https://www.instagram.com/solarverse.ng?igsh=MTQ5bTVhdHhyeGhuNA==",
     },
   ];
 
@@ -70,16 +72,18 @@ export default function FooterSection() {
 
             <div className="flex gap-5 mt-10">
               {socialMediaLinks.map((social) => (
-                <div
-                  key={social.id}
-                  className="bg-white size-[44px] p-3 rounded-full"
-                >
-                  <Image
-                    src={social.src}
-                    alt={social.alt}
-                    containerClassName=""
-                  />
-                </div>
+                <Link href={social.link || ""} key={social.id} target="_blank">
+                  <div
+                    key={social.id}
+                    className="bg-white size-[44px] p-3 rounded-full"
+                  >
+                    <Image
+                      src={social.src}
+                      alt={social.alt}
+                      containerClassName=""
+                    />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -100,7 +104,7 @@ export default function FooterSection() {
             <div className="space-y-3 mt-3">
               <div className="flex gap-3">
                 <Phone />
-                <Typography.h5>+2348165656988</Typography.h5>
+                <Typography.h5>+2349054061660</Typography.h5>
               </div>
               <div className="flex gap-3">
                 <Mail />
