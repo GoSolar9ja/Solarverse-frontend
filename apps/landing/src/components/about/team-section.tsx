@@ -17,7 +17,7 @@ const teamMembers = [
   },
   {
     id: 2,
-    name: "Ademola Adedasola",
+    name: "Dr Ademola Adedasola",
     role: "Co Founder",
     bio: "Experience in renewable energy with a passion for sustainable solutions.",
     imageUrl: IMAGE_URLS.coFounderTwo, // Placeholder - replace with actual image paths
@@ -51,7 +51,7 @@ export default function TeamSection() {
           </Typography.h5>
         </div>
 
-        <div className="flex justify-center gap-8   justify-items-center">
+        <div className="flex md:!flex-row flex-col items-center justify-center gap-8   justify-items-center">
           {teamMembers.map((member) => (
             <div
               key={member.id}
