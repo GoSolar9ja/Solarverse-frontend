@@ -10,32 +10,32 @@ export default function OGDebuggerPage() {
     {
       name: "Homepage",
       url: "http://localhost:3000",
-      title: "Solar Verse - Nigeria&apos;s Leading Solar Installation Platform",
+      title: "SolarVerse - Nigeria&apos;s Leading Solar Installation Platform",
     },
     {
       name: "About",
       url: "http://localhost:3000/about",
-      title: "About Solar Verse - Powering Nigeria&apos;s Solar Revolution",
+      title: "About SolarVerse - Powering Nigeria&apos;s Solar Revolution",
     },
     {
       name: "Installer",
       url: "http://localhost:3000/installer",
-      title: "Join Solar Verse as a Solar Installer - Grow Your Business",
+      title: "Join SolarVerse as a Solar Installer - Grow Your Business",
     },
     {
       name: "Contact",
       url: "http://localhost:3000/contact-us",
-      title: "Contact Solar Verse - Get Solar Energy Solutions",
+      title: "Contact SolarVerse - Get Solar Energy Solutions",
     },
     {
       name: "FAQ",
       url: "http://localhost:3000/faq",
-      title: "Solar Energy FAQs - Solar Verse Help Center",
+      title: "Solar Energy FAQs - SolarVerse Help Center",
     },
     {
       name: "Blog",
       url: "http://localhost:3000/blog",
-      title: "Solar Energy Blog - Tips, News & Insights | Solar Verse",
+      title: "Solar Energy Blog - Tips, News & Insights | SolarVerse",
     },
   ];
 
@@ -128,9 +128,7 @@ export default function OGDebuggerPage() {
                     className="w-full h-40 object-cover"
                   />
                   <div className="p-4">
-                    <p className="text-xs text-gray-500 mb-1">
-                      Solar Verse.com
-                    </p>
+                    <p className="text-xs text-gray-500 mb-1">SolarVerse.com</p>
                     <h4 className="font-semibold text-gray-900 mb-1 line-clamp-2">
                       {currentPage.title}
                     </h4>
@@ -159,7 +157,7 @@ export default function OGDebuggerPage() {
                     <h4 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">
                       {currentPage.title}
                     </h4>
-                    <p className="text-xs text-gray-500">Solar Verse.com</p>
+                    <p className="text-xs text-gray-500">SolarVerse.com</p>
                   </div>
                 </div>
               </div>

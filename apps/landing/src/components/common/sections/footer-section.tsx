@@ -116,7 +116,7 @@ export default function FooterSection() {
       </DefaultLayout>
       <div className="py-3 border-t text-center mt-10 text-white border-t-[#FFFFFF80]">
         <Typography.body1>
-          © {year} Solar Verse. All rights reserved.
+          © {year} SolarVerse. All rights reserved.
         </Typography.body1>
       </div>
     </footer>

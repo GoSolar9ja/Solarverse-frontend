@@ -1,4 +1,4 @@
-# SEO Testing Guide for Solar Verse
+# SEO Testing Guide for SolarVerse
 
 ## CORS Error Resolution
 
