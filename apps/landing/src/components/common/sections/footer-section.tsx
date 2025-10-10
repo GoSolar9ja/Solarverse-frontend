@@ -20,11 +20,13 @@ export default function FooterSection() {
       id: "gmail",
       src: IMAGE_URLS.gmailLogo,
       alt: "Gmail",
+      link: "mailto:solarverse.ng@gmail.com",
     },
     {
       id: "x",
       src: IMAGE_URLS.xLogo,
       alt: "X (Twitter)",
+      link: "https://x.com/SolarverseNg?t=9iAgZ1rqoObW96xzi480iw&s=08",
     },
     {
       id: "instagram",
@@ -112,7 +114,9 @@ export default function FooterSection() {
               </div>
               <div className="flex gap-3">
                 <MapPin />
-                <Typography.h5>Ikorodu Lagos State Nigeria</Typography.h5>
+                <Typography.h5>
+                  Address is 1 Current street, Agboyi estate, Alapere, Lagos
+                </Typography.h5>
               </div>
             </div>
           </div>
