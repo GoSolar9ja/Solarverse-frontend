@@ -50,7 +50,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 w-full h-full bg-black/70 text-center flex items-center justify-center">
         <div className="max-w-[959px] mx-auto md:!px-5">
           <Typography.h1 className="text-white" weight={"bold"}>
-            Switch to Solar, Save Big. Power Your Future with{" "}
+            Power Your Future with{" "}
             <Typography.h1 inline variant={"primary"}>
               Solarverse
             </Typography.h1>
@@ -72,8 +72,7 @@ export default function HeroSection() {
             </Button.SecondarySolid>
           </CenterLayout>
 
-          <div className="flex flex-col sm:!flex-row gap-4 md:!gap-6 mt-8 md:!mt-14 items-center justify-center">
-            {/* Customer Avatars */}
+          {/* <div className="flex flex-col sm:!flex-row gap-4 md:!gap-6 mt-8 md:!mt-14 items-center justify-center">
             <div className="flex items-center gap-4 md:!gap-4  bg-white/30 rounded-full px-4 md:!px-5 py-2 md:!py-3">
               <div className="flex items-center -space-x-2 md:!-space-x-3">
                 {customerAvatars.map((avatar, index) => (
@@ -112,7 +111,7 @@ export default function HeroSection() {
                 Users
               </Typography.h6>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

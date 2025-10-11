@@ -23,7 +23,7 @@ export default function HeaderSection() {
                 Frequently Asked Questions{" "}
               </Typography.h2>
               <Typography.h5 className="text-lg  mt-5">
-                Here aer answers to questions you might want to ask us
+                Here are answers to questions you might want to ask us
               </Typography.h5>
             </div>
           </div>

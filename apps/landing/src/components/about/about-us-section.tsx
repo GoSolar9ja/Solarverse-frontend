@@ -19,7 +19,7 @@ export default function AboutUsSection() {
         <div className="relative">
           <div className="text-white text-center max-w-[999px] mx-auto pb-14">
             <Typography.h2 weight={"medium"} className="text-4xl mb-4 ">
-              About Us ___ Our Story
+              About Us - Our Story
             </Typography.h2>
             <Typography.h5 className="text-lg  mt-10">
               Solarverse, a subsidiary of New Kingdom Electric LLP, was founded

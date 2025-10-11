@@ -29,10 +29,10 @@ export default function HomeAndBusinessSection() {
       header={
         <div>
           <Typography.h2 weight={"semibold"}>
-            Home and Businesses, Powered Smarter, Saving Bigger{" "}
+            Homes and Businesses, Powered Smarter, Saving Bigger{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
-            Reviews from home owners that used our service
+            Reviews from verified users
           </Typography.h6>
         </div>
       }

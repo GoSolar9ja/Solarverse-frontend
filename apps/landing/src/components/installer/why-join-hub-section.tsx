@@ -24,19 +24,19 @@ const features = [
     icon: <ValidationApprovalIcon />,
     title: "Your Office, All in One Dashboard",
     description:
-      "Chat with clients, submit quotes, update progress, upload proof everything in one place.",
+      "Chat with clients, submit bids, update progress, upload proof -  everything in one place.",
   },
   {
     icon: <Wallet />,
     title: "Secure Payments. No Delays.",
     description:
-      "We ensure you get paid after every completed job safely and on time.",
+      "We ensure you get paid after every completed job, safely and on time.",
   },
   {
     icon: <Rocket />,
     title: "Boost Your Brand",
     description:
-      "Every job you complete builds your public profile and credibility. More stars = more clients.",
+      "Every job you complete builds your public profile and credibility. <br/> More stars = more clients.",
   },
 ];
 export default function WhyJoinHubSection() {
@@ -70,7 +70,11 @@ export default function WhyJoinHubSection() {
                   <Typography.h5 weight={"semibold"}>
                     {feature.title}
                   </Typography.h5>
-                  <Typography.body1>{feature.description}</Typography.body1>
+                  <Typography.body1>
+                    <span
+                      dangerouslySetInnerHTML={{ __html: feature.description }}
+                    />
+                  </Typography.body1>
                 </div>
               </li>
             ))}

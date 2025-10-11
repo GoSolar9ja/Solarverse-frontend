@@ -10,7 +10,7 @@ const steps = [
     img: IMAGE_URLS.tellUsImg,
     title: "Tell Us about Your Home",
     description:
-      "Submit a simple request your location, energy needs, and property type.",
+      "Submit a simple request:  location, energy needs, and property type.",
   },
   {
     img: IMAGE_URLS.compareQuotesImg,
@@ -46,10 +46,10 @@ export default function HowGoSolarWorks() {
           <Typography.h2 weight={"semibold"}>
             How Solarverse Works{" "}
           </Typography.h2>
-          <Typography.h6 className="text-[#11121499] mt-2">
+          {/* <Typography.h6 className="text-[#11121499] mt-2">
             Steps that helps you navigate your way to good solar installation
             with affordable price bid
-          </Typography.h6>
+          </Typography.h6> */}
         </div>
       }
     >

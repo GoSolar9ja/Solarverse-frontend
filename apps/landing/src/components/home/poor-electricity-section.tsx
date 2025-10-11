@@ -12,11 +12,10 @@ export default function PoorElectricitySection() {
       <DefaultLayout>
         <div className="text-center max-w-[551px] mx-auto">
           <Typography.h2 weight="semibold">
-            Goodbye To Poor Electricity
+            Say Goodbye to Power Outages
           </Typography.h2>
           <Typography.h6 className="mt-3">
-            Say Goodbye to Power Outages Switch to 24/7 Solar Power for Your
-            Home or Business
+            Switch to 24/7 Solar Power for Your Home or Business
           </Typography.h6>
         </div>
 

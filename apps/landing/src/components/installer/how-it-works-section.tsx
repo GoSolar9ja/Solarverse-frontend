@@ -10,7 +10,7 @@ export default function HowItWorksSection() {
       id: 1,
       title: "Sign Up & Get Verified",
       description:
-        "Register, upload your certificates and past work get approved in hours.",
+        "Register, upload your certificates and past jobs. Get approved in hours.",
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ export default function HowItWorksSection() {
     },
     {
       id: 3,
-      title: "Submit a Smart Quote",
+      title: "Submit a Smart Bid",
       description:
         "Set your price, timeline, and proposal. Homeowners choose the best fit.",
     },
