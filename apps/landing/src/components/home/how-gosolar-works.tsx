@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Typography } from "@solar-verse/ui";
+import { Button, ComponentVisibility, Typography } from "@solar-verse/ui";
 import BiscuitBgIllustration from "@/assets/illustrations/biscuit-bg-illustration";
 import { IMAGE_URLS } from "@/assets/images";
 import Image from "@/components/common/media/image";
+import { cn } from "@solar-verse/utils";
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Pin } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+const bullets = [
+  "Get matched with verified leads",
+  "Build a credible online profile",
+  "Earn faster with secure payments",
+  "Grow your reputation and client base",
+];
 
 const steps = [
   {
@@ -35,9 +47,29 @@ const steps = [
     title: "Celebrate Energy Independence",
     description: "Go solar, save on bills, and reduce your carbon footprint!",
   },
+  {
+    link: "/",
+    img: IMAGE_URLS.rocketImg,
+    title: "Start your Solarverse journey today",
+    description: "Start your solar journey and enjoy clean energy benefits.",
+  },
+];
+
+const tabs = [
+  {
+    item: Steps,
+    tabIndex: 0,
+    title: "Home / Business Owners",
+  },
+  {
+    item: Bullets,
+    tabIndex: 1,
+    title: "Solar Installers",
+  },
 ];
 
 export default function HowGoSolarWorks() {
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <SectionLayout
       sectionProps={{ className: "bg-[#FCFCFC]" }}
@@ -53,31 +85,132 @@ export default function HowGoSolarWorks() {
         </div>
       }
     >
-      <div className="grid grid-cols-1 justify-items-center lg:!grid-cols-3 sm:!grid-cols-2 gap-10 mt-20 text-white">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className="max-w-[376px] bg-primary overflow-hidden  rounded-2xl relative "
+      <div className="flex justify-between gap-4  md:mt-20 mt-10 relative z-20">
+        {tabs.map((tab) => (
+          <button
+            key={tab.tabIndex}
+            className={cn(
+              " pb-2 hover:text-secondary/80 cursor-pointer relative",
+              activeTab === tab.tabIndex
+                ? "text-secondary"
+                : "border-transparent "
+            )}
+            onClick={() => setActiveTab(tab.tabIndex)}
           >
-            <BiscuitBgIllustration className="absolute inset-0" />
-            <div className="px-6 pt-5 pb-10  relative z-10">
-              <div className="rounded-2xl   ">
-                <div className="size-[51px] p-2 bg-white rounded-full ml-auto flex items-center justify-center text-2xl">
-                  <Image src={step.img} alt={step.title} />
-                </div>
+            <Typography.h3 inline weight={"medium"}>
+              {tab.title}
+            </Typography.h3>
 
-                <div className="mt-10 space-y-5">
-                  <Typography.h4 weight={"semibold"}>
-                    {step.title}
-                  </Typography.h4>
+            <span
+              className={cn(
+                "border-b-4 absolute bottom-0 border-secondary transition-all duration-700 left-0",
+                activeTab === tab.tabIndex ? "w-full" : "w-0"
+              )}
+            />
+          </button>
+        ))}
+      </div>
+      <AnimatePresence key={activeTab}>
+        {tabs[activeTab] && (
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.3 }}
+          >
+            {tabs[activeTab].item()}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </SectionLayout>
+  );
+}
 
-                  <Typography.h5>{step.description}</Typography.h5>
-                </div>
+function Steps() {
+  const { push } = useRouter();
+
+  return (
+    <div className="grid grid-cols-1 justify-items-center xl:!grid-cols-3 sm:!grid-cols-2 gap-10 mt-20 text-white">
+      {steps.map((step, index) => (
+        <div
+          key={index}
+          className={cn(
+            "max-w-[376px] overflow-hidden hover:-translate-y-3 duration-500 rounded-2xl relative pb-5",
+            step.link && "cursor-pointer"
+          )}
+          onClick={step.link ? () => push(step.link) : undefined}
+        >
+          <BiscuitBgIllustration
+            fill={step.link && "#FE8500"}
+            className="absolute inset-0"
+          />
+          <div className="px-6 pt-5 pb-10  relative z-10">
+            <div className="rounded-2xl   ">
+              <div className="size-[51px] p-2 bg-white rounded-full ml-auto flex items-center justify-center text-2xl">
+                <Image src={step.img} alt={step.title} />
+              </div>
+
+              <div className="mt-10 space-y-5">
+                <Typography.h4 weight={"semibold"}>{step.title}</Typography.h4>
+
+                <Typography.h5>{step.description}</Typography.h5>
+
+                <ComponentVisibility visible={!!step.link}>
+                  <p className="w-fit animate-pulse xl:!-mt-3 ml-auto flex gap-2 items-center font-medium">
+                    Click here <ArrowRight />
+                  </p>
+                </ComponentVisibility>
               </div>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Bullets() {
+  return (
+    <div className="flex justify-between items-center gap-10 flex-col lg:!flex-row  text-center lg:!text-start lg:!mt-20 mt-10">
+      <div>
+        <Typography.h4>Are you a certified solar installer?</Typography.h4>
+        <Typography.h5 className="text-[#11121499]">
+          Ready to power more homes and grow your business?
+        </Typography.h5>
+
+        <ul className="mt-10 space-y-5  w-fit mx-auto lg:!mx-0">
+          {bullets.map((text) => (
+            <li key={text} className="flex gap-4">
+              <Pin className="rotate-45 text-primary" />
+              <Typography.h5>{text}</Typography.h5>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex gap-5">
+          <Button.SecondarySolid
+            className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+            fullWidth
+          >
+            Learn More
+          </Button.SecondarySolid>
+          <Button.PrimarySolid
+            className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+            fullWidth
+          >
+            Join As Installer
+          </Button.PrimarySolid>
+        </div>
       </div>
-    </SectionLayout>
+
+      <div className="lg:!max-w-[648px] max-w-[700px] w-full lg:!flex-1 lg:!h-[496px] h-[350px] bg-gradient-to-b pl-2 overflow-hidden from-0% to-100% from-secondary-200 to-secondary-100 rounded-[100px]  flex-shrink-0 rounded-br-none">
+        <Image
+          src={IMAGE_URLS.installSolar}
+          containerClassName="rounded-tl-[100px] rounded-bl-[100px] overflow-hidden"
+          alt="hero"
+        />
+      </div>
+    </div>
   );
 }

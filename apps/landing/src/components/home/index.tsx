@@ -4,7 +4,7 @@ import HeroSection from "./hero-section";
 import PoorElectricitySection from "./poor-electricity-section";
 import PowerupSection from "./power-up-section";
 import HowGoSolarWorks from "./how-gosolar-works";
-import InstallSolarSection from "./install-solar-section";
+// import InstallSolarSection from "./install-solar-section";
 import GoSolarForSection from "./gosolar-for-section";
 import WhyChooseGosolarSection from "./why-choose-gosolar-section";
 import HomeAndBusinessSection from "./home-and-business-section";
@@ -18,7 +18,7 @@ export default function HomeTemplate() {
       <PoorElectricitySection />
       <PowerupSection />
       <HowGoSolarWorks />
-      <InstallSolarSection />
+      {/* <InstallSolarSection />  */}
       <GoSolarForSection />
       <WhyChooseGosolarSection />
       <HomeAndBusinessSection />

@@ -48,7 +48,7 @@ export default function HeroSection() {
         priority
       />
       <div className="absolute inset-0 w-full h-full bg-black/70 text-center flex items-center justify-center">
-        <div className="max-w-[959px] mx-auto md:!px-5">
+        <div className="max-w-[959px] mx-auto px-5">
           <Typography.h1 className="text-white" weight={"bold"}>
             Power Your Future with{" "}
             <Typography.h1 inline variant={"primary"}>

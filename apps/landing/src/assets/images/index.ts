@@ -6,6 +6,7 @@ export const IMAGE_URLS = {
   heroUserImg3: "/images/hero-user-3.png",
   stripeIllustration: "/images/powerup-illustration-img.png",
   compareQuotesImg: "/images/compare-quotes-illustration-img.png",
+  rocketImg: "/images/rocket-img.png",
   tellUsImg: "/images/tellus-card-illustration-img.png",
   bookYourInstallerImg: "/images/book-card-illustration-img.png",
   trackYourProjectImg: "/images/track-proj-card-illustration-img.png",

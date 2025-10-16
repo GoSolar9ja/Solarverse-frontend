@@ -3,6 +3,7 @@ import React from "react";
 export default function BiscuitBgIllustration(
   props: React.SVGProps<SVGSVGElement>
 ) {
+  const { fill = "#0A6B9E" } = props;
   return (
     <svg
       width="376"
@@ -13,7 +14,7 @@ export default function BiscuitBgIllustration(
       {...props}
     >
       <g clipPath="url(#clip0_161_11052)">
-        <rect width="376" height="314" rx="20" fill="#0A6B9E" />
+        <rect width="376" height="314" rx="20" fill={fill} />
         <path
           d="M11.9037 32.5188C17.7353 27.5983 26.2647 27.5983 32.0963 32.5188L33.8157 33.9695C44.9793 43.3888 37.3932 61.5815 22.845 60.2793C17.4666 59.7979 12.2469 62.255 9.19067 66.7067L2.91755 75.8442C-3.03225 84.5108 -16.0759 83.6977 -20.9033 74.3593C-23.8847 68.592 -22.4793 61.5294 -17.5174 57.3428L11.9037 32.5188Z"
           fill="white"
