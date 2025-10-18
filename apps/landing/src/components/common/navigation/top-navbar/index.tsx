@@ -4,6 +4,7 @@ import DesktopNavBar from "./desktop-navbar";
 import MobileNavBar from "./mobile-navbar";
 import { useEventListener } from "usehooks-ts";
 import { cn } from "@solar-verse/ui";
+import { motion } from "framer-motion";
 
 export default function TopNavBar() {
   const [scrollY, setScrollY] = useState(0);
@@ -12,7 +13,10 @@ export default function TopNavBar() {
   });
 
   return (
-    <nav
+    <motion.nav
+      initial={{ translateY: -100 }}
+      animate={{ translateY: [-100, 0] }}
+      transition={{ ease: "linear", type: "keyframes" }}
       className={cn(
         "bg-white w-full sticky transition-all duration-700",
         scrollY > 1000 ? " top-0 z-30 " : "-top-full"
@@ -24,6 +28,6 @@ export default function TopNavBar() {
       <div className="block xl:!hidden">
         <MobileNavBar />
       </div>
-    </nav>
+    </motion.nav>
   );
 }

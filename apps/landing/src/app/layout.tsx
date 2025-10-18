@@ -100,6 +100,7 @@ export default function RootLayout({
             <SEOInspector />
           </div>
         )} */}
+        <div id="portal" />
       </body>
     </html>
   );
