@@ -57,9 +57,6 @@ export default function FooterSection() {
       name: "Get Quote",
       href: "/",
     },
-  ];
-
-  const legalLinks = [
     {
       name: "Privacy Policy",
       href: Routes.PRIVACY_POLICY,
@@ -74,12 +71,12 @@ export default function FooterSection() {
   return (
     <footer className="bg-black pt-20 mt-auto">
       <DefaultLayout>
-        <div className="flex justify-between flex-wrap gap-y-10 sm:!gap-x-5 max-w-[1000px] text-white">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-y-10 sm:!gap-x-5  text-white">
           <div className="sm:!w-auto w-full">
             <Image
               src={IMAGE_URLS.logo}
               objectFit="contain"
-              containerClassName="h-[65px] scale-180 w-[192px]"
+              containerClassName="h-[65px] scale-120 w-[192px]"
               alt="logo"
             />
 
@@ -112,19 +109,6 @@ export default function FooterSection() {
           </ul>
 
           <div>
-            <Typography.h4>Legal</Typography.h4>
-            <ul className="space-y-3 mt-3">
-              {legalLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href}>
-                    <Typography.h5>{link.name}</Typography.h5>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
             <Typography.h4>Contact Us</Typography.h4>
 
             <div className="space-y-3 mt-3">
@@ -134,7 +118,7 @@ export default function FooterSection() {
               </div>
               <div className="flex gap-3">
                 <Mail />
-                <Typography.h5>solarverse@gmail.com</Typography.h5>
+                <Typography.h5>solarverse.ng@gmail.com</Typography.h5>
               </div>
               <div className="flex gap-3">
                 <MapPin />

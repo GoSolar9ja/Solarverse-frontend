@@ -6,26 +6,13 @@ import { IMAGE_URLS } from "@/assets/images";
 import { Button } from "@solar-verse/ui";
 import { CircleArrowOutUpRight } from "lucide-react";
 import BlogCard from "../common/cards/blog-card";
+import { blogPosts } from "@/lib/blog-data";
+import { useRouter } from "next/navigation";
 
-const cards = [
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-];
+const cards = blogPosts;
 
 export default function GetPluginSection() {
+  const router = useRouter();
   return (
     <SectionLayout
       sectionProps={{ className: "bg-[#FCFCFC] relative" }}
@@ -44,11 +31,22 @@ export default function GetPluginSection() {
     >
       <div className="grid grid-cols-1 sm:!grid-cols-2  xl:!grid-cols-3 xl:!mt-20 mt-10 gap-10">
         {cards.map((card, index) => (
-          <BlogCard key={index} id={index.toString()} {...card} />
+          <BlogCard
+            key={index}
+            date={card.date}
+            time={card.time}
+            id={card.id}
+            title={card.title}
+            description={card.excerpt}
+            img={card.img}
+          />
         ))}
       </div>
 
-      <Button.PrimaryOutline className="md:!mt-20 mt-10 w-fit mx-auto relative z-10">
+      <Button.PrimaryOutline
+        className="md:!mt-20 mt-10 w-fit mx-auto relative z-10"
+        onClick={() => router.push("/blog")}
+      >
         <Typography.h5 className="text-black mx-3">More tips</Typography.h5>
         <span className="bg-primary p-2 rounded-full">
           <CircleArrowOutUpRight className="text-white" />

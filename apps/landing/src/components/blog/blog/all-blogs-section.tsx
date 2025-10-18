@@ -26,6 +26,7 @@ export default function AllBlogsSection() {
               id={post.id}
               title={post.title}
               description={post.excerpt}
+              img={post.img}
             />
           ))}
         </div>

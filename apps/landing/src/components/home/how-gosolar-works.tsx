@@ -97,7 +97,11 @@ export default function HowGoSolarWorks() {
             )}
             onClick={() => setActiveTab(tab.tabIndex)}
           >
-            <Typography.h3 inline weight={"medium"}>
+            <Typography.h3
+              className="!text-sm sm:!text-xl"
+              inline
+              weight={"medium"}
+            >
               {tab.title}
             </Typography.h3>
 

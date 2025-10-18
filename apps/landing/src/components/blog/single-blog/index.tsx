@@ -61,8 +61,8 @@ export default function SingleBlogTemplate({ id }: { id: string }) {
           </Typography.h4>
 
           <Image
-            containerClassName="h-[389px] mt-5 rounded-2xl"
-            src={IMAGE_URLS.blogTwoImg}
+            containerClassName="h-[500px] mt-5 rounded-2xl"
+            src={blogPost.img}
             alt="Blog Image"
           />
 

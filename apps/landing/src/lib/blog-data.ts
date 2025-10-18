@@ -1,3 +1,5 @@
+import { IMAGE_URLS } from "@/assets/images";
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -6,6 +8,7 @@ export interface BlogPost {
   author: string;
   excerpt: string;
   content: string;
+  img: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -15,6 +18,7 @@ export const blogPosts: BlogPost[] = [
     date: "18/09/2025",
     time: "09:30am",
     author: "Solarverse Update",
+    img: IMAGE_URLS.blogOneImg,
     excerpt:
       "Solar energy is changing how Nigerians power their homes and businesses, but a lot of myths still hold people back. Let's clear them up.",
     content: `Solar energy is changing how Nigerians power their homes and businesses, but a lot of myths still hold people back. Let's clear them up.
@@ -40,8 +44,10 @@ Solar isn't a luxury—it's a smart, reliable, and cost-saving solution for Nige
     id: "2",
     title: "Why Choosing the Right Solar Installer Is Easy with Solarverse",
     date: "18/09/2025",
-    time: "09:30am",
+    time: "10:35am",
     author: "Solarverse Update",
+    img: IMAGE_URLS.blogTwoImg,
+
     excerpt:
       "One of the biggest worries for Nigerians going solar is: 'How do I know I'm picking the right installer?' The truth is, choosing wrongly can lead to wasted money, incomplete projects, or systems that don't perform. That's exactly why Solarverse was built—to take the guesswork out of the process.",
     content: `One of the biggest worries for Nigerians going solar is: "How do I know I'm picking the right installer?" The truth is, choosing wrongly can lead to wasted money, incomplete projects, or systems that don't perform. That's exactly why Solarverse was built—to take the guesswork out of the process.
@@ -70,8 +76,10 @@ Going solar should be exciting, not stressful. With Solarverse, you don't just f
     title:
       "The True Cost of Solar in Nigeria: Investment vs. Long-Term Savings",
     date: "18/09/2025",
-    time: "09:30am",
+    time: "11:55am",
     author: "Solarverse Update",
+    img: IMAGE_URLS.blogThreeImg,
+
     excerpt:
       "When most Nigerians think about solar, the first question is always: 'How much will it cost me?' The truth is, while solar requires an upfront investment, it quickly pays for itself and keeps saving you money for years.",
     content: `When most Nigerians think about solar, the first question is always: "How much will it cost me?" The truth is, while solar requires an upfront investment, it quickly pays for itself and keeps saving you money for years.

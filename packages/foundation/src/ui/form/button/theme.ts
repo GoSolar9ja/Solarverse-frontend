@@ -1,7 +1,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 
 const buttonTheme = cva(
-  "lg:!px-8 px-4 border font-medium flex items-center justify-center gap-2 transition-all duration-500 disabled:opacity-80",
+  "lg:!px-8 px-4 border font-medium flex items-center justify-center gap-2 transition-all duration-500 disabled:opacity-80 cursor-pointer",
   {
     variants: {
       variant: {
