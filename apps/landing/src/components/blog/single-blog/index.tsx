@@ -6,12 +6,45 @@ import { Typography } from "@solar-verse/ui";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { BlogPost, blogPosts } from "@/lib/blog-data";
 
-export default function SingleBlogTemplate() {
+export default function SingleBlogTemplate({ id }: { id: string }) {
   const router = useRouter();
   const handleBack = () => {
     router.back();
   };
+
+  // Find the blog post by ID
+  const blogPost: BlogPost | undefined = blogPosts.find(
+    (post) => post.id === id
+  );
+
+  // If blog post not found, show a message
+  if (!blogPost) {
+    return (
+      <section className="md:!pb-20 pb-10">
+        <DefaultLayout>
+          <button
+            className="bg-[#1112141A] p-2 mt-5 rounded-full"
+            onClick={handleBack}
+          >
+            <ArrowLeft />
+          </button>
+          <div className="mt-5 max-w-[1048px] mx-auto">
+            <Typography.h2>Blog Post Not Found</Typography.h2>
+            <Typography.body1>
+              The blog post you&#39;re looking for doesn&#39;t exist or has been
+              removed.
+            </Typography.body1>
+          </div>
+        </DefaultLayout>
+      </section>
+    );
+  }
+
+  // Split content into paragraphs
+  const paragraphs = blogPost.content.split("\n\n");
+
   return (
     <section className="md:!pb-20 pb-10">
       <DefaultLayout>
@@ -24,8 +57,7 @@ export default function SingleBlogTemplate() {
 
         <div className="mt-5 max-w-[1048px] mx-auto">
           <Typography.h4 weight={"medium"} variant={"primary"}>
-            5 Myths About Solar Power in Nigeria Debunked5 Myths About Solar
-            Power in Nigeria Debunked
+            {blogPost.title}
           </Typography.h4>
 
           <Image
@@ -36,13 +68,13 @@ export default function SingleBlogTemplate() {
 
           <div className="flex mt-5 gap-8">
             <Typography.body1>
-              12/05/2025
+              {blogPost.date}
               <Typography.body2 inline className="ml-2">
-                09:30pm{" "}
+                {blogPost.time}{" "}
               </Typography.body2>
             </Typography.body1>
             <Typography.body1 weight={"medium"}>
-              Solarverse Update
+              {blogPost.author}
             </Typography.body1>
           </div>
 
@@ -51,31 +83,56 @@ export default function SingleBlogTemplate() {
             weight={"medium"}
             variant={"fadedDark"}
           >
-            5 Myths About Solar Power in Nigeria - Debunked <br /> Solar power
-            is gaining popularity in Nigeria, but several myths still hold
-            people back. Here are five common misconceptions—debunked:
+            {blogPost.excerpt}
           </Typography.body1>
-          <ul className="pl-5">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <li key={index} className="list-decimal">
-                <Typography.body1 weight={"medium"} variant={"fadedDark"}>
-                  Myth: Solar is too expensive
-                </Typography.body1>
-                <Typography.body1 weight={"medium"} variant={"fadedDark"}>
-                  Truth: While the initial cost can be high, solar saves money
-                  long-term on fuel and generator maintenance
-                </Typography.body1>
-              </li>
-            ))}
-          </ul>
 
-          <Typography.body1
-            className="my-3"
-            weight={"medium"}
-            variant={"fadedDark"}
-          >
-            Switching to solar is more practical—and powerful—than many think.
-          </Typography.body1>
+          <div className="space-y-4">
+            {paragraphs.map((paragraph, index) => {
+              // Check if this is a heading (contains ":")
+              if (
+                paragraph.includes(":") &&
+                !paragraph.includes(" ") &&
+                paragraph.split(":").length === 2
+              ) {
+                return (
+                  <Typography.h5 key={index} weight="semibold">
+                    {paragraph}
+                  </Typography.h5>
+                );
+              }
+
+              // Check if this is a list item (starts with specific words)
+              if (
+                paragraph.startsWith("Myth:") ||
+                paragraph.startsWith("Truth:") ||
+                paragraph.startsWith("Verified") ||
+                paragraph.startsWith("Ratings") ||
+                paragraph.startsWith("Transparent") ||
+                paragraph.startsWith("Secure") ||
+                paragraph.startsWith("The Solarverse") ||
+                paragraph.startsWith("Upfront") ||
+                paragraph.startsWith("Free") ||
+                paragraph.startsWith("Financing") ||
+                paragraph.startsWith("Long-Term")
+              ) {
+                const [heading, ...rest] = paragraph.split("\n");
+                const content = rest.join("\n");
+                return (
+                  <div key={index} className="mb-4">
+                    <Typography.body1 weight="semibold" className="mb-2">
+                      {heading}
+                    </Typography.body1>
+                    {content && <Typography.body1>{content}</Typography.body1>}
+                  </div>
+                );
+              }
+
+              // Regular paragraph
+              return (
+                <Typography.body1 key={index}>{paragraph}</Typography.body1>
+              );
+            })}
+          </div>
         </div>
       </DefaultLayout>
     </section>

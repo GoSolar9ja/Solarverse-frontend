@@ -9,10 +9,14 @@ export default function BlogCard({
   title,
   description,
   id,
+  date,
+  time,
 }: {
   title: string;
   description: string;
-  id: string | number;
+  id: string;
+  date: string;
+  time: string;
 }) {
   return (
     <Link
@@ -32,15 +36,17 @@ export default function BlogCard({
       />
       <div className="h-1/2 bg-primary absolute bottom-0 left-0 w-full p-5">
         <div className="flex items-center justify-between gap-2">
-          <Typography.body2>12/05/2025</Typography.body2>
-          <Typography.body2>09:30pm</Typography.body2>
+          <Typography.body2>{date}</Typography.body2>
+          <Typography.body2>{time}</Typography.body2>
         </div>
 
         <div>
           <Typography.h5 weight={"semibold"} className="my-3">
             {title}
           </Typography.h5>
-          <Typography.body2>{description}</Typography.body2>
+          <Typography.body2 className="line-clamp-3">
+            {description}
+          </Typography.body2>
         </div>
       </div>
     </Link>
