@@ -5,6 +5,8 @@ export enum Routes {
   FOR_INSTALLER = "/installer",
   CONTACT = "/contact-us",
   FAQ = "/faq",
+  PRIVACY_POLICY = "/privacy-policy",
+  TERMS_CONDITIONS = "/terms-conditions",
 }
 
 export const navLinks = [

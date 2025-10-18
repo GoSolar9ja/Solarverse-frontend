@@ -126,4 +126,28 @@ export const PAGE_METADATA = {
       "clean energy tips",
     ] as string[],
   },
+  PRIVACY_POLICY: {
+    title: "Privacy Policy - Solarverse",
+    description:
+      "Learn how Solarverse protects your privacy and handles your personal data in compliance with Nigeria's data protection regulations.",
+    keywords: [
+      "privacy policy",
+      "data protection",
+      "personal information",
+      "NDPR compliance",
+      "privacy rights",
+    ] as string[],
+  },
+  TERMS_CONDITIONS: {
+    title: "Terms & Conditions - Solarverse",
+    description:
+      "Read the terms and conditions governing your use of the Solarverse platform and services.",
+    keywords: [
+      "terms and conditions",
+      "user agreement",
+      "platform terms",
+      "service terms",
+      "legal agreement",
+    ] as string[],
+  },
 } as const;

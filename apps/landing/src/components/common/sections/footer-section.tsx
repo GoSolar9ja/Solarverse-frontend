@@ -59,6 +59,17 @@ export default function FooterSection() {
     },
   ];
 
+  const legalLinks = [
+    {
+      name: "Privacy Policy",
+      href: Routes.PRIVACY_POLICY,
+    },
+    {
+      name: "Terms & Conditions",
+      href: Routes.TERMS_CONDITIONS,
+    },
+  ];
+
   const year = new Date().getFullYear();
   return (
     <footer className="bg-black pt-20 mt-auto">
@@ -99,6 +110,19 @@ export default function FooterSection() {
               </li>
             ))}
           </ul>
+
+          <div>
+            <Typography.h4>Legal</Typography.h4>
+            <ul className="space-y-3 mt-3">
+              {legalLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href}>
+                    <Typography.h5>{link.name}</Typography.h5>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div>
             <Typography.h4>Contact Us</Typography.h4>
