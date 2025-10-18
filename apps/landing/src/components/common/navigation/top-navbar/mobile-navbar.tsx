@@ -23,7 +23,7 @@ const MobileNavBar = () => {
           <Image
             src={IMAGE_URLS.logo}
             objectFit="contain"
-            containerClassName="h-[50px] w-[120px] scale-180"
+            containerClassName="h-[50px] w-[120px] scale-120"
             alt="logo"
           />
 
