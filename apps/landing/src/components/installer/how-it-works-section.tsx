@@ -52,7 +52,7 @@ export default function HowItWorksSection() {
           <div
             key={step.id}
             className={cn(
-              "bg-[#fcfcfc] md:!h-[179px] py-5 w-full  border-l-4 border-l-primary rounded-lg flex flex-col justify-center  "
+              "bg-[#fcfcfc] md:!h-[179px] py-5 w-full  border-l-4 border-l-primary rounded-lg flex flex-col justify-center  max-w-[600px] mx-auto"
             )}
           >
             <div className="flex justify-between">
