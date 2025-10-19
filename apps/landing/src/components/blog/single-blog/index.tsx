@@ -1,5 +1,4 @@
 "use client";
-import { IMAGE_URLS } from "@/assets/images";
 import { DefaultLayout } from "@solar-verse/ui";
 import Image from "@/components/common/media/image";
 import { Typography } from "@solar-verse/ui";

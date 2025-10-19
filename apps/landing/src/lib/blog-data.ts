@@ -83,6 +83,7 @@ Going solar should be exciting, not stressful. With Solarverse, you don't just f
     excerpt:
       "When most Nigerians think about solar, the first question is always: 'How much will it cost me?' The truth is, while solar requires an upfront investment, it quickly pays for itself and keeps saving you money for years.",
     content: `
+
 Upfront Costs vs. Generators
 A small solar setup may cost more than buying a generator. But unlike generators, solar doesn't need constant fuel or frequent repairs. Over time, the money you save on petrol and maintenance outweighs the initial cost.
 
