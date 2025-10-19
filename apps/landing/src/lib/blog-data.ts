@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     img: IMAGE_URLS.blogOneImg,
     excerpt:
       "Solar energy is changing how Nigerians power their homes and businesses, but a lot of myths still hold people back. Let's clear them up.",
-    content: `Solar energy is changing how Nigerians power their homes and businesses, but a lot of myths still hold people back. Let's clear them up.
+    content: `
 
 Myth: "Solar is too expensive."
 Truth: Generators seem cheaper at first, but fuel and maintenance costs pile up. Solar is a one-time investment with free "fuel" from the sun, saving you money year after year.
@@ -50,7 +50,7 @@ Solar isn't a luxury—it's a smart, reliable, and cost-saving solution for Nige
 
     excerpt:
       "One of the biggest worries for Nigerians going solar is: 'How do I know I'm picking the right installer?' The truth is, choosing wrongly can lead to wasted money, incomplete projects, or systems that don't perform. That's exactly why Solarverse was built—to take the guesswork out of the process.",
-    content: `One of the biggest worries for Nigerians going solar is: "How do I know I'm picking the right installer?" The truth is, choosing wrongly can lead to wasted money, incomplete projects, or systems that don't perform. That's exactly why Solarverse was built—to take the guesswork out of the process.
+    content: `
 
 Here's how Solarverse makes sure you always get the right installer:
 
@@ -82,8 +82,7 @@ Going solar should be exciting, not stressful. With Solarverse, you don't just f
 
     excerpt:
       "When most Nigerians think about solar, the first question is always: 'How much will it cost me?' The truth is, while solar requires an upfront investment, it quickly pays for itself and keeps saving you money for years.",
-    content: `When most Nigerians think about solar, the first question is always: "How much will it cost me?" The truth is, while solar requires an upfront investment, it quickly pays for itself and keeps saving you money for years.
-
+    content: `
 Upfront Costs vs. Generators
 A small solar setup may cost more than buying a generator. But unlike generators, solar doesn't need constant fuel or frequent repairs. Over time, the money you save on petrol and maintenance outweighs the initial cost.
 
