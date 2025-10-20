@@ -17,7 +17,7 @@ const teamMembers = [
   },
   {
     id: 2,
-    name: "Dr. Ademola Adedasola",
+    name: "Dr. Adedasola Ademola",
     role: "Co Founder",
     bio: "Experience in renewable energy with a passion for sustainable solutions.",
     imageUrl: IMAGE_URLS.coFounderTwo, // Placeholder - replace with actual image paths
