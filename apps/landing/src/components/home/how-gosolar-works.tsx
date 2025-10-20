@@ -51,7 +51,7 @@ const steps = [
     link: "/",
     img: IMAGE_URLS.rocketImg,
     title: "Start your Solarverse journey today",
-    description: "Start your solar journey and enjoy clean energy benefits.",
+    description: "",
   },
 ];
 
@@ -140,7 +140,7 @@ function Steps() {
         <div
           key={index}
           className={cn(
-            "max-w-[376px] overflow-hidden hover:-translate-y-3 duration-500 rounded-2xl relative pb-5",
+            "max-w-[376px] overflow-hidden hover:-translate-y-3 duration-500 rounded-2xl relative ",
             step.link && "cursor-pointer"
           )}
           onClick={step.link ? () => push(step.link) : undefined}
@@ -149,8 +149,8 @@ function Steps() {
             fill={step.link && "#FE8500"}
             className="absolute inset-0"
           />
-          <div className="px-6 pt-5 pb-10  relative z-10">
-            <div className="rounded-2xl   ">
+          <div className="  relative z-10  h-full ">
+            <div className="rounded-2xl px-6 pt-5 pb-10 h-full flex flex-col ">
               <div className="size-[51px] p-2 bg-white rounded-full ml-auto flex items-center justify-center text-2xl">
                 <Image src={step.img} alt={step.title} />
               </div>
@@ -159,13 +159,12 @@ function Steps() {
                 <Typography.h4 weight={"semibold"}>{step.title}</Typography.h4>
 
                 <Typography.h5>{step.description}</Typography.h5>
-
-                <ComponentVisibility visible={!!step.link}>
-                  <p className="w-fit animate-pulse xl:!-mt-3 ml-auto flex gap-2 items-center font-medium">
-                    Click here <ArrowRight />
-                  </p>
-                </ComponentVisibility>
               </div>
+              <ComponentVisibility visible={!!step.link}>
+                <Typography.body1 className="w-fit animate-pulse  ml-auto flex gap-2 items-center font-medium mt-auto">
+                  Click here <ArrowRight />
+                </Typography.body1>
+              </ComponentVisibility>
             </div>
           </div>
         </div>

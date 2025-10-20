@@ -6,7 +6,7 @@ import React from "react";
 import SectionLayout from "../common/layout/section-layout";
 
 const list = [
-  "24/7 power for your home or business. Lights on fridge cold, AC running. Always.",
+  "24/7 power for your home or business. Lights on, fridge cold, AC running. Always.",
   "Say goodbye to fuel costs. Cut those noisy generator bills and save BIG.",
   "Get instant quotes. Top installers compete to give you the best deal.",
   "Track everything, watch your project progress, manage payments, and stay in control.",

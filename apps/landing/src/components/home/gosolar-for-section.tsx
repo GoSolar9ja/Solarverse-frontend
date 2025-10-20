@@ -38,7 +38,8 @@ export default function GoSolarForSection() {
             Who Is Solarverse For?{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
-            Solar Power. For Everyone. For Every Space. For Every Installer.
+            Solar Power. For Every Home. For Every Business. For Every
+            Installer.
           </Typography.h6>
         </div>
       }

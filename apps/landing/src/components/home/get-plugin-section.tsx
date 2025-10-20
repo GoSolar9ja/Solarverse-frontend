@@ -20,7 +20,7 @@ export default function GetPluginSection() {
       header={
         <div>
           <Typography.h2 weight={"semibold"}>
-            Get Plugged in: Solar Tips. Trends & More{" "}
+            Get Plugged in: Solar Tips, Trends & More{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
             Our blog is your hub for learning, researching, and making confident

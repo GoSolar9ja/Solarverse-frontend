@@ -24,7 +24,7 @@ export default function HowWeWorkSection() {
         <div>
           <Typography.h2 weight={"semibold"}>How we work</Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
-            We are not solar installers we are enablers. Our platform connects
+            We are not solar installers, we are enablers. Our platform connects
             the dots{" "}
           </Typography.h6>
         </div>

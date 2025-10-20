@@ -49,9 +49,9 @@ export default function WhyChooseGosolarSection() {
           <Typography.h2 weight={"semibold"}>
             Why Thousands Choose Solarverse
           </Typography.h2>
-          <Typography.h6 className="text-[#11121499] mt-2">
+          {/* <Typography.h6 className="text-[#11121499] mt-2">
             Our features provided that makes users choose us{" "}
-          </Typography.h6>
+          </Typography.h6> */}
         </div>
       }
     >

@@ -16,7 +16,7 @@ const features = [
   },
   {
     icon: <ParkingMeter />,
-    title: "Get Bids. Win Projects. On Your Terms.",
+    title: "Get Bids. Win Projects On Your Terms.",
     description:
       "Pick projects that fit your expertise, location, and schedule. You're in control.",
   },
