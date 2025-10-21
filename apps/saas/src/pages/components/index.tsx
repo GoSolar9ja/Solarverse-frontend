@@ -631,6 +631,49 @@ export default function Components() {
                     }}
                     validate
                   />
+
+                  <UploadField
+                    fieldProps={{
+                      name: "images",
+                      multiple: true,
+                      accept: "image/*",
+                      onChange: (e) => {
+                        Array.from(e.target.files || []).map((item) => ({
+                          name: item.name,
+                          url: fileToBase64(item).then((base64) => {
+                            formik.setFieldValue("images", [
+                              { name: item.name, url: base64 },
+                            ]);
+                          }),
+                        }));
+                      },
+                    }}
+                    validate
+                    showUploadList={false}
+                  >
+                    {({ onClick }) => (
+                      <div onClick={onClick} className="bg-red-500 h-[100px] ">
+                        <ComponentVisibility
+                          visible={!!formik.values.images.length}
+                        >
+                          <Image
+                            containerClassName="h-full w-full"
+                            src={formik.values.images[0]?.url || ""}
+                          />
+                        </ComponentVisibility>
+
+                        <ComponentVisibility
+                          visible={!formik.values.images.length}
+                        >
+                          <div>
+                            <Typography.body1>
+                              Click to upload or drag and drop
+                            </Typography.body1>
+                          </div>
+                        </ComponentVisibility>
+                      </div>
+                    )}
+                  </UploadField>
                 </div>
 
                 {/* <UploadField fieldProps={{ name: "images" }} validate>
