@@ -13,9 +13,9 @@ export default function QuestionListSection() {
   const faqs = [
     {
       id: "item-1",
-      question: "What is Solar Verse?",
+      question: "What is Solarverse?",
       answer:
-        "Solar Verse is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
+        "Solarverse is a digital platform that connects Nigerian homeowners with trusted, certified solar installers. We make it easy to request quotes, compare offers, schedule installations, and manage your entire solar project online.",
     },
     {
       id: "item-2",
@@ -31,15 +31,15 @@ export default function QuestionListSection() {
     },
     {
       id: "item-4",
-      question: "How much does it cost to use Solar Verse?",
+      question: "How much does it cost to use Solarverse?",
       answer:
-        "Using the platform is free for homeowners. You only pay for your chosen installation package. We may charge installers a small commission or subscription fee for using the platform.",
+        "Using the platform is free for homeowners. You only pay for your chosen installation package. We charge installers a small commission or subscription fee for every installation arranged and done using the platform.",
     },
     {
       id: "item-5",
       question: "Can I finance my solar installation?",
       answer:
-        "Yes! We're partnering with trusted lenders so you can get flexible financing options to spread the cost of your installation over time. Details are provided during the checkout process.",
+        "Yes! We're partnering with trusted lenders so you can get flexible financing options to spread the cost of your installation over time. Customers can view these options at checkout.",
     },
     {
       id: "item-6",
@@ -63,7 +63,7 @@ export default function QuestionListSection() {
       id: "item-9",
       question: "What if something goes wrong with my installation?",
       answer:
-        "Our support team is here to help. You can file a dispute from your dashboard, and we'll investigate and mediate the issue. We may pause payments to the installer until it's resolved.",
+        "Our support team is here to help. If you observe an issue with your installation within the first 72 hours, you can file a dispute from your dashboard, and we'll investigate and mediate the issue. We may pause payments to the installer until it's resolved.",
     },
     {
       id: "item-10",

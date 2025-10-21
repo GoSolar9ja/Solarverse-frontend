@@ -17,7 +17,7 @@ export default function ExploreSection() {
           <div className="text-white text-center max-w-[999px] mx-auto pb-14 flex flex-col items-center xl:!px-10">
             <Typography.h2
               weight={"medium"}
-              className="text-4xl mb-4 max-w-[551px]"
+              className="text-4xl mb-4 max-w-full"
             >
               Explore Insights That Power Your Choices
             </Typography.h2>

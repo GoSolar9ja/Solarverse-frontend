@@ -35,10 +35,11 @@ export default function GoSolarForSection() {
       header={
         <div>
           <Typography.h2 weight={"semibold"}>
-            Who Is Gosolar For?{" "}
+            Who Is Solarverse For?{" "}
           </Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
-            Solar Power. For Everyone. For Every Space. For Every Installer.
+            Solar Power. For Every Home. For Every Business. For Every
+            Installer.
           </Typography.h6>
         </div>
       }
@@ -62,7 +63,7 @@ export default function GoSolarForSection() {
                 <Image
                   src={card.img}
                   alt={card.title}
-                  className="object-bottom "
+                  className="object-bottom hover:scale-120 transition-all  duration-700"
                 />
                 <div className="absolute bottom-0 left-0 bg-gradient-to-b from-[10%] to-[60%]  to-black/90 w-full h-[190px] flex flex-col justify-center rounded-b-2xl px-5 py-4">
                   <Typography.h5 weight={"semibold"}>
@@ -76,7 +77,7 @@ export default function GoSolarForSection() {
         ))}
       </div>
 
-      <div className="flex justify-center xl:!justify-start gap-4 mt-14 relative z-10">
+      <div className="flex justify-center gap-4 mt-14 relative z-10">
         <Button.PrimarySolid className="max-w-[286px]" fullWidth>
           Get 24/7 Power
         </Button.PrimarySolid>

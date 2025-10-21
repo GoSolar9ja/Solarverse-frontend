@@ -17,7 +17,7 @@ const teamMembers = [
   },
   {
     id: 2,
-    name: "Ademola Adedasola",
+    name: "Dr. Adedasola Ademola",
     role: "Co Founder",
     bio: "Experience in renewable energy with a passion for sustainable solutions.",
     imageUrl: IMAGE_URLS.coFounderTwo, // Placeholder - replace with actual image paths
@@ -51,17 +51,18 @@ export default function TeamSection() {
           </Typography.h5>
         </div>
 
-        <div className="flex justify-center gap-8   justify-items-center">
+        <div className="flex md:!flex-row flex-col items-center justify-center gap-8   justify-items-center">
           {teamMembers.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-faded-dark-200 max-w-[400px] w-full relative"
+              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-faded-dark-200 max-w-[400px] w-full relative group"
             >
               <div className="h-[500px] bg-gradient-to-r from-primary to-secondary relative">
                 <Image
                   src={member.imageUrl}
                   alt={member.name}
                   className="w-full h-full object-cover"
+                  containerClassName="group-hover:scale-105 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
               </div>

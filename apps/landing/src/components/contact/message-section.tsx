@@ -15,8 +15,8 @@ export default function MessageSection() {
             Kindly Leave Us A Message
           </Typography.h3>
           <Typography.h5 variant={"fadedDark"} className="mt-2">
-            We Value your feedback. Kindly leave us a message by filling the
-            form. For enquiries, please call +234 8001234567{" "}
+            We value your feedback. Kindly leave us a message by filling the
+            form. For enquiries, please call +2349054061660{" "}
           </Typography.h5>
         </div>
       }

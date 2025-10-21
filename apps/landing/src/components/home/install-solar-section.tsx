@@ -46,12 +46,20 @@ export default function InstallSolarSection() {
             ))}
           </ul>
 
-          <Button.PrimarySolid
-            className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
-            fullWidth
-          >
-            Join As Installer
-          </Button.PrimarySolid>
+          <div className="flex gap-5">
+            <Button.SecondarySolid
+              className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+              fullWidth
+            >
+              Learn More
+            </Button.SecondarySolid>
+            <Button.PrimarySolid
+              className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+              fullWidth
+            >
+              Join As Installer
+            </Button.PrimarySolid>
+          </div>
         </div>
 
         <div className="lg:!max-w-[648px] max-w-[700px] w-full lg:!flex-1 lg:!h-[496px] h-[350px] bg-gradient-to-b pl-2 overflow-hidden from-0% to-100% from-secondary-200 to-secondary-100 rounded-[100px]  flex-shrink-0 rounded-br-none">

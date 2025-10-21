@@ -14,7 +14,7 @@ export default function MissionVisionSection() {
           />
           <Card
             title="Our Vision"
-            content="Solarverse envisions becoming Nigeria’s leading hub for solar energy solutions, where every home, business, and community can confidently transition to renewable power. We aim to close the electricity access gap, accelerate the adoption of clean energy, and build a future where solar power is within everyone's reach."
+            content="To become Nigeria's leading hub for solar energy solutions, where every home, business, and community can confidently transition to renewable power. We aim to close the electricity access gap, accelerate the adoption of clean energy, and build a future where solar power is within everyone's reach."
           />
         </div>
       </DefaultLayout>

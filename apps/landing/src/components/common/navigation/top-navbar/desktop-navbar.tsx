@@ -21,7 +21,7 @@ const DesktopNavBar = () => {
             <Image
               src={IMAGE_URLS.logo}
               objectFit="contain"
-              containerClassName="h-[60px] w-[150px] scale-150"
+              containerClassName="h-[60px] w-[150px] scale-100"
               alt="logo"
             />
           </Link>

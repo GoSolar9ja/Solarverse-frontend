@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the SEO optimizations implemented for the Solar Verse website.
+This document outlines the SEO optimizations implemented for the Solarverse website.
 
 ## ✅ Implemented SEO Features
 

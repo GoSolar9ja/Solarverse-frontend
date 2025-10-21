@@ -10,7 +10,7 @@ export default function HowItWorksSection() {
       id: 1,
       title: "Sign Up & Get Verified",
       description:
-        "Register, upload your certificates and past work get approved in hours.",
+        "Register, upload your certificates and past jobs. Get approved in hours.",
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ export default function HowItWorksSection() {
     },
     {
       id: 3,
-      title: "Submit a Smart Quote",
+      title: "Submit a Smart Bid",
       description:
         "Set your price, timeline, and proposal. Homeowners choose the best fit.",
     },
@@ -34,7 +34,7 @@ export default function HowItWorksSection() {
 
   return (
     <SectionLayout
-      sectionProps={{ className: "bg-[#FCFCFC] relative" }}
+      sectionProps={{ className: "bg-white relative" }}
       headerProps={{ className: "max-w-[756px]" }}
       header={
         <div>
@@ -52,16 +52,18 @@ export default function HowItWorksSection() {
           <div
             key={step.id}
             className={cn(
-              "bg-[#FCFCFC] md:!h-[179px] py-5 w-full  border-l-4 border-l-primary rounded-lg flex flex-col justify-center sm:!px-8 px-5"
+              "bg-[#fcfcfc] md:!h-[179px] py-5 w-full  border-l-4 border-l-primary rounded-lg flex flex-col justify-center  max-w-[600px] mx-auto"
             )}
           >
             <div className="flex justify-between">
-              <Typography.h4 weight={"medium"}>{step.title}</Typography.h4>
-              <CenterLayout className="h-[61px] w-[54px] flex-shrink-0 bg-primary-100 rounded-full translate-y-[-50%] text-white">
-                <Typography.h6 weight={"medium"}>{step.id}</Typography.h6>
+              <Typography.h4 weight={"medium"} className="px-5">
+                {step.title}
+              </Typography.h4>
+              <CenterLayout className="h-[61px] w-[54px] flex-shrink-0 bg-primary-100 rounded-full translate-y-[-80%] translate-x-[20%] text-white">
+                <Typography.h5 weight={"medium"}>{step.id}</Typography.h5>
               </CenterLayout>
             </div>
-            <Typography.h4 className="text-[#11121480] pr-5 ">
+            <Typography.h4 className="text-[#11121480] px-5 ">
               {step.description}
             </Typography.h4>
           </div>

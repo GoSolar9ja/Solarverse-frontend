@@ -4,24 +4,7 @@ import { DefaultLayout } from "@solar-verse/ui";
 import Image from "@/components/common/media/image";
 import { Typography } from "@solar-verse/ui";
 import React from "react";
-
-const cards = [
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-  {
-    title: "5 Myths About Solar Power in Nigeria Debunked",
-    description:
-      "5 Myths About Solar Power in Nigeria Debunked Power in Nigeria Debunke",
-  },
-];
+import { blogPosts } from "@/lib/blog-data";
 
 export default function AllBlogsSection() {
   return (
@@ -35,8 +18,16 @@ export default function AllBlogsSection() {
         </Typography.h2>
 
         <div className="grid grid-cols-1 sm:!grid-cols-2  xl:!grid-cols-3 xl:!mt-20 mt-10 gap-10 relative pb-20 z-20">
-          {cards.map((card, index) => (
-            <BlogCard key={index} id={index} {...card} />
+          {blogPosts.map((post) => (
+            <BlogCard
+              key={post.id}
+              date={post.date}
+              time={post.time}
+              id={post.id}
+              title={post.title}
+              description={post.excerpt}
+              img={post.img}
+            />
           ))}
         </div>
         <Image

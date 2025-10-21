@@ -22,9 +22,10 @@ export default function HowWeWorkSection() {
       sectionProps={{ className: "md:!mt-14 mt-10" }}
       header={
         <div>
-          <Typography.h2 weight={"semibold"}>What We stand For</Typography.h2>
+          <Typography.h2 weight={"semibold"}>How we work</Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
-            Qualities we possess that makes our users confident
+            We are not solar installers, we are enablers. Our platform connects
+            the dots{" "}
           </Typography.h6>
         </div>
       }

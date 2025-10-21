@@ -37,7 +37,7 @@ export default function StandForSection() {
       sectionProps={{ className: "mt-20 " }}
       header={
         <div>
-          <Typography.h2 weight={"semibold"}>What We stand For</Typography.h2>
+          <Typography.h2 weight={"semibold"}>What We Stand For</Typography.h2>
           <Typography.h6 className="text-[#11121499] mt-2">
             Qualities we possess that makes our users confident
           </Typography.h6>

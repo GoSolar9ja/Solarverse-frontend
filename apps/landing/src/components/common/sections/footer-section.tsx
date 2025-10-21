@@ -14,21 +14,25 @@ export default function FooterSection() {
       id: "linkedin",
       src: IMAGE_URLS.linkedInLogo,
       alt: "LinkedIn",
+      link: "https://www.linkedin.com/in/solarverse-nigeria-154754384?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
     },
     {
       id: "gmail",
       src: IMAGE_URLS.gmailLogo,
       alt: "Gmail",
+      link: "mailto:solarverse.ng@gmail.com",
     },
     {
       id: "x",
       src: IMAGE_URLS.xLogo,
       alt: "X (Twitter)",
+      link: "https://x.com/SolarverseNg?t=9iAgZ1rqoObW96xzi480iw&s=08",
     },
     {
       id: "instagram",
       src: IMAGE_URLS.instagramLogo,
       alt: "Instagram",
+      link: "https://www.instagram.com/solarverse.ng?igsh=MTQ5bTVhdHhyeGhuNA==",
     },
   ];
 
@@ -53,33 +57,43 @@ export default function FooterSection() {
       name: "Get Quote",
       href: "/",
     },
+    {
+      name: "Privacy Policy",
+      href: Routes.PRIVACY_POLICY,
+    },
+    {
+      name: "Terms & Conditions",
+      href: Routes.TERMS_CONDITIONS,
+    },
   ];
 
   const year = new Date().getFullYear();
   return (
     <footer className="bg-black pt-20 mt-auto">
       <DefaultLayout>
-        <div className="flex justify-between flex-wrap gap-y-10 sm:!gap-x-5 max-w-[1000px] text-white">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-y-10 sm:!gap-x-5  text-white">
           <div className="sm:!w-auto w-full">
             <Image
               src={IMAGE_URLS.logo}
               objectFit="contain"
-              containerClassName="h-[65px] scale-180 w-[192px]"
+              containerClassName="h-[65px] scale-120 w-[192px]"
               alt="logo"
             />
 
             <div className="flex gap-5 mt-10">
               {socialMediaLinks.map((social) => (
-                <div
-                  key={social.id}
-                  className="bg-white size-[44px] p-3 rounded-full"
-                >
-                  <Image
-                    src={social.src}
-                    alt={social.alt}
-                    containerClassName=""
-                  />
-                </div>
+                <Link href={social.link || ""} key={social.id} target="_blank">
+                  <div
+                    key={social.id}
+                    className="bg-white size-[44px] p-3 rounded-full"
+                  >
+                    <Image
+                      src={social.src}
+                      alt={social.alt}
+                      containerClassName=""
+                    />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -100,15 +114,17 @@ export default function FooterSection() {
             <div className="space-y-3 mt-3">
               <div className="flex gap-3">
                 <Phone />
-                <Typography.h5>+2348165656988</Typography.h5>
+                <Typography.h5>+2349054061660</Typography.h5>
               </div>
               <div className="flex gap-3">
                 <Mail />
-                <Typography.h5>solarverse@gmail.com</Typography.h5>
+                <Typography.h5>solarverse.ng@gmail.com</Typography.h5>
               </div>
               <div className="flex gap-3">
                 <MapPin />
-                <Typography.h5>Ikorodu Lagos State Nigeria</Typography.h5>
+                <Typography.h5>
+                  Address is 1 Current street, Agboyi estate, Alapere, Lagos
+                </Typography.h5>
               </div>
             </div>
           </div>
@@ -116,7 +132,7 @@ export default function FooterSection() {
       </DefaultLayout>
       <div className="py-3 border-t text-center mt-10 text-white border-t-[#FFFFFF80]">
         <Typography.body1>
-          © {year} Solar Verse. All rights reserved.
+          © {year} Solarverse. All rights reserved.
         </Typography.body1>
       </div>
     </footer>

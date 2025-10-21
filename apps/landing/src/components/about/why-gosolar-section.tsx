@@ -18,7 +18,7 @@ export default function WhyGoSolarSection() {
     <section className="md:!py-38 py-10">
       <DefaultLayout>
         <div className=" max-w-[467.3px]">
-          <Typography.h3 weight={"medium"}>Why Solar Verse?</Typography.h3>
+          <Typography.h3 weight={"medium"}>Why Solarverse?</Typography.h3>
           <Typography.body1 className="mt-4">
             Join thousands of Nigerians making the smart switch to solar.
           </Typography.body1>
@@ -46,7 +46,7 @@ export default function WhyGoSolarSection() {
             <Image
               containerClassName="w-[312px] h-[403px] mt-auto mx-auto"
               src={IMAGE_URLS.whyGoSolarImg}
-              alt="Why Solar Verse"
+              alt="Why Solarverse"
             />
           </div>
         </div>
