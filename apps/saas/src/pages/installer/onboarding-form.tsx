@@ -3,7 +3,7 @@
 import { Button } from "@solar-verse/ui";
 import { InputField } from "@solar-verse/ui";
 import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
-import { Form, FormikProvider, useFormik } from "formik";
+import {  Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solar-verse/ui";
 
 import { Checkbox } from "@solar-verse/ui";
@@ -13,6 +13,8 @@ import { Image } from "@solar-verse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { USER_TYPE } from "@/lib/constants";
+// import { XIcon } from "lucide-react";
+import { SingleImageUpload } from "@/components/common/single-image-upload";
 
 interface BirthdayPickerProps {
   value: string;
@@ -74,6 +76,7 @@ const InstallerOnboardingForm = () => {
     phoneNumberValidation,
     booleanValidation,
     numberFieldValidation,
+    listSelectionValidation,
   } = schemaValidation;
   // const navigate = useNavigate();
 
@@ -85,7 +88,7 @@ const InstallerOnboardingForm = () => {
       lastName: "",
       businessName: "",
       businessLogo: "",
-      businessRegNo: "",
+      businessRegNum: "",
       businessLocation: "",
       gender: "",
       birthday: "",
@@ -93,16 +96,23 @@ const InstallerOnboardingForm = () => {
       phone: "",
       otp: "",
       acceptTerms: false,
+      images: [] as Array<File & { url: string }>,
+      image: [] as Array<File & { url: string }>,
     },
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
       lastName: fieldValidation().required("Last name is required"),
       nin: fieldValidation().length(11, "NIN must be 11 digits").required("nin is required"),
       businessName: fieldValidation().required("Business name is required"),
-      businessRegNo: numberFieldValidation().optional(),
+      businessRegNum: numberFieldValidation().optional(),
       businessLocation: fieldValidation().required("Business location is required"),
       businessLogo: fieldValidation().required("Please upload Business logo"), 
       gender: fieldValidation().required("Gender is required"),
+      image: listSelectionValidation().max(1, "Image is required"),
+      images: listSelectionValidation().min(
+        1,
+        "At least one image is required"
+      ),
       birthday: fieldValidation().required("Birthday is required"),
       phone: phoneNumberValidation().required("Phone number is required"),
       otp: fieldValidation()
@@ -144,9 +154,10 @@ const InstallerOnboardingForm = () => {
     alert(`Your OTP is: ${otp}`); // simulate sending OTP
   };
 
+
   return (
     <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] h-[1242px] bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] h-[1147px] p-[40px] bg-[#FFFFFF]">
+      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] h-[1247px] p-[40px] bg-[#FFFFFF]">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -173,37 +184,39 @@ const InstallerOnboardingForm = () => {
                   <InputField.primary
                     label="First Name"
                     name="firstName"
-                    placeholder="Enter first name"
+                    placeholder="John"
                     rounded="full"
                     value={formik.values.firstName} // 👈 add
                     onChange={formik.handleChange}
                     validate
                   />
                   <InputField.primary
-                    label="Business Name"
+                    label=" Business Name"
                     name="businessName"
                     placeholder="Solar Pro"
                     rounded="full"
-                    value={formik.values.lastName}
+                    value={formik.values.firstName} 
                     onChange={formik.handleChange}
                     validate
                   />
+                  
                   
                 </div>
               <div className="space-y-6 flex flex-col w-full max-w-[285px]">
+                  
                   <InputField.primary
-                    label="First Name"
-                    name="firstName"
-                    placeholder="Enter first name"
+                    label="Last Name"
+                    name="lastName"
+                    placeholder="Doe"
                     rounded="full"
-                    value={formik.values.firstName} // 👈 add
+                    value={formik.values.lastName}
                     onChange={formik.handleChange}
                     validate
                   />
                   <InputField.primary
-                    label="Business Name"
-                    name="businessName"
-                    placeholder="Solar Pro"
+                    label="Business Reg.No"
+                    name="businessRegNumber"
+                    placeholder="plot 124, Ikeja Lagos"
                     rounded="full"
                     value={formik.values.lastName}
                     onChange={formik.handleChange}
@@ -213,31 +226,29 @@ const InstallerOnboardingForm = () => {
                 </div>
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">
                   <InputField.primary
-                    label="First Name"
-                    name="firstName"
-                    placeholder="Enter first name"
+                    label="NIN"
+                    name="nin"
+                    placeholder="Enter NIN"
                     rounded="full"
                     value={formik.values.firstName} // 👈 add
                     onChange={formik.handleChange}
                     validate
                   />
-                  <InputField.primary
-                    label="Business Name"
-                    name="businessName"
-                    placeholder="Solar Pro"
-                    rounded="full"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange}
-                    validate
+                  <label className="-mb-[1px]" htmlFor="">Business Logo</label>
+                  <SingleImageUpload
+                    name="businessLogo"
+                    value={formik.values.businessLogo}
+                    onChange={(base64) => formik.setFieldValue("businessLogo", base64)}
+                    
                   />
-                  
                 </div>
 
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                <InputField.primary
-                    label="Last Name"
-                    name="lastName"
-                    placeholder="Enter last name"
+                
+                  <InputField.primary
+                    label="Business Adress"
+                    name="businessLocation"
+                    placeholder="plot 124, Ikeja Lagos"
                     rounded="full"
                     value={formik.values.lastName}
                     onChange={formik.handleChange}
