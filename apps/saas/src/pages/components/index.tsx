@@ -4,17 +4,17 @@ import {
   ComponentVisibility,
   Image,
   UploadField,
-} from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { SelectInput } from "@solar-verse/ui";
-import { Typography } from "@solar-verse/ui";
+} from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { SelectInput } from "@solarverse/ui";
+import { Typography } from "@solarverse/ui";
 
 import {
   createValidationSchema,
   fileToBase64,
   schemaValidation,
-} from "@solar-verse/utils";
+} from "@solarverse/utils";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { UserIcon, MailIcon, SearchIcon, XIcon } from "lucide-react";
 import * as Yup from "yup";

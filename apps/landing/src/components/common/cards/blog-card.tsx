@@ -1,7 +1,7 @@
 import Image from "@/components/common/media/image";
 import { CircleArrowOutUpRight } from "lucide-react";
-import { Typography } from "@solar-verse/ui";
-import { CenterLayout } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
+import { CenterLayout } from "@solarverse/ui";
 import Link from "next/link";
 
 export default function BlogCard({

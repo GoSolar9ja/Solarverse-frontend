@@ -1,5 +1,5 @@
 import NextImage from "next/image";
-import { cn } from "@solar-verse/utils";
+import { cn } from "@solarverse/utils";
 
 const Image = (
   props: React.ComponentProps<typeof NextImage> & {

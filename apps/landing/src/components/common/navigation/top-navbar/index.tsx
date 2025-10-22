@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DesktopNavBar from "./desktop-navbar";
 import MobileNavBar from "./mobile-navbar";
 import { useEventListener } from "usehooks-ts";
-import { cn } from "@solar-verse/ui";
+import { cn } from "@solarverse/ui";
 import { motion } from "framer-motion";
 
 export default function TopNavBar() {

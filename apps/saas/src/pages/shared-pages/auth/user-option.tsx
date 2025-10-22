@@ -1,12 +1,12 @@
 import IMAGE_PATHS from "@/assets/images";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@solar-verse/ui";
-import { Typography } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
+import { Typography } from "@solarverse/ui";
 
 import { useState } from "react";
 import { USER_TYPE } from "@/lib/constants";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 export default function Usersoption() {
   const [active, setActive] = useState<USER_TYPE | null>(null);
   const navigate = useNavigate();

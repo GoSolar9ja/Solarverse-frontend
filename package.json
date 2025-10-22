@@ -1,5 +1,5 @@
 {
-  "name": "solar-verse",
+  "name": "solarverse",
   "private": true,
   "scripts": {
     "build": "turbo run build",

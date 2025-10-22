@@ -1,12 +1,12 @@
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@solar-verse/ui";
+} from "@solarverse/ui";
 export default function FaqSection() {
   const faqs = [
     {

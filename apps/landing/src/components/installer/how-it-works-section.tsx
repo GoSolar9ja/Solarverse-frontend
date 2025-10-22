@@ -1,8 +1,8 @@
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { CenterLayout } from "@solar-verse/ui";
-import { cn } from "@solar-verse/utils";
+import { CenterLayout } from "@solarverse/ui";
+import { cn } from "@solarverse/utils";
 
 export default function HowItWorksSection() {
   const steps = [

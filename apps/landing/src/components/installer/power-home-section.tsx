@@ -1,6 +1,6 @@
-import { Button } from "@solar-verse/ui";
-import { DefaultLayout } from "@solar-verse/ui";
-import { Typography } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
+import { DefaultLayout } from "@solarverse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 
 export default function PowerHomeSection() {

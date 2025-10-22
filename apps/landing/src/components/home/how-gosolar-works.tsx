@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Button, ComponentVisibility, Typography } from "@solar-verse/ui";
+import { Button, ComponentVisibility, Typography } from "@solarverse/ui";
 import BiscuitBgIllustration from "@/assets/illustrations/biscuit-bg-illustration";
 import { IMAGE_URLS } from "@/assets/images";
 import Image from "@/components/common/media/image";
-import { cn } from "@solar-verse/utils";
+import { cn } from "@solarverse/utils";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Pin } from "lucide-react";

@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { DefaultLayout } from "@solar-verse/ui";
-import { Typography } from "@solar-verse/ui";
-import { Image } from "@solar-verse/ui";
+import { DefaultLayout } from "@solarverse/ui";
+import { Typography } from "@solarverse/ui";
+import { Image } from "@solarverse/ui";
 import { IMAGE_URLS } from "@/assets/images";
 import Link from "next/link";
 

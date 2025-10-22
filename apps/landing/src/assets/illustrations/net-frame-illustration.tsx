@@ -1,4 +1,4 @@
-import { cn } from "@solar-verse/utils";
+import { cn } from "@solarverse/utils";
 import React from "react";
 
 const NetFrameIllustration = ({ className }: { className?: string }) => {

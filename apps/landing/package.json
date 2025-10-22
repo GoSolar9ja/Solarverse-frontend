@@ -1,5 +1,5 @@
 {
-  "name": "@solar-verse/landing",
+  "name": "landing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@solar-verse/theme": "workspace:*",
-    "@solar-verse/ui": "workspace:*",
-    "@solar-verse/utils": "workspace:*",
+    "@solarverse/theme": "workspace:*",
+    "@solarverse/ui": "workspace:*",
+    "@solarverse/utils": "workspace:*",
     "@tailwindcss/postcss": "^4.1.13",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.9",

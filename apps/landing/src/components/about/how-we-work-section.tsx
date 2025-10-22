@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import RoughCardBg from "@/assets/illustrations/rough-card-bg";
-import { CenterLayout } from "@solar-verse/ui";
+import { CenterLayout } from "@solarverse/ui";
 import PulseWaveIcon from "@/assets/icons/pulse-wave-icon";
-import { cn } from "@solar-verse/utils";
+import { cn } from "@solarverse/utils";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
 
 const data = [

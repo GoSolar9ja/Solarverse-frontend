@@ -1,8 +1,8 @@
 "use client";
 import { IMAGE_URLS } from "@/assets/images";
-import { Button, DefaultLayout } from "@solar-verse/ui";
+import { Button, DefaultLayout } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 import { CircleArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";

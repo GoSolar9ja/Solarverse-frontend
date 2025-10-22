@@ -1,6 +1,6 @@
 import { IMAGE_URLS } from "@/assets/images";
 import Image from "@/components/common/media/image";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import { CircleCheckBig } from "lucide-react";
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";

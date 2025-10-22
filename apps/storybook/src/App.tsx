@@ -1,4 +1,4 @@
-import { UploadField } from "@solar-verse/ui";
+import { UploadField } from "@solarverse/ui";
 import { useState } from "react";
 
 function App() {
