@@ -1,9 +1,9 @@
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
 import { IMAGE_URLS } from "@/assets/images";
-import { Button } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
 import { BriefcaseBusiness, ParkingMeter, Rocket, Wallet } from "lucide-react";
 import ValidationApprovalIcon from "@/assets/icons/validation-approval-icon";
 

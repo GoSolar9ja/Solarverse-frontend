@@ -1,5 +1,5 @@
-import "@solar-verse/theme/styles";
-import "@solar-verse/ui/styles.css";
+import "@solarverse/theme/styles";
+import "@solarverse/ui/styles.css";
 
 import type { Preview } from "@storybook/react-vite";
 

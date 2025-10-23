@@ -1,5 +1,5 @@
 {
-  "name": "@solar-verse/storybook",
+  "name": "@solarverse/storybook",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,9 +14,9 @@
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "@solar-verse/ui": "workspace:*",
-    "@solar-verse/utils": "workspace:*",
-    "@solar-verse/theme": "workspace:*"
+    "@solarverse/ui": "workspace:*",
+    "@solarverse/utils": "workspace:*",
+    "@solarverse/theme": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",

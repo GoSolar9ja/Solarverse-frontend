@@ -1,7 +1,7 @@
 "use client";
-import { DefaultLayout } from "@solar-verse/ui";
+import { DefaultLayout } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";

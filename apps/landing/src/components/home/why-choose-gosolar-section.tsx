@@ -1,4 +1,4 @@
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
 import RoughBgIllustration from "@/assets/illustrations/rough-bg-illustration";

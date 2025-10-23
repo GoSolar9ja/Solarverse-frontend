@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { InputField } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { InputField } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { USER_TYPE } from "@/lib/constants";
 import IMAGE_PATHS from "@/assets/images";
-import { Image } from "@solar-verse/ui";
-import { Button } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
+import { Button } from "@solarverse/ui";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;

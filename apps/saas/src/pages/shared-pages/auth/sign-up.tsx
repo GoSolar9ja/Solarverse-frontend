@@ -1,15 +1,15 @@
 import IMAGE_PATHS from "@/assets/images";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { Button } from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
 import { useState } from "react";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 
 export default function Signup() {
   const { passwordValidation, emailValidation } = schemaValidation;

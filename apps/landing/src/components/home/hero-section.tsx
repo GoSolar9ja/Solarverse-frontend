@@ -1,10 +1,10 @@
 import { IMAGE_URLS } from "@/assets/images";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 import Image from "@/components/common/media/image";
-import { CenterLayout } from "@solar-verse/ui";
-import { Button } from "@solar-verse/ui";
-import { cn } from "@solar-verse/utils";
+import { CenterLayout } from "@solarverse/ui";
+import { Button } from "@solarverse/ui";
+import { cn } from "@solarverse/utils";
 import CountUp from "../common/libs/count-up";
 
 const customerAvatars = [

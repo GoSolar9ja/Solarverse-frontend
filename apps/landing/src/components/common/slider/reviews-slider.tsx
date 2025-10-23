@@ -1,9 +1,9 @@
 "use client";
 import { IMAGE_URLS } from "@/assets/images";
-import { RatingsDisplay } from "@solar-verse/ui";
+import { RatingsDisplay } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
-import { Typography } from "@solar-verse/ui";
-import { cn } from "@solar-verse/utils";
+import { Typography } from "@solarverse/ui";
+import { cn } from "@solarverse/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 

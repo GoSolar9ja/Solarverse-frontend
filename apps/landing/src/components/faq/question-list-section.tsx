@@ -1,12 +1,12 @@
 import React from "react";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@solar-verse/ui";
-import { DefaultLayout } from "@solar-verse/ui";
+} from "@solarverse/ui";
+import { DefaultLayout } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
 import { IMAGE_URLS } from "@/assets/images";
 export default function QuestionListSection() {

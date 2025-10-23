@@ -5,10 +5,10 @@ import DashboardIcon from "@/components/common/icons/dashboard-icon";
 import ArrowDownIcon from "@/components/common/icons/arrowdown-icon";
 import { Outlet, useLocation } from "react-router-dom";
 // import { useProfile } from "@/context/ProfileContext";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import AppLink from "../navigation/app-nav-link";
 import IMAGE_PATHS from "@/assets/images";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 
 export const HomeOwnerDashboardLayout = () => {
   // const { profile } = useProfile();

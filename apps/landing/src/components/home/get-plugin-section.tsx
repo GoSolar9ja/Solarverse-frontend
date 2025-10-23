@@ -1,9 +1,9 @@
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
 import Image from "@/components/common/media/image";
 import { IMAGE_URLS } from "@/assets/images";
-import { Button } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
 import { CircleArrowOutUpRight } from "lucide-react";
 import BlogCard from "../common/cards/blog-card";
 import { blogPosts } from "@/lib/blog-data";

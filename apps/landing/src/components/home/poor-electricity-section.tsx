@@ -1,9 +1,9 @@
 import { IMAGE_URLS } from "@/assets/images";
-import { Button } from "@solar-verse/ui";
-import { CenterLayout } from "@solar-verse/ui";
-import { DefaultLayout } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
+import { CenterLayout } from "@solarverse/ui";
+import { DefaultLayout } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React from "react";
 
 export default function PoorElectricitySection() {

@@ -1,5 +1,5 @@
 {
-  "name": "@solar-verse/saas",
+  "name": "saas",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -46,9 +46,9 @@
     "usehooks-ts": "^3.1.1",
     "yup": "^1.6.1",
     "zod": "^4.0.10",
-    "@solar-verse/ui": "workspace:*",
-    "@solar-verse/utils": "workspace:*",
-    "@solar-verse/theme": "workspace:*"
+    "@solarverse/ui": "workspace:*",
+    "@solarverse/utils": "workspace:*",
+    "@solarverse/theme": "workspace:*"
 
   },
   "devDependencies": {

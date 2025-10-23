@@ -1,11 +1,11 @@
 "use client";
 
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import React, { useEffect, useState } from "react";
 import SectionLayout from "../common/layout/section-layout";
 import Image from "@/components/common/media/image";
 import { IMAGE_URLS } from "@/assets/images";
-import { cn } from "@solar-verse/utils";
+import { cn } from "@solarverse/utils";
 import { useMediaQuery } from "@/lib/hooks/use-media-query";
 const cardData = [
   {

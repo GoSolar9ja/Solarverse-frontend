@@ -1,8 +1,8 @@
 // import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button } from "@solar-verse/ui";
+import { Button, ComponentVisibility, UploadField } from "@solar-verse/ui";
 import { InputField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { createValidationSchema, fileToBase64, schemaValidation } from "@solar-verse/utils";
 import {  Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solar-verse/ui";
 
@@ -235,12 +235,49 @@ const InstallerOnboardingForm = () => {
                     validate
                   />
                   <label className="-mb-[1px]" htmlFor="">Business Logo</label>
-                  <SingleImageUpload
-                    name="businessLogo"
-                    value={formik.values.businessLogo}
-                    onChange={(base64) => formik.setFieldValue("businessLogo", base64)}
-                    
-                  />
+                  <UploadField
+                    fieldProps={{
+                      name: "images",
+                      multiple: true,
+                      accept: "image/*",
+                      onChange: (e) => {
+                        Array.from(e.target.files || []).map((item) => ({
+                          name: item.name,
+                          url: fileToBase64(item).then((base64) => {
+                            formik.setFieldValue("images", [
+                              { name: item.name, url: base64 },
+                            ]);
+                          }),
+                        }));
+                      },
+                    }}
+                    validate
+                    showUploadList={false}
+                  >
+                    {({ onClick }) => (
+                      <div onClick={onClick} className="bg-red-500 h-[100px] ">
+                        <ComponentVisibility
+                          visible={!!formik.values.images.length}
+                        >
+                          <Image
+                            containerClassName="h-full w-full"
+                            src={formik.values.images[0]?.url || ""}
+                          />
+                        </ComponentVisibility>
+
+                        <ComponentVisibility
+                          visible={!formik.values.images.length}
+                        >
+                          <div>
+                            <Typography.body1>
+                              Click to upload or drag and drop
+                            </Typography.body1>
+                          </div>
+                        </ComponentVisibility>
+                      </div>
+                    )}
+                  </UploadField>
+                
                 </div>
 
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">

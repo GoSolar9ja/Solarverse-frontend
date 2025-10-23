@@ -2,8 +2,8 @@
 
 import HamburgerIcon from "@/assets/icons/hamburger-icon";
 import { IMAGE_URLS } from "@/assets/images";
-import { Button } from "@solar-verse/ui";
-import { DefaultLayout } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
+import { DefaultLayout } from "@solarverse/ui";
 import Image from "@/components/common/media/image";
 import { navLinks } from "@/lib/routes";
 import Link from "next/link";

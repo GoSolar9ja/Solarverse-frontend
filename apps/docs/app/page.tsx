@@ -1,7 +1,7 @@
 "use client";
 import Image, { type ImageProps } from "next/image";
 import styles from "./page.module.css";
-import { Button } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;

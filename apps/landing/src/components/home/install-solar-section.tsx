@@ -1,10 +1,10 @@
 import React from "react";
 import SectionLayout from "../common/layout/section-layout";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 import { IMAGE_URLS } from "@/assets/images";
 import Image from "@/components/common/media/image";
 import { Pin } from "lucide-react";
-import { Button } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
 
 const bullets = [
   "Get matched with verified leads",

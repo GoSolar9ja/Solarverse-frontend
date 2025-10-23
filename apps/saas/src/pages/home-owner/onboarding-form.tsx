@@ -1,15 +1,15 @@
 import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button } from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { Button } from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
-import { Checkbox } from "@solar-verse/ui";
+import { Checkbox } from "@solarverse/ui";
 import { useState } from "react";
 import { useRef } from "react";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { USER_TYPE } from "@/lib/constants";

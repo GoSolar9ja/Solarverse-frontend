@@ -1,13 +1,13 @@
-import { Button } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { Button } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 
 export default function Resetpassword() {

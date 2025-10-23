@@ -1,8 +1,8 @@
 "use client";
-import { Button } from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { TextAreaField } from "@solar-verse/ui";
-import { schemaValidation, createValidationSchema } from "@solar-verse/utils";
+import { Button } from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { TextAreaField } from "@solarverse/ui";
+import { schemaValidation, createValidationSchema } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import React from "react";
 
