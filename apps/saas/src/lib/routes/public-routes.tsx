@@ -2,7 +2,9 @@ import { lazy } from "react";
 import { PublicOutlet } from "./outlets";
 import { ROUTE_KEYS } from "./routes-keys";
 import { RouteObject } from "react-router-dom";
-import InstallerOnboardingForm from "@/pages/installer/onboarding-form";
+import InstallerOnboardingForm from "@/pages/installer-onboarding-form/step-one";
+import InstallerOnboardingFormTwo from "@/pages/installer-onboarding-form/step-two";
+import InstallerOnboardingFormThree from "@/pages/installer-onboarding-form/step-three";
 const Signin = lazy(() => import("@/pages/shared-pages/auth/sign-in"));
 const Signup = lazy(() => import("@/pages/shared-pages/auth/sign-up"));
 const Usersoption = lazy(() => import("@/pages/shared-pages/auth/user-option"));
@@ -37,6 +39,14 @@ const publicRoutes: RouteObject[] = [
       {
         path: ROUTE_KEYS.INSTALLER_FORM,
         element: <InstallerOnboardingForm/>,
+      },
+      {
+        path: ROUTE_KEYS.INSTALLER_FORM_TWO,
+        element: <InstallerOnboardingFormTwo/>,
+      },
+      {
+        path: ROUTE_KEYS.INSTALLER_FORM_THREE,
+        element: <InstallerOnboardingFormThree/>,
       },
     ],
   },

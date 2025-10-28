@@ -592,7 +592,7 @@ export default function Components() {
                                   })
                                 );
                               },
-                            }}
+                            }} 
                             validate
                           />
 

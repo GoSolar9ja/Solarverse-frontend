@@ -1,20 +1,22 @@
 // import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button, ComponentVisibility, UploadField } from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { createValidationSchema, fileToBase64, schemaValidation } from "@solar-verse/utils";
+import { Button, ComponentVisibility, UploadField } from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { useNavigate } from "react-router-dom";
+import { createValidationSchema, fileToBase64, schemaValidation } from "@solarverse/utils";
 import {  Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
-import { Checkbox } from "@solar-verse/ui";
+import { Checkbox } from "@solarverse/ui";
 import { useState } from "react";
 import { useRef } from "react";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
-import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import { USER_TYPE } from "@/lib/constants";
+// import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
+// import { USER_TYPE } from "@/lib/constants";
+import UploadIcon from "@/components/common/icons/upload-icon";
 // import { XIcon } from "lucide-react";
-import { SingleImageUpload } from "@/components/common/single-image-upload";
+
 
 interface BirthdayPickerProps {
   value: string;
@@ -69,7 +71,7 @@ const BirthdayPicker: React.FC<BirthdayPickerProps> = ({ value, onChange }) => {
 };
 
 const InstallerOnboardingForm = () => {
-  const { login } = useAuthContext();
+  // const { login } = useAuthContext();
 
   const {
     fieldValidation,
@@ -78,7 +80,7 @@ const InstallerOnboardingForm = () => {
     numberFieldValidation,
     listSelectionValidation,
   } = schemaValidation;
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const [generatedOtp, setGeneratedOtp] = useState("");
 
@@ -87,7 +89,6 @@ const InstallerOnboardingForm = () => {
       firstName: "",
       lastName: "",
       businessName: "",
-      businessLogo: "",
       businessRegNum: "",
       businessLocation: "",
       gender: "",
@@ -97,7 +98,6 @@ const InstallerOnboardingForm = () => {
       otp: "",
       acceptTerms: false,
       images: [] as Array<File & { url: string }>,
-      image: [] as Array<File & { url: string }>,
     },
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
@@ -105,10 +105,8 @@ const InstallerOnboardingForm = () => {
       nin: fieldValidation().length(11, "NIN must be 11 digits").required("nin is required"),
       businessName: fieldValidation().required("Business name is required"),
       businessRegNum: numberFieldValidation().optional(),
-      businessLocation: fieldValidation().required("Business location is required"),
-      businessLogo: fieldValidation().required("Please upload Business logo"), 
+      businessLocation: fieldValidation().required("Business location is required"), 
       gender: fieldValidation().required("Gender is required"),
-      image: listSelectionValidation().max(1, "Image is required"),
       images: listSelectionValidation().min(
         1,
         "At least one image is required"
@@ -127,18 +125,18 @@ const InstallerOnboardingForm = () => {
     onSubmit: (values, { resetForm }) => {
       console.log("Form submitted:", values);
       // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
-        token: "fake-jwt-token",
-        profile: USER_TYPE.INSTALLER, // or "home" — this would normally come from backend
-      };
+      // const mockUser = {
+      //   token: "fake-jwt-token",
+      //   profile: USER_TYPE.INSTALLER, // or "home" — this would normally come from backend
+      // };
 
-      login({ token: mockUser.token, userType: mockUser.profile });
+      // login({ token: mockUser.token, userType: mockUser.profile });
       // Save to localStorage
 
       // Update context
 
       resetForm();
-
+      navigate("/installer-form-two")
       // Redirect to dashboard (Protected route)
     },
   });
@@ -156,8 +154,8 @@ const InstallerOnboardingForm = () => {
 
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] h-[1242px] bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] h-[1247px] p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] md:!h-[1242px] h-full bg-[#F4F4F4]">
+      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] md:!h-[1247px] h-fit p-[40px] bg-[#FFFFFF]">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -195,7 +193,7 @@ const InstallerOnboardingForm = () => {
                     name="businessName"
                     placeholder="Solar Pro"
                     rounded="full"
-                    value={formik.values.firstName} 
+                    value={formik.values.businessName} 
                     onChange={formik.handleChange}
                     validate
                   />
@@ -215,10 +213,10 @@ const InstallerOnboardingForm = () => {
                   />
                   <InputField.primary
                     label="Business Reg.No"
-                    name="businessRegNumber"
-                    placeholder="plot 124, Ikeja Lagos"
+                    name="businessRegNum"
+                    placeholder="RC123456"
                     rounded="full"
-                    value={formik.values.lastName}
+                    value={formik.values.businessRegNum}
                     onChange={formik.handleChange}
                     validate
                   />
@@ -230,11 +228,13 @@ const InstallerOnboardingForm = () => {
                     name="nin"
                     placeholder="Enter NIN"
                     rounded="full"
-                    value={formik.values.firstName} // 👈 add
+                    value={formik.values.nin} // 👈 add
                     onChange={formik.handleChange}
                     validate
                   />
-                  <label className="-mb-[1px]" htmlFor="">Business Logo</label>
+                  <div className="flex flex-col h-fit w-full gap-2 max-w-[204px] ">
+                  <Typography.body1 className=" tracking-[1%]">
+                  Business Logo </Typography.body1>
                   <UploadField
                     fieldProps={{
                       name: "images",
@@ -255,12 +255,13 @@ const InstallerOnboardingForm = () => {
                     showUploadList={false}
                   >
                     {({ onClick }) => (
-                      <div onClick={onClick} className="bg-red-500 h-[100px] ">
+                      <div onClick={onClick} className= "h-[8 0px]">
                         <ComponentVisibility
                           visible={!!formik.values.images.length}
                         >
                           <Image
-                            containerClassName="h-full w-full"
+                            containerClassName="h-[80px] w-full max-w-[200px]"
+                            className="rounded-full"
                             src={formik.values.images[0]?.url || ""}
                           />
                         </ComponentVisibility>
@@ -268,17 +269,21 @@ const InstallerOnboardingForm = () => {
                         <ComponentVisibility
                           visible={!formik.values.images.length}
                         >
-                          <div>
-                            <Typography.body1>
-                              Click to upload or drag and drop
+                          <div className="flex rounded-full cursor-pointer bg-[#F5F5F5] items-center h-[59px] w-full p-[20px] max-w-[185px] gap-[8px] ">
+                            <UploadIcon />
+                            <Typography.body1 className=" tracking-[1%]">
+                              Upload photo
                             </Typography.body1>
                           </div>
                         </ComponentVisibility>
                       </div>
                     )}
                   </UploadField>
+                  <Typography.body1 className=" tracking-[1%]">
+                  PNG, JPG only </Typography.body1>
                 
                 </div>
+                  </div>
 
                 <div className="space-y-6 flex flex-col w-full max-w-[285px]">
                 
@@ -287,15 +292,15 @@ const InstallerOnboardingForm = () => {
                     name="businessLocation"
                     placeholder="plot 124, Ikeja Lagos"
                     rounded="full"
-                    value={formik.values.lastName}
+                    value={formik.values.businessLocation}
                     onChange={formik.handleChange}
                     validate
                   />
-                  
+                  <div className="flex flex-col h-fit w-full gap-2 max-w-[204px] ">
                   <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
                     Gender
                   </Typography.body1>
-                  <div className="flex gap-4 h-[64px] -mt-4">
+                  <div className="flex gap-4 h-[60px]">
                     {/* Male */}
                     <button
                       type="button"
@@ -303,7 +308,7 @@ const InstallerOnboardingForm = () => {
                       className={`flex items-center gap-4 w-full px-6 py-3 rounded-full justify-center ${
                         formik.values.gender === "male"
                           ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-gray-100/50 border border-[#C1C6C5]"
+                          : "bg-[#F5F5F5]"
                       }`}
                     >
                       <Image
@@ -323,7 +328,7 @@ const InstallerOnboardingForm = () => {
                       className={`flex items-center gap-4 w-full  px-6  py-3 rounded-full justify-center ${
                         formik.values.gender === "female"
                           ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-gray-100/50 border border-[#C1C6C5]"
+                          : "bg-[#F5F5F5]"
                       }`}
                     >
                       <Image
@@ -338,6 +343,8 @@ const InstallerOnboardingForm = () => {
                   </div>
                 </div>
               </div>
+                  </div>
+                  
               {/* Birthday, Phone, Terms Section */}
               <div className="flex gap-4  md:!items-start flex-col w-full max-w-[600px] mt-6">
                 <div className="flex flex-col w-full max-w-[223px] h-[91px] gap-[7px]">
@@ -404,11 +411,11 @@ const InstallerOnboardingForm = () => {
                   className="w-full md:!self-end max-w-[290px] h-12 text-white mt-6"
                   type="submit"
                 >
-                  Submit
+                  Continue
                 </Button.PrimarySolid>
               </div>
             </div>
-            {/* <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6">
             <pre className="text-xs bg-gray-100 p-2 mt-4">
   {JSON.stringify(formik.values, null, 2)}
 </pre>
@@ -416,7 +423,7 @@ const InstallerOnboardingForm = () => {
   {JSON.stringify(formik.errors, null, 2)}
 </pre>
 
-            </div> */}
+            </div>
           </Form>
         </FormikProvider>
       </div>
