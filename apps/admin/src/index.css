@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "@solar-verse/ui/styles.css";
+@import "@solar-verse/theme/styles";
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  background: white;
+  color: var(--foreground);
+  font-family: "Avenir", sans-serif;
+}

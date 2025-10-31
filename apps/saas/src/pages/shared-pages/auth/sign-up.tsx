@@ -76,11 +76,11 @@ export default function Signup() {
       <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px] mb-6">
+          <div className="w-full max-w-fit h-fit md:!h-fit  mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full"
+              containerClassName="w-full max-w-[100px] md:!max-w-[200px] h-fit"
             />
           </div>
 
@@ -94,7 +94,7 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.googleImg}
                 alt="google-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign up with Google
@@ -110,7 +110,7 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.facebookImg}
                 alt="facebook-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign up with Facebook

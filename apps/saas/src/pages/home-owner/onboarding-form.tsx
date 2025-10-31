@@ -143,7 +143,7 @@ const HomeOwnerOnboardingForm = () => {
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
               containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
             />

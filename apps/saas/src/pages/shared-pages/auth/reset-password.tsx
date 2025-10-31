@@ -47,11 +47,11 @@ export default function Resetpassword() {
       <div className="flex flex-col md:!flex-row w-full max-w-6xl p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px] mb-6">
+        <div className="w-fit md:!mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full"
+              containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
             />
           </div>
 
@@ -100,7 +100,8 @@ export default function Resetpassword() {
         {/* Right side - image */}
         <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
           <Image
-            containerClassName="w-full h-[850px]"
+            containerClassName="w-full  h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

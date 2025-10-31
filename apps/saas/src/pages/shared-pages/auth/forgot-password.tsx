@@ -61,7 +61,7 @@ export default function Forgotpassword() {
         <div className="flex flex-col  w-full max-w-[320px] mx-auto">
           <div className=" mb-6 -ml-9 md:!ml-0 w-fit h-fit ">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
               containerClassName="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px]"
             />
@@ -69,7 +69,7 @@ export default function Forgotpassword() {
           <div>
             <Link to="/sign-in">
               <button className="bg-[#F5F5F5] mb-7 rounded-[5px] border border-[#C1C6C5]/50 flex items-center justify-center w-full md:!h-[64px] max-w-[100px] h-[44px] p-[20px] cursor-pointer gap-4 md:!max-w-[143px]">
-                <Image src={IMAGE_PATHS.arrrowBackImg} alt="back arrow icon" />
+                <Image src={IMAGE_PATHS.arrrowBackImg} alt="back arrow icon" containerClassName="w-full max-w-[20px] object-contain" />
                 <Typography.body1
                   weight={"medium"}
                   className="tracking-[1.5%] text-[#111214]"
@@ -123,6 +123,7 @@ export default function Forgotpassword() {
         <div className="hidden lg:!block w-full max-w-[875px] h-[1004px]">
           <Image
             containerClassName="w-full h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

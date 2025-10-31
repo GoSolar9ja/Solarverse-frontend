@@ -1,0 +1,22 @@
+export enum QueryKeys {
+  PLAN_HISTORY = "/api/v1/plan/history",
+  BALANCE = "/api/v1/plan/balance",
+  WHATSAPP = "/api/v1/whatsapp/message-us",
+  ORDER_BY_ID = "order_by_id",
+  ORDERS = "/api/v1/orders",
+  ACTIVE_ORDERS = "/api/v1/orders/active",
+
+  NEGOTIATIONS = "/api/v1/negotiation/all",
+  CART = "/api/v1/cart",
+  USER_PRODUCTS = "/api/v1/products/users/products",
+  PRODUCT = "/api/v1/products",
+  PRODUCT_RESELLERS = "product_resellers",
+  CART_ITEMS = "/api/v1/cart/items",
+  CHAT_HISTORY = "/api/v1/chat/history",
+  FOLLOWING = "/api/v1/users/followings",
+  FOLLOWERS = "/api/v1/users/followers",
+  PRODUCT_COMMENTS = "/api/v1/products/comments",
+  NOTIFICATION_COUNT = "/api/v1/notifications/count",
+  NOTIFICATIONS = "/api/v1/notifications",
+  MY_INVITES = "/api/v1/users/my-invites",
+}
