@@ -12,7 +12,7 @@ export function DatePicker({
 }: {
   children: React.ReactNode;
   date?: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setDate: React.Dispatch<Date>;
 }) {
   return (
     <Popover>

@@ -22,6 +22,7 @@ export * from "./ui/form/label";
 export * from "./ui/form/select-input";
 export * from "./ui/form/textarea";
 export * from "./ui/form/upload-field";
+export * from "./ui/form/multi-select-input";
 
 // Layout Components
 export * from "./ui/layouts/center-layout";

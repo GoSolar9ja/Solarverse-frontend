@@ -4,6 +4,7 @@ const typographyTheme = cva("transition-all duration-300", {
   variants: {
     variant: {
       primary: "text-primary",
+      secondary: "text-secondary",
       primary100: "text-primary-100",
       success: "text-success",
       error: "text-error",
