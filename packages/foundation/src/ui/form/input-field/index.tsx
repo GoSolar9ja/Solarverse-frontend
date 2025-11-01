@@ -43,7 +43,7 @@ const ValidatedInput = ({
 
   return (
     <div {...containerProps}>
-      <Label className="mb-0" htmlFor={name}>
+      <Label className="mb-2 md:mb-0" htmlFor={name}>
         {label}
       </Label>
       <BaseInput {...props} {...field} error={error} touched={touched} />
@@ -60,7 +60,7 @@ const UnvalidatedInput = ({
   return (
     <div {...containerProps}>
       <ComponentVisibility visible={!!label}>
-        <Label className="mb-0" htmlFor={props.name}>
+        <Label className="mb-2 md:mb-0" htmlFor={props.name}>
           {label}
         </Label>
       </ComponentVisibility>

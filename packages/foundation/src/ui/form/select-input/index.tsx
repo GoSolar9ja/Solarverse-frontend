@@ -2,9 +2,9 @@ import BaseSelectInput, { IBaseSelectInputProps } from "./base-select-input";
 import { Label } from "../label";
 import { ErrorMessage } from "../error-message";
 import { useField } from "formik";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 
-interface ISlotSelectInputProps extends IBaseSelectInputProps {
+export interface ISlotSelectInputProps extends IBaseSelectInputProps {
   label: string;
   name: string;
   validate?: boolean;

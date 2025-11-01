@@ -1,74 +1,35 @@
 // import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button, ComponentVisibility, UploadField } from "@solarverse/ui";
+import {
+  Button,
+  ComponentVisibility,
+  DatePicker,
+  UploadField,
+} from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { useNavigate } from "react-router-dom";
-import { createValidationSchema, fileToBase64, schemaValidation } from "@solarverse/utils";
-import {  Form, FormikProvider, useFormik } from "formik";
+import {
+  createValidationSchema,
+  fileToBase64,
+  schemaValidation,
+} from "@solarverse/utils";
+import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { Checkbox } from "@solarverse/ui";
 import { useState } from "react";
-import { useRef } from "react";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 // import { USER_TYPE } from "@/lib/constants";
 import UploadIcon from "@/components/common/icons/upload-icon";
+import { cn } from "@/lib/utils";
 // import { XIcon } from "lucide-react";
 
-
 interface BirthdayPickerProps {
-  value: string;
-  onChange: (date: string) => void;
+  value?: Date;
+  onChange: (date: Date) => void;
 }
-
-const BirthdayPicker: React.FC<BirthdayPickerProps> = ({ value, onChange }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const openDatePicker = () => {
-    if (inputRef.current) {
-      // Try modern way first
-      inputRef.current.showPicker?.();
-      // Fallback
-      inputRef.current.click();
-    }
-  };
-
-  const date = value ? new Date(value) : null;
-
-  return (
-    <div className="flex gap-2">
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.getDate() : "Day"}
-      </div>
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.toLocaleString("default", { month: "short" }) : "Month"}
-      </div>
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.getFullYear() : "Year"}
-      </div>
-
-      {/* Hidden input that triggers calendar */}
-      <input
-        ref={inputRef}
-        type="date"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="hidden"
-      />
-    </div>
-  );
-};
 
 const InstallerOnboardingForm = () => {
   // const { login } = useAuthContext();
@@ -80,7 +41,7 @@ const InstallerOnboardingForm = () => {
     numberFieldValidation,
     listSelectionValidation,
   } = schemaValidation;
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [generatedOtp, setGeneratedOtp] = useState("");
 
@@ -92,8 +53,8 @@ const InstallerOnboardingForm = () => {
       businessRegNum: "",
       businessLocation: "",
       gender: "",
-      birthday: "",
-      nin:"",
+      birthday: undefined,
+      nin: "",
       phone: "",
       otp: "",
       acceptTerms: false,
@@ -102,10 +63,14 @@ const InstallerOnboardingForm = () => {
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
       lastName: fieldValidation().required("Last name is required"),
-      nin: fieldValidation().length(11, "NIN must be 11 digits").required("nin is required"),
+      nin: fieldValidation()
+        .length(11, "NIN must be 11 digits")
+        .required("nin is required"),
       businessName: fieldValidation().required("Business name is required"),
       businessRegNum: numberFieldValidation().optional(),
-      businessLocation: fieldValidation().required("Business location is required"), 
+      businessLocation: fieldValidation().required(
+        "Business location is required"
+      ),
       gender: fieldValidation().required("Gender is required"),
       images: listSelectionValidation().min(
         1,
@@ -136,7 +101,7 @@ const InstallerOnboardingForm = () => {
       // Update context
 
       resetForm();
-      navigate("/installer-form-two")
+      navigate("/installer-form-two");
       // Redirect to dashboard (Protected route)
     },
   });
@@ -152,10 +117,11 @@ const InstallerOnboardingForm = () => {
     alert(`Your OTP is: ${otp}`); // simulate sending OTP
   };
 
+  const defaultClassName = "md:even:ml-auto w-full md:max-w-[285px]";
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] md:!h-[1242px] h-full bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] md:!h-[1247px] h-fit p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto flex flex-col items-center justify-center  md:!h-[1242px] h-full bg-[#F4F4F4]">
+      <div className="flex flex-col w-full gap-6  p-[40px] bg-[#FFFFFF] max-w-[1076px]">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -176,65 +142,91 @@ const InstallerOnboardingForm = () => {
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
             {/* Name & Email Section */}
-            <div className="flex flex-col gap-3  w-full max-w-[850px] h-fit lg:!py-[20px] lg:!ml-[13%]">
-              <div className="grid grid-cols-1 md:!grid-cols-2  items-center gap-6 lg:!justify-between  w-full max-w-[850px] h-fit  ">
-              <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  <InputField.primary
-                    label="First Name"
-                    name="firstName"
-                    placeholder="John"
-                    rounded="full"
-                    value={formik.values.firstName} // 👈 add
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  <InputField.primary
-                    label=" Business Name"
-                    name="businessName"
-                    placeholder="Solar Pro"
-                    rounded="full"
-                    value={formik.values.businessName} 
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  
-                  
-                </div>
-              <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  
-                  <InputField.primary
-                    label="Last Name"
-                    name="lastName"
-                    placeholder="Doe"
-                    rounded="full"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  <InputField.primary
-                    label="Business Reg.No"
-                    name="businessRegNum"
-                    placeholder="RC123456"
-                    rounded="full"
-                    value={formik.values.businessRegNum}
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  
-                </div>
-                <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  <InputField.primary
-                    label="NIN"
-                    name="nin"
-                    placeholder="Enter NIN"
-                    rounded="full"
-                    value={formik.values.nin} // 👈 add
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  <div className="flex flex-col h-fit w-full gap-2 max-w-[204px] ">
+            <div className="flex flex-col gap-3  w-full max-w-[850px] mx-auto h-fit lg:!py-[20px]">
+              <div className="grid grid-cols-1 md:grid-cols-2!   gap-x-20 gap-5 lg:justify-between!  w-full  h-fit  ">
+                <InputField.primary
+                  label="First Name"
+                  name="firstName"
+                  placeholder="John"
+                  rounded="full"
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                  value={formik.values.firstName} // 👈 add
+                  onChange={formik.handleChange}
+                  validate
+                />
+                <InputField.primary
+                  label=" Business Name"
+                  name="businessName"
+                  placeholder="Solar Pro"
+                  rounded="full"
+                  value={formik.values.businessName}
+                  onChange={formik.handleChange}
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+                <InputField.primary
+                  label="Last Name"
+                  name="lastName"
+                  placeholder="Doe"
+                  rounded="full"
+                  value={formik.values.lastName}
+                  onChange={formik.handleChange}
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+                <InputField.primary
+                  label="Business Reg.No"
+                  name="businessRegNum"
+                  placeholder="RC123456"
+                  rounded="full"
+                  value={formik.values.businessRegNum}
+                  onChange={formik.handleChange}
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+                <InputField.primary
+                  label="NIN"
+                  name="nin"
+                  placeholder="Enter NIN"
+                  rounded="full"
+                  value={formik.values.nin} // 👈 add
+                  onChange={formik.handleChange}
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+
+                <InputField.primary
+                  label="Business Adress"
+                  name="businessLocation"
+                  placeholder="plot 124, Ikeja Lagos"
+                  rounded="full"
+                  value={formik.values.businessLocation}
+                  onChange={formik.handleChange}
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+
+                <div
+                  className={cn(
+                    "flex flex-col h-fit  gap-2 ",
+                    defaultClassName
+                  )}
+                >
                   <Typography.body1 className=" tracking-[1%]">
-                  Business Logo </Typography.body1>
+                    Business Logo{" "}
+                  </Typography.body1>
                   <UploadField
                     fieldProps={{
                       name: "images",
@@ -255,7 +247,7 @@ const InstallerOnboardingForm = () => {
                     showUploadList={false}
                   >
                     {({ onClick }) => (
-                      <div onClick={onClick} className= "h-[8 0px]">
+                      <div onClick={onClick} className="h-[8 0px]">
                         <ComponentVisibility
                           visible={!!formik.values.images.length}
                         >
@@ -280,23 +272,16 @@ const InstallerOnboardingForm = () => {
                     )}
                   </UploadField>
                   <Typography.body1 className=" tracking-[1%]">
-                  PNG, JPG only </Typography.body1>
-                
+                    PNG, JPG only{" "}
+                  </Typography.body1>
                 </div>
-                  </div>
 
-                <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                
-                  <InputField.primary
-                    label="Business Adress"
-                    name="businessLocation"
-                    placeholder="plot 124, Ikeja Lagos"
-                    rounded="full"
-                    value={formik.values.businessLocation}
-                    onChange={formik.handleChange}
-                    validate
-                  />
-                  <div className="flex flex-col h-fit w-full gap-2 max-w-[204px] ">
+                <div
+                  className={cn(
+                    "flex flex-col h-fit w-full gap-2 max-w-[204px] ",
+                    defaultClassName
+                  )}
+                >
                   <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
                     Gender
                   </Typography.body1>
@@ -342,13 +327,9 @@ const InstallerOnboardingForm = () => {
                     </button>
                   </div>
                 </div>
-              </div>
-                  </div>
-                  
-              {/* Birthday, Phone, Terms Section */}
-              <div className="flex gap-4  md:!items-start flex-col w-full max-w-[600px] mt-6">
-                <div className="flex flex-col w-full max-w-[223px] h-[91px] gap-[7px]">
-                  <Typography.body1 weight="medium">
+
+                <div className="  max-w-[223px]  gap-[7px] md:col-span-2! my-3">
+                  <Typography.body1 className="mb-2">
                     Your Birthday
                   </Typography.body1>
                   <BirthdayPicker
@@ -357,73 +338,83 @@ const InstallerOnboardingForm = () => {
                   />
                 </div>
 
-                <div className="flex items-center flex-col relative w-full  max-w-[375px] md:!max-w-[877px] h-fit">
-                  <Typography.body1
-                    onClick={handleGenerateOtp}
-                    className="text-[#E49F13] cursor-pointer  md:!top-4 top-3 left-[85%] md:!left-[38%] absolute"
-                    size="h6"
-                    weight="medium"
-                  >
-                    Verify
-                  </Typography.body1>
-                  <div className="grid grid-cols-1  md:!grid-cols-2   w-full max-w-[375px] md:!max-w-[600px] h-fit items-center gap-2 mt-4">
+                <div className="flex md:col-span-2! gap-5">
+                  <div className={cn("relative max-w-[294px] w-full")}>
                     <InputField.primary
                       label="Phone Number"
                       name="phone"
-                      className="w-full max-w-[294.5px] h-[50px]"
                       placeholder="Enter phone number"
                       rounded="full"
                       value={formik.values.phone}
                       onChange={formik.handleChange}
                       validate
                     />
-                    <InputField.primary
-                      name="otp"
-                      className="w-full max-w-[294.5px] h-[50px] mt-9"
-                      placeholder="Enter OTP"
-                      rounded="full"
-                      value={formik.values.otp}
-                      onChange={formik.handleChange}
-                      maxLength={6}
-                      validate
-                    />
+                    <Typography.body2
+                      onClick={handleGenerateOtp}
+                      variant={"secondary"}
+                      className="cursor-pointer md:top-1.5 top-0  right-0 absolute"
+                      weight="medium"
+                    >
+                      Verify
+                    </Typography.body2>
                   </div>
-                </div>
-
-                <div className="flex justify-center md:!items-center mt-4 mb-4 md:!mb-0 gap-2 w-full max-w-[600px] h-[19px]">
-                  <Checkbox
-                    name="acceptTerms"
-                    checked={formik.values.acceptTerms}
-                    onCheckedChange={(checked) =>
-                      formik.setFieldValue("acceptTerms", checked)
-                    }
-                    className="border-blue-600 mt-0.5 md:!mt-0"
+                  <InputField.primary
+                    name="otp"
+                    containerProps={{ className: "mt-auto w-full" }}
+                    className="w-full max-w-[294px]  "
+                    placeholder="Enter OTP"
+                    rounded="full"
+                    value={formik.values.otp}
+                    onChange={formik.handleChange}
+                    maxLength={6}
+                    validate
                   />
-
-                  <Typography.body1 size="h6" weight="medium">
-                    By signing up, you agree to our{" "}
-                    <span className="text-red-500">Terms of Service</span> and{" "}
-                    <span className="text-red-500">Privacy Policy</span>
-                  </Typography.body1>
                 </div>
-
-                <Button.PrimarySolid
-                  className="w-full md:!self-end max-w-[290px] h-12 text-white mt-6"
-                  type="submit"
-                >
-                  Continue
-                </Button.PrimarySolid>
               </div>
-            </div>
-            <div className="flex items-center gap-6">
-            <pre className="text-xs bg-gray-100 p-2 mt-4">
-  {JSON.stringify(formik.values, null, 2)}
-</pre>
-<pre className="text-xs text-red-500">
-  {JSON.stringify(formik.errors, null, 2)}
-</pre>
 
+              {/* Birthday, Phone, Terms Section */}
+
+              <div className="flex items-center mt-4 mb-4 md:mb-0! gap-2 w-fit">
+                <Checkbox
+                  name="acceptTerms"
+                  checked={formik.values.acceptTerms}
+                  onCheckedChange={(checked) =>
+                    formik.setFieldValue("acceptTerms", checked)
+                  }
+                  className="border-blue-600 "
+                />
+
+                <Typography.body1
+                  variant={"fadedDark"}
+                  weight="medium"
+                  className="mt-1"
+                >
+                  By signing up, you agree to our{" "}
+                  <Typography.body1 inline variant={"secondary"}>
+                    Terms of Service
+                  </Typography.body1>{" "}
+                  and{" "}
+                  <Typography.body1 inline variant={"secondary"}>
+                    Privacy Policy
+                  </Typography.body1>
+                </Typography.body1>
+              </div>
+
+              <Button.PrimarySolid
+                className="w-full mx-auto max-w-[290px] h-12 text-white mt-6"
+                type="submit"
+              >
+                Continue
+              </Button.PrimarySolid>
             </div>
+            {/* <div className="flex items-center gap-6">
+              <pre className="text-xs bg-gray-100 p-2 mt-4">
+                {JSON.stringify(formik.values, null, 2)}
+              </pre>
+              <pre className="text-xs text-red-500">
+                {JSON.stringify(formik.errors, null, 2)}
+              </pre>
+            </div> */}
           </Form>
         </FormikProvider>
       </div>
@@ -432,3 +423,26 @@ const InstallerOnboardingForm = () => {
 };
 
 export default InstallerOnboardingForm;
+
+const BirthdayPicker: React.FC<BirthdayPickerProps> = ({ value, onChange }) => {
+  const defaultClassName =
+    "rounded-full shadow-sm py-2 w-full max-w-[80px] flex flex-col items-center justify-center text-center px-4 tracking-[1.5%] bg-[#F5F5F5]";
+
+  return (
+    <DatePicker setDate={onChange} date={value}>
+      <div className="flex gap-2">
+        <Typography.body1 className={defaultClassName}>
+          {value ? value.getDate() : "Day"}
+        </Typography.body1>
+        <Typography.body1 className={defaultClassName}>
+          {value
+            ? value.toLocaleString("default", { month: "short" })
+            : "Month"}
+        </Typography.body1>
+        <Typography.body1 className={defaultClassName}>
+          {value ? value.getFullYear() : "Year"}
+        </Typography.body1>
+      </div>
+    </DatePicker>
+  );
+};
