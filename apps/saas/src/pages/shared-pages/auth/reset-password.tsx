@@ -6,7 +6,7 @@ import { Typography } from "@solarverse/ui";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/common/sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 
@@ -47,7 +47,7 @@ export default function Resetpassword() {
       <div className="flex flex-col md:!flex-row w-full max-w-6xl p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-        <div className="w-fit md:!mb-6">
+          <div className="w-fit md:!mb-6">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"

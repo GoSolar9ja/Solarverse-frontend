@@ -3,6 +3,7 @@ import {
   Button,
   ComponentVisibility,
   Image,
+  MultiSelectInput,
   UploadField,
 } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
@@ -57,6 +58,10 @@ export default function Components() {
         1,
         "At least one image is required"
       ),
+      frameworks: listSelectionValidation().min(
+        1,
+        "Select at least one framework"
+      ),
       productList: Yup.array().of(
         createValidationSchema({
           name: fieldValidation().required("Product name is required"),
@@ -72,6 +77,12 @@ export default function Components() {
   });
 
   const { handleSubmit } = formik;
+
+  const frameworks = [
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "angular", label: "Angular" },
+  ];
 
   console.log(formik.values.images);
   return (
@@ -592,7 +603,7 @@ export default function Components() {
                                   })
                                 );
                               },
-                            }} 
+                            }}
                             validate
                           />
 
@@ -688,8 +699,13 @@ export default function Components() {
                 </UploadField> */}
                 <div className="pt-4">
                   <Typography.h4 variant="primary100" className="mb-4">
-                    Product List
+                    Multi Select
                   </Typography.h4>
+                  <MultiSelectInput.primary
+                    name="frameworks"
+                    options={frameworks}
+                    validate
+                  />
                 </div>
 
                 <div className="flex gap-4 pt-6">

@@ -38,3 +38,5 @@ yarn-error.log*
 *.pem
 
 pnpm-lock.yaml
+*storybook.log
+storybook-static
