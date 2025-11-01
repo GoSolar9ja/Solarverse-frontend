@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { InputField } from "./index";
+import { IInputFieldProps, InputField } from "./index";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
-const meta: Meta<InputField> = {
+const meta: Meta<IInputFieldProps> = {
   title: "UI/Form/InputField",
   component: InputField.primary,
   parameters: {

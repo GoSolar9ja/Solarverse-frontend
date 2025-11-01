@@ -4,10 +4,11 @@ import { ErrorMessage } from "../error-message";
 import { useField } from "formik";
 import { ComponentVisibility } from "../../visibility/component-visibility";
 
-interface IInputFieldProps extends IBaseInputProps {
+export interface IInputFieldProps extends IBaseInputProps {
   label?: string;
   validate?: boolean;
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
+  labelProps?: React.HTMLAttributes<HTMLLabelElement>;
 }
 
 class InputField {
@@ -35,6 +36,7 @@ const ValidatedInput = ({
   label,
   name,
   containerProps,
+  labelProps,
   ...props
 }: IInputFieldProps) => {
   const [field, meta] = useField({ name: name, type: props.type });
@@ -43,7 +45,7 @@ const ValidatedInput = ({
 
   return (
     <div {...containerProps}>
-      <Label className="mb-2 md:mb-0" htmlFor={name}>
+      <Label className="mb-2 md:mb-0" htmlFor={name} {...labelProps}>
         {label}
       </Label>
       <BaseInput {...props} {...field} error={error} touched={touched} />
@@ -55,12 +57,13 @@ const ValidatedInput = ({
 const UnvalidatedInput = ({
   label,
   containerProps,
+  labelProps,
   ...props
 }: IInputFieldProps) => {
   return (
     <div {...containerProps}>
       <ComponentVisibility visible={!!label}>
-        <Label className="mb-2 md:mb-0" htmlFor={props.name}>
+        <Label className="mb-2 md:mb-0" htmlFor={props.name} {...labelProps}>
           {label}
         </Label>
       </ComponentVisibility>

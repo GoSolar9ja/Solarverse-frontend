@@ -117,17 +117,17 @@ const InstallerOnboardingForm = () => {
     alert(`Your OTP is: ${otp}`); // simulate sending OTP
   };
 
-  const defaultClassName = "md:even:ml-auto w-full md:max-w-[285px]";
+  const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center  md:!h-[1242px] h-full bg-[#F4F4F4]">
+    <div className="w-full mx-auto flex flex-col items-center justify-center  sm:!h-[1242px] h-full bg-[#F4F4F4]">
       <div className="flex flex-col w-full gap-6  p-[40px] bg-[#FFFFFF] max-w-[1076px]">
         <div className="flex flex-col items-center">
-          <div className="w-fit md:!mb-6">
+          <div className="w-fit sm:!mb-6">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
+              containerClassName="w-full  max-w-[200px] h-[90px] sm:!h-[115px] sm:!max-w-[295px] object-contain"
             />
           </div>
           <Typography.body1
@@ -143,7 +143,7 @@ const InstallerOnboardingForm = () => {
           <Form onSubmit={handleSubmit}>
             {/* Name & Email Section */}
             <div className="flex flex-col gap-3  w-full max-w-[850px] mx-auto h-fit lg:!py-[20px]">
-              <div className="grid grid-cols-1 md:grid-cols-2!   gap-x-20 gap-5 lg:justify-between!  w-full  h-fit  ">
+              <div className="grid grid-cols-1 sm:grid-cols-2!   gap-x-20 gap-5 lg:justify-between!  w-full  h-fit  ">
                 <InputField.primary
                   label="First Name"
                   name="firstName"
@@ -152,8 +152,6 @@ const InstallerOnboardingForm = () => {
                   containerProps={{
                     className: defaultClassName,
                   }}
-                  value={formik.values.firstName} // 👈 add
-                  onChange={formik.handleChange}
                   validate
                 />
                 <InputField.primary
@@ -161,8 +159,6 @@ const InstallerOnboardingForm = () => {
                   name="businessName"
                   placeholder="Solar Pro"
                   rounded="full"
-                  value={formik.values.businessName}
-                  onChange={formik.handleChange}
                   validate
                   containerProps={{
                     className: defaultClassName,
@@ -173,8 +169,6 @@ const InstallerOnboardingForm = () => {
                   name="lastName"
                   placeholder="Doe"
                   rounded="full"
-                  value={formik.values.lastName}
-                  onChange={formik.handleChange}
                   validate
                   containerProps={{
                     className: defaultClassName,
@@ -185,8 +179,6 @@ const InstallerOnboardingForm = () => {
                   name="businessRegNum"
                   placeholder="RC123456"
                   rounded="full"
-                  value={formik.values.businessRegNum}
-                  onChange={formik.handleChange}
                   validate
                   containerProps={{
                     className: defaultClassName,
@@ -197,8 +189,6 @@ const InstallerOnboardingForm = () => {
                   name="nin"
                   placeholder="Enter NIN"
                   rounded="full"
-                  value={formik.values.nin} // 👈 add
-                  onChange={formik.handleChange}
                   validate
                   containerProps={{
                     className: defaultClassName,
@@ -210,8 +200,6 @@ const InstallerOnboardingForm = () => {
                   name="businessLocation"
                   placeholder="plot 124, Ikeja Lagos"
                   rounded="full"
-                  value={formik.values.businessLocation}
-                  onChange={formik.handleChange}
                   validate
                   containerProps={{
                     className: defaultClassName,
@@ -328,7 +316,7 @@ const InstallerOnboardingForm = () => {
                   </div>
                 </div>
 
-                <div className="  max-w-[223px]  gap-[7px] md:col-span-2! my-3">
+                <div className="  max-w-[223px]  gap-[7px] sm:col-span-2! my-3">
                   <Typography.body1 className="mb-2">
                     Your Birthday
                   </Typography.body1>
@@ -338,7 +326,7 @@ const InstallerOnboardingForm = () => {
                   />
                 </div>
 
-                <div className="flex md:col-span-2! gap-5">
+                <div className="flex sm:col-span-2! gap-5">
                   <div className={cn("relative max-w-[294px] w-full")}>
                     <InputField.primary
                       label="Phone Number"
@@ -352,7 +340,7 @@ const InstallerOnboardingForm = () => {
                     <Typography.body2
                       onClick={handleGenerateOtp}
                       variant={"secondary"}
-                      className="cursor-pointer md:top-1.5 top-0  right-0 absolute"
+                      className="cursor-pointer sm:top-1.5 top-0  right-0 absolute"
                       weight="medium"
                     >
                       Verify
@@ -360,7 +348,9 @@ const InstallerOnboardingForm = () => {
                   </div>
                   <InputField.primary
                     name="otp"
-                    containerProps={{ className: "mt-auto w-full" }}
+                    label="otp"
+                    labelProps={{ className: "invisible" }}
+                    containerProps={{ className: " w-full" }}
                     className="w-full max-w-[294px]  "
                     placeholder="Enter OTP"
                     rounded="full"
@@ -374,7 +364,7 @@ const InstallerOnboardingForm = () => {
 
               {/* Birthday, Phone, Terms Section */}
 
-              <div className="flex items-center mt-4 mb-4 md:mb-0! gap-2 w-fit">
+              <div className="flex items-center mt-4 mb-4 sm:mb-0! gap-2 w-fit">
                 <Checkbox
                   name="acceptTerms"
                   checked={formik.values.acceptTerms}
@@ -407,14 +397,6 @@ const InstallerOnboardingForm = () => {
                 Continue
               </Button.PrimarySolid>
             </div>
-            {/* <div className="flex items-center gap-6">
-              <pre className="text-xs bg-gray-100 p-2 mt-4">
-                {JSON.stringify(formik.values, null, 2)}
-              </pre>
-              <pre className="text-xs text-red-500">
-                {JSON.stringify(formik.errors, null, 2)}
-              </pre>
-            </div> */}
           </Form>
         </FormikProvider>
       </div>
