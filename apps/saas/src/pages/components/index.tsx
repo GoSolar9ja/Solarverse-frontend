@@ -4,6 +4,7 @@ import {
   ComponentVisibility,
   Image,
   MultiSelectInput,
+  TextAreaField,
   UploadField,
 } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
@@ -706,6 +707,13 @@ export default function Components() {
                     options={frameworks}
                     validate
                   />
+                </div>
+                <div className="pt-4">
+                  <Typography.h4 variant="primary100" className="mb-4">
+                    Text Area
+                  </Typography.h4>
+
+                  <TextAreaField.primary />
                 </div>
 
                 <div className="flex gap-4 pt-6">

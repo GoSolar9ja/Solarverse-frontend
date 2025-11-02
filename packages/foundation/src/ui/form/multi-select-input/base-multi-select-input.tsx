@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/ui/command";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ComponentVisibility } from "@/ui/visibility/component-visibility";
 import { selectInputTheme } from "../select-input/theme";
@@ -57,7 +57,11 @@ export function BaseMultiSelectInput({
             ))}
           </ComponentVisibility>
           <ComponentVisibility visible={value.length === 0}>
-            <p className="text-gray-400">{placeholder}</p>
+            <div className="flex items-center justify-between w-full text-gray-400">
+              <p>{placeholder}</p>
+
+              <ChevronDown />
+            </div>
           </ComponentVisibility>
         </>
       </PopoverTrigger>
