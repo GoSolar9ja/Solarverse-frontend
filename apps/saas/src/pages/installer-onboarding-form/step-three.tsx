@@ -76,20 +76,6 @@ const InstallerOnboardingFormThree = () => {
     },
   });
 
-  useEffect(() => {
-    if (formik.values.projects.length === 0) {
-      formik.setFieldValue("projects", [
-        {
-          projectLocation: "",
-          loads: "",
-          caption: "",
-          frameworks: [],
-          images: [],
-        },
-      ]);
-    }
-  }, [formik.values.projects.length]);
-
   const { handleSubmit } = formik;
 
   const frameworks = [
@@ -99,8 +85,8 @@ const InstallerOnboardingFormThree = () => {
   ];
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] h-fit bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] h-fit p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto flex flex-col md:!items-center md:!justify-center max-w-[375px] md:!max-w-[1440px] h-fit bg-[#F4F4F4]">
+      <div className="flex flex-col w-full gap-6 md:!max-w-[1076px] h-fit p-[40px] bg-[#FFFFFF]">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -127,7 +113,10 @@ const InstallerOnboardingFormThree = () => {
                     <div>
                       {formik.values.projects.map((project, index) => (
                         <div className="flex flex-col ml-[13%] md:!flex-row gap-[10px] w-full max-w-[345px] md:!max-w-[700px]">
-                          <div key={index} className="flex flex-col md:!flex-row gap-[10px]">
+                          <div
+                            key={index}
+                            className="flex flex-col md:!flex-row gap-[10px]"
+                          >
                             <div className="flex flex-col border border-[#C1C6C5]/50 pt-[20px] pr-[10px] pb-[20px] pl-[10px] gap-[30px] md:!gap-[50px] rounded-[10px] w-full h-fit md:!max-w-[688px] mt-4">
                               {/* Fields */}
                               <div className="grid grid-cols-1 gap-[30px] md:!grid-cols-2 md:!gap-[81px] w-full md:!max-w-[688px] h-fit">
@@ -153,10 +142,19 @@ const InstallerOnboardingFormThree = () => {
 
                                   <MultiSelectInput.primary
                                     rounded="full"
-                                    className="rounded-full border-none"
-                                    placeholder="Fan, Fridge, Over"
+                                    className="rounded-full"
+                                    placeholder="Fan, Fridge, Oven"
                                     name={`projects[${index}].frameworks`}
                                     options={frameworks}
+                                    value={
+                                      formik.values.projects[index].frameworks
+                                    }
+                                    onChange={(selected) =>
+                                      formik.setFieldValue(
+                                        `projects[${index}].frameworks`,
+                                        selected
+                                      )
+                                    }
                                     validate
                                   />
                                 </div>
@@ -282,7 +280,6 @@ const InstallerOnboardingFormThree = () => {
 
               <Button.PrimarySolid
                 rounded="md"
-                
                 className="w-full max-w-[90px] self-center rounded-[10px] md!rounded-full md:!self-end md:!max-w-[290px] h-12 text-white mt-6"
                 type="submit"
               >
