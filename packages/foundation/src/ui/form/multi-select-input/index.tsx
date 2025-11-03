@@ -37,10 +37,10 @@ const ValidatedMultiSelectInput = (props: IMultiSelectInput) => {
   const selectedValues = field.value || [];
 
   return (
-    <FieldArray name="frameworks">
+    <FieldArray name={field.name}>
       {({ push, remove }) => (
         <div className={cn("space-y-2", className)}>
-          <Label className="mb-2" htmlFor={name}>
+          <Label className="lg:mb-0 mb-2" htmlFor={name}>
             {label}
           </Label>
 
@@ -67,7 +67,7 @@ const UnValidatedMultiSelectInput = (props: IMultiSelectInput) => {
   const { label, ...rest } = props;
   return (
     <div>
-      <Label className="mb-2" htmlFor={props.name}>
+      <Label className="lg:mb-0 mb-2" htmlFor={props.name}>
         {label}
       </Label>
       <BaseMultiSelectInput {...rest} />

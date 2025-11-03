@@ -85,7 +85,21 @@ export default function Components() {
     { value: "angular", label: "Angular" },
   ];
 
-  console.log(formik.values.images);
+  const projectsFormik = useFormik({
+    initialValues: {
+      projects: [
+        {
+          frameworks: [],
+        },
+        {
+          frameworks: [],
+        },
+      ],
+    },
+    onSubmit: (values) => {
+      console.log("Form submitted:", values);
+    },
+  });
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:!px-8">
@@ -493,6 +507,7 @@ export default function Components() {
                     leftIcon={<UserIcon className="w-5 h-5" />}
                     validate
                   />
+                  <MultiSelectInput.primary options={frameworks} label="heyy" />
                   <InputField.primary
                     label="Email Address"
                     name="email"
@@ -702,11 +717,13 @@ export default function Components() {
                   <Typography.h4 variant="primary100" className="mb-4">
                     Multi Select
                   </Typography.h4>
-                  <MultiSelectInput.primary
-                    name="frameworks"
-                    options={frameworks}
-                    validate
-                  />
+                  {projectsFormik.values.projects.map((item, index) => (
+                    <MultiSelectInput.primary
+                      name={`projects.${index}.frameworks`}
+                      options={frameworks}
+                      validate
+                    />
+                  ))}
                 </div>
                 <div className="pt-4">
                   <Typography.h4 variant="primary100" className="mb-4">
