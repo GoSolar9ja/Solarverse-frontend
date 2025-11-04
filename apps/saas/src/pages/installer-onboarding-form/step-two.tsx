@@ -35,7 +35,7 @@ const InstallerOnboardingFormTwo = () => {
       ),
     }),
 
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       console.log("Form submitted:", values);
       // 🔹 Mock backend auth (replace with API call later)
       // const mockUser = {
@@ -48,17 +48,19 @@ const InstallerOnboardingFormTwo = () => {
 
       // Update context
 
-      resetForm();
-      navigate("/sign-in");
+      
+      navigate("/installer-form-three");
       // Redirect to dashboard (Protected route)
     },
   });
 
   const { handleSubmit } = formik;
+  const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
+    
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] h-[700px]  bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px]  h-fit p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto flex flex-col items-center h-screen  bg-[#F4F4F4]">
+      <div className="flex flex-col w-full gap-6  p-[40px] bg-[#FFFFFF]  max-w-[345px] md:!max-w-[1076px]  h-fit">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -81,7 +83,7 @@ const InstallerOnboardingFormTwo = () => {
             <div className="flex flex-col items-center ml-[14%] w-full h-fit max-w-[504px]">
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col">
-                <Typography.body1>
+                <Typography.body1 className="tracking-[1%] text-[#111214] ">
                   Upload CAC Certificate
                 </Typography.body1>
 
@@ -91,7 +93,7 @@ const InstallerOnboardingFormTwo = () => {
                       <>
                         <UploadField
                           containerProps={{
-                            className: "flex-1 w-full max-w-[232px] h-[61px]",
+                            className: "flex-1 w-full max-w-[282px] h-[61px]",
                           }}
                           showUploadList={false}
                           fieldProps={{
@@ -137,14 +139,14 @@ const InstallerOnboardingFormTwo = () => {
                     )}
                   </FieldArray>
                 </div>
-                <Typography.body1>
+                <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-5">
                 PNG, JPG, PDF Only
-                </Typography.body1>
+                </Typography.body2>
                 </div>
                 
                 <div className="flex flex-col">
-                  <Typography.body1>
-                    Upload Certifications/Licenses (optional)
+                  <Typography.body1 className="tracking-[1%] text-[#111214] ">
+                    Upload Certifications/Licenses <span className="text-[#5A5F61] font-[350px]">(optional)</span> 
                   </Typography.body1>
                   <div className="flex gap-5 w-full">
                     <FieldArray name="certifications">
@@ -152,7 +154,7 @@ const InstallerOnboardingFormTwo = () => {
                         <>
                           <UploadField
                             containerProps={{
-                              className: "flex-1 w-full max-w-[232px] h-[61px]",
+                              className: "flex-1 w-full max-w-[282px] h-[61px]",
                             }}
                             showUploadList={false}
                             fieldProps={{
@@ -176,7 +178,7 @@ const InstallerOnboardingFormTwo = () => {
                           <ComponentVisibility
                             visible={formik.values.certifications.length > 0}
                           >
-                            <div className="flex gap-5 ">
+                            <div className="flex gap-5  ">
                               {formik.values.certifications.map(
                                 (image, index) => (
                                   <div className="relative">
@@ -201,13 +203,13 @@ const InstallerOnboardingFormTwo = () => {
                       )}
                     </FieldArray>
                   </div>
-                  <Typography.body1>
+                  <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-5">
                   PNG, JPG, PDF Only
-                </Typography.body1>
+                </Typography.body2>
                 </div>
               </div>
               <Button.PrimarySolid
-                  className="w-full md:!self-end max-w-[290px] h-12 text-white mt-6"
+                  className="w-full  md:!ml-[48%] max-w-[290px] h-12 text-white mt-6"
                   type="submit"
                 >
                   Continue
