@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { InputField } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { InputField } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
-import { Typography } from "@solar-verse/ui";
+import { Typography } from "@solarverse/ui";
 
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { USER_TYPE } from "@/lib/constants";
 import IMAGE_PATHS from "@/assets/images";
-import { Image } from "@solar-verse/ui";
-import { Button } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
+import { Button } from "@solarverse/ui";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
@@ -29,14 +29,14 @@ export default function Signin() {
       console.log("Form submitted:", values);
 
       // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
-        email: values.email,
-        token: "fake-jwt-token",
-        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
-      };
+      // const mockUser = {
+      //   email: values.email,
+      //   token: "fake-jwt-token",
+        // profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
+      // };
 
-      login({ token: mockUser.token, userType: mockUser.profile });
-      // Save to localStorage
+      // login({ token: mockUser.token, userType: mockUser.profile });
+      // // Save to localStorage
 
       // Update context
 
