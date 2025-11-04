@@ -122,10 +122,10 @@ const InstallerOnboardingFormThree = () => {
                                 Project Location
                               </Typography.body1>
                               <InputField.primary
-                                className="w-full rounded-[10px] md:!max-w-[285px]"
+                              rounded={"full"}
+                                className="w-full md:!max-w-[285px]"
                                 name={`projects.${index}.projectLocation`}
                                 placeholder="Project Location"
-                                rounded="full"
                                 validate
                               />
                             </div>
