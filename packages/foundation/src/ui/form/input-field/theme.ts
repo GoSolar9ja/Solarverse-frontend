@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const inputTheme = cva(
-  "rounded-lg overflow-hidden relative text-xs md:text-base h-[44px] overflow-hidden transition-all duration-300  flex items-center ",
+  "overflow-hidden relative text-xs md:text-base h-[44px] overflow-hidden transition-all duration-300  flex items-center ",
   {
     variants: {
       variant: {
@@ -22,6 +22,7 @@ export const inputTheme = cva(
 
     defaultVariants: {
       variant: "primary",
+      rounded: "lg",
     },
   }
 );

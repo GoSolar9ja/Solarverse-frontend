@@ -124,11 +124,9 @@ const InstallerOnboardingFormThree = () => {
                               </Typography.body1>
                               <InputField.primary
                                 className="w-full rounded-[10px] md:!max-w-[285px]"
-                                name={`projects[${index}].projectLocation`}
+                                name={`projects.${index}.projectLocation`}
                                 placeholder="Project Location"
                                 rounded="full"
-                                value={project.projectLocation}
-                                onChange={formik.handleChange}
                                 validate
                               />
                             </div>
@@ -142,15 +140,9 @@ const InstallerOnboardingFormThree = () => {
                               </Typography.body1>
                               <MultiSelectInput.primary
                                 placeholder="Fan, Fridge, Oven"
-                                name={`projects[${index}].frameworks`}
+                                rounded={"full"}
+                                name={`projects.${index}.frameworks`}
                                 options={frameworks}
-                                value={formik.values.projects[index].frameworks}
-                                onChange={(selected) =>
-                                  formik.setFieldValue(
-                                    `projects[${index}].frameworks`,
-                                    selected
-                                  )
-                                }
                                 validate
                               />
                             </div>
@@ -171,7 +163,7 @@ const InstallerOnboardingFormThree = () => {
                                     }}
                                     showUploadList={false}
                                     fieldProps={{
-                                      name: `projects[${index}].images`,
+                                      name: `projects.${index}.images`,
                                       multiple: true,
                                       accept: "image/*",
                                       onChange: (e) => {
@@ -226,9 +218,7 @@ const InstallerOnboardingFormThree = () => {
                             </Typography.body1>
                             <TextAreaField.primary
                               className="w-full h-[90px]"
-                              name={`projects[${index}].caption`}
-                              value={project.caption}
-                              onChange={formik.handleChange}
+                              name={`projects.${index}.caption`}
                               placeholder="Write a caption"
                             />
                           </div>

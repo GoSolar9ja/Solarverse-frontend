@@ -16,6 +16,9 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: path.resolve()
+      },
       ecmaVersion: 2020,
       globals: globals.browser,
     },
