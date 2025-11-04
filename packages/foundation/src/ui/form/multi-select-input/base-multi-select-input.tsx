@@ -37,7 +37,7 @@ export function BaseMultiSelectInput({
         className={selectInputTheme({
           className: cn(
             "data-placeholder:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground   dark:hover:bg-input/50 flex  items-center  gap-2 px-5  disabled:cursor-not-allowed disabled:opacity-50  *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0  outline-none flex-wrap w-full",
-            value.length > 0 && "h-auto",
+            value.length > 0 && "h-auto py-2",
             className
           ),
           variant,
