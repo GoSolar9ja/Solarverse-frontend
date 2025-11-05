@@ -55,7 +55,7 @@ export default function Resetpassword() {
             />
           </div>
 
-          <div className="flex flex-col gap-[25px] ">
+          <div className="flex flex-col gap-[25px] w-full">
             <div className="flex flex-col gap-[12px] w-[276px] h-fit">
               <Typography.h2
                 className="tracking-[1%] text-[#111214]"
@@ -86,9 +86,8 @@ export default function Resetpassword() {
                 />
 
                 <Button.PrimarySolid
-                  className="w-full cursor-pointer mt-13 h-12 text-white"
+                  className="w-full cursor-pointer mt-7  text-white"
                   type="submit"
-                  size="md"
                 >
                   Reset
                 </Button.PrimarySolid>

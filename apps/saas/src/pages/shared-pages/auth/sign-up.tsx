@@ -118,7 +118,7 @@ export default function Signup() {
             </button>
 
             <p className="text-[18px] font-medium text-[#111214]">or</p>
-            <div className="flex flex-col gap-[25px] ">
+            <div className="flex flex-col gap-[25px] w-full">
               <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
                 <Typography.h2
                   className=" tracking-[1%] text-[#111214]"
@@ -132,7 +132,7 @@ export default function Signup() {
               </div>
 
               <FormikProvider value={formik}>
-                <Form onSubmit={handleSubmit} className="space-y-6 w-full">
+                <Form onSubmit={handleSubmit} className="space-y-4 w-full">
                   <InputField.primary
                     label="Email"
                     name="email"
@@ -150,29 +150,27 @@ export default function Signup() {
                     validate
                   />
 
-                  <Button.PrimarySolid
-                    className="w-full h-12  text-white "
-                    type="submit"
-                  >
+                  <Button.PrimarySolid className="w-full mt-6  " type="submit">
                     Continue
                   </Button.PrimarySolid>
                 </Form>
               </FormikProvider>
 
-              <h4 className="font-semibold mt-8 text-lg text-center">
+              <Typography.body1 weight={"medium"} className="text-center">
                 Already a user?{" "}
-                <Link to="/sign-in" className="text-primary font-semibold">
+                <Link to="/sign-in" className="text-primary ">
                   Login
                 </Link>
-              </h4>
+              </Typography.body1>
             </div>
           </div>
         </div>
 
         {/* Right side - image */}
-        <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
+        <div className="hidden lg:!block  w-full max-w-[875px] h-[1000px]">
           <Image
             containerClassName="w-full h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

@@ -1,5 +1,5 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import { Suspense } from "react";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { Suspense, useEffect } from "react";
 import GlobalProvider from "./lib/providers/global-provider";
 
 import AppRoutes from "./lib/routes";
@@ -13,13 +13,13 @@ const LoadingSpinner = () => (
 
 function App() {
   return (
-    <GlobalProvider>
-      <Router>
+    <Router>
+      <GlobalProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <AppRoutes />
         </Suspense>
-      </Router>
-    </GlobalProvider>
+      </GlobalProvider>
+    </Router>
   );
 }
 

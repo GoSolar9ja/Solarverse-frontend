@@ -122,7 +122,7 @@ const InstallerOnboardingFormThree = () => {
                                 Project Location
                               </Typography.body1>
                               <InputField.primary
-                              rounded={"full"}
+                                rounded={"full"}
                                 className="w-full md:!max-w-[285px]"
                                 name={`projects.${index}.projectLocation`}
                                 placeholder="Project Location"
@@ -260,7 +260,7 @@ const InstallerOnboardingFormThree = () => {
               </FieldArray>
 
               <Button.PrimarySolid
-                className="w-full max-w-[150px] self-center md:!ml-[50%]  md:!max-w-[290px] h-12 text-white mt-6"
+                className="w-full max-w-[150px] self-center mx-auto  md:!max-w-[290px] h-12 text-white mt-6"
                 type="submit"
               >
                 Continue
