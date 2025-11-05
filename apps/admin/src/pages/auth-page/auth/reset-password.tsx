@@ -4,11 +4,11 @@ import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Resetpassword() {
   const navigate = useNavigate();
@@ -16,15 +16,17 @@ export default function Resetpassword() {
 
   const formik = useFormik({
     initialValues: {
-      password: "",
+      currentPassword: "",
+      newPassword: "",
       confirmPassword: "",
     },
     validationSchema: createValidationSchema({
-      password: passwordValidation().required("Password is required"),
+      currentPassword: passwordValidation().required("Please enter current password"),
+      newPassword: passwordValidation().required("Please enter current password"),
       confirmPassword: matchFieldValidation({
-        fieldName: "password",
+        fieldName: "newPassword",
         errorMessages: { fieldMatchError: "Passwords do not match" },
-      }).required("Please confirm your password"),
+      }).required("Please confirm new password"),
     }),
     onSubmit: (values, { resetForm }) => {
       console.log("Form submitted:", values);
@@ -43,67 +45,65 @@ export default function Resetpassword() {
   const { handleSubmit } = formik;
 
   return (
-    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white h-fit">
-      <div className="flex flex-col md:!flex-row w-full max-w-6xl p-6 md:!p-10 gap-8 md:!gap-[93px]">
-        {/* Left side - form */}
-        <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px] mb-6">
-            <Image
-              src={IMAGE_PATHS.logoImg}
-              alt="App logo"
-              containerClassName="w-full"
-            />
-          </div>
-
-          <div className="flex flex-col gap-[25px] ">
-            <div className="flex flex-col gap-[12px] w-[276px] h-fit">
-              <Typography.h2
-                className="tracking-[1%] text-[#111214]"
-                weight={"bold"}
-              >
-                Reset Password
-              </Typography.h2>
-              <Typography.body1 className="font-normal tracking-[1.5%] text-[#5A5F61]">
-                Kindly enter and confirm your new password below.
-              </Typography.body1>
-            </div>
-
-            <FormikProvider value={formik}>
-              <Form onSubmit={handleSubmit} className="space-y-3 w-full ">
-                <PasswordField
-                  name="password"
-                  placeholder="Enter new password"
-                  rounded="full"
-                  className="w-full h-12"
-                  validate
-                />
-                <PasswordField
-                  name="confirmPassword"
-                  placeholder="Confirm new password"
-                  rounded="full"
-                  className="w-full h-12"
-                  validate
-                />
-
-                <Button.PrimarySolid
-                  className="w-full cursor-pointer mt-13 h-12 text-white"
-                  type="submit"
-                  size="md"
-                >
-                  Reset
-                </Button.PrimarySolid>
-              </Form>
-            </FormikProvider>
-          </div>
-        </div>
-
-        {/* Right side - image */}
-        <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
+    <div
+      className="w-full mx-auto flex items-center justify-center bg-[#FFFFFF] max-w-[1440px] p-6 h-screen md:!h-[942px] relative bg-cover bg-center"
+      style={{ backgroundImage: `url(${IMAGE_PATHS.adminLoginBackgroundImg})` }}
+    >
+      <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
+      <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 h-[620px] md:!h-[756px] max-w-[679px] p-6 rounded-[25px] md:!rounded-[50px] shadow-lg">
+        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 h-[320px] max-w-[628px]" >
+        <div className="w-fit">
           <Image
-            containerClassName="w-full h-[850px]"
-            src={IMAGE_PATHS.installerImg}
-            alt="installer-image"
+            src={IMAGE_PATHS.transparentLogoImg}
+            alt="App logo"
+            containerClassName="w-full max-w-[200px] h-[90px] sm:!h-[115px] sm:!max-w-[295px] object-contain"
           />
+        </div>
+  
+        <div className="flex items-center flex-col  w-[276px] h-fit">
+          <Typography.h2 className="tracking-[1%] text-[#111214]" weight={"bold"}>
+            Reset Password
+          </Typography.h2>
+          <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
+          Kindly fill in the information below to reset your password
+          </Typography.body1>
+        </div>
+  
+        <FormikProvider value={formik}>
+          <Form onSubmit={handleSubmit} className="space-y-6 w-full max-w-[294.5px]">
+          <PasswordField
+              label="Current Password"
+              name="currentPassword"
+              placeholder="Enter current password"
+              rounded="full"
+              className="w-full h-12"
+              validate
+            />
+            <PasswordField
+              label="New Password"
+              name="newPassword"
+              placeholder="Enter new password"
+              rounded="full"
+              className="w-full h-12"
+              validate
+            />
+            <PasswordField
+              label="Confirm Password"
+              name="confirmPassword"
+              placeholder="Confirm new password"
+              rounded="full"
+              className="w-full h-12"
+              validate
+            />
+  
+            <div className="flex flex-col items-center gap-6 pt-4 w-full">
+              <Button.PrimarySolid className="w-full h-12 text-white" type="submit">
+                Login
+              </Button.PrimarySolid>
+            </div>
+          </Form>
+        </FormikProvider>
+
         </div>
       </div>
       <Toaster />
