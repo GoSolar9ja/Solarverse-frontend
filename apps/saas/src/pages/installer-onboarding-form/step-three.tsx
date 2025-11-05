@@ -94,13 +94,12 @@ const InstallerOnboardingFormThree = () => {
               containerClassName="w-full max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
             />
           </div>
-          <Typography.body1
-            size={"h2"}
-            weight={"semibold"}
+          <Typography.h2
+            weight={"medium"}
             className="tracking-[1%] text-center text-[#5A5F61]"
           >
             Show Past Project
-          </Typography.body1>
+          </Typography.h2>
         </div>
 
         <FormikProvider value={formik}>
