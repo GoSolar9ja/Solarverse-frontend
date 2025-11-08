@@ -5,7 +5,7 @@ import {
 } from "@/lib/utils/local-storage";
 import axios from "axios";
 
-export const baseURL = "/";
+export const baseURL = "https://api.vsionai.store";
 
 const axiosInstance = axios.create({
   baseURL,
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       // Clear the token
-      removeFromLocalStorage("token");
+      removeFromLocalStorage(STORAGE_KEYS.GOSOLAR_TOKEN);
       // Redirect to login
     }
     return Promise.reject(error);

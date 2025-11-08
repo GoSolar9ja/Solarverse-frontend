@@ -89,6 +89,14 @@ const InstallerOnboardingForm = () => {
     }),
     onSubmit: (values, { resetForm }) => {
       console.log("Form submitted:", values);
+      console.group("Missing fields", [
+        "businessLogo",
+        "businessName",
+        "businessRegNum",
+        "businessLocation",
+        "Nin",
+        "Otp field",
+      ]);
       // 🔹 Mock backend auth (replace with API call later)
       // const mockUser = {
       //   token: "fake-jwt-token",
@@ -215,10 +223,10 @@ const InstallerOnboardingForm = () => {
                   <Typography.body1 className=" tracking-[1%]">
                     Business Logo{" "}
                   </Typography.body1>
+
                   <UploadField
                     fieldProps={{
                       name: "images",
-                      multiple: true,
                       accept: "image/*",
                       onChange: (e) => {
                         Array.from(e.target.files || []).map((item) => ({
@@ -235,12 +243,12 @@ const InstallerOnboardingForm = () => {
                     showUploadList={false}
                   >
                     {({ onClick }) => (
-                      <div onClick={onClick} className="h-[8 0px]">
+                      <div onClick={onClick} className="h-full">
                         <ComponentVisibility
                           visible={!!formik.values.images.length}
                         >
                           <Image
-                            containerClassName="h-[80px] w-full max-w-[200px]"
+                            containerClassName="h-full w-full max-w-[200px]"
                             className="rounded-full"
                             src={formik.values.images[0]?.url || ""}
                           />
@@ -259,6 +267,7 @@ const InstallerOnboardingForm = () => {
                       </div>
                     )}
                   </UploadField>
+
                   <Typography.body1 className=" tracking-[1%]">
                     PNG, JPG only{" "}
                   </Typography.body1>

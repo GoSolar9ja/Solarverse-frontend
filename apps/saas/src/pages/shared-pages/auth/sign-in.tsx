@@ -6,15 +6,17 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import { USER_TYPE } from "@/lib/constants";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
+import useLoginMutation from "@/lib/services/api/services/auth/login.api";
+import { toast } from "sonner";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
 
   const { login } = useAuthContext();
+  const { mutateAsync: loginMutation, isPending } = useLoginMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -25,24 +27,20 @@ export default function Signin() {
       email: emailValidation(),
       password: passwordValidation().required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-
-      // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
+    onSubmit: async (values) => {
+      // console.log("Form submitted:", values);
+      const req = loginMutation({
         email: values.email,
-        token: "fake-jwt-token",
-        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
-      };
+        password: values.password,
+      });
+      const res = await req;
+      const accessToken = res.data?.tokens.access;
+      // const refreshToken = res.data?.tokens.refresh;
 
-      login({ token: mockUser.token, userType: mockUser.profile });
-      // Save to localStorage
-
-      // Update context
-
-      resetForm();
-
-      // Redirect to dashboard (Protected route)
+      if (accessToken) {
+        login({ token: accessToken });
+        toast.success("Login successful");
+      }
     },
   });
 
@@ -141,6 +139,7 @@ export default function Signin() {
                     <Button.PrimarySolid
                       className="w-full  text-white "
                       type="submit"
+                      loading={isPending}
                     >
                       Log in
                     </Button.PrimarySolid>

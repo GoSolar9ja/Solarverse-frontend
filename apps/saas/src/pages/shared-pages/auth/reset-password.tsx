@@ -6,7 +6,6 @@ import { Typography } from "@solarverse/ui";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Toaster } from "@/components/common/sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 
@@ -106,7 +105,6 @@ export default function Resetpassword() {
           />
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { Typography } from "@solarverse/ui";
 import AppLink from "../navigation/app-nav-link";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
+import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 
 export const HomeOwnerDashboardLayout = () => {
   // const { profile } = useProfile();
@@ -37,7 +38,7 @@ export const HomeOwnerDashboardLayout = () => {
   ];
 
   const location = useLocation();
-
+  const { logout } = useAuthContext();
   const isActive = (path: string) => {
     return location.pathname.includes(path);
   };
@@ -99,6 +100,7 @@ export const HomeOwnerDashboardLayout = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-6">
+        <button onClick={logout}>Logout</button>
         {/* This is where child routes render */}
         <Outlet />
       </main>
