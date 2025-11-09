@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { USER_TYPE } from "../constants";
 import { routeManager } from "../utils";
 import { HomeOwnerDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
-import useGetProfileQuery from "../services/api/services/auth/get-profile.api";
+import useGetProfileQuery from "../services/api/auth/get-profile.api";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();

@@ -6,7 +6,7 @@ import {
   getFromLocalStorage,
   storeToLocalStorage,
 } from "@/lib/utils/local-storage";
-import axiosInstance from "@/lib/services/api/config/axios-instance";
+import axiosInstance from "@/lib/services/config/axios-instance";
 import type { AuthContextType } from "../types";
 import { STORAGE_KEYS, USER_TYPE } from "@/lib/constants";
 

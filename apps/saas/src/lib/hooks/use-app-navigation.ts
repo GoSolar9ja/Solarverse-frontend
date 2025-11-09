@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { routeManager } from "../utils";
-import useGetProfileQuery from "../services/api/services/auth/get-profile.api";
+import useGetProfileQuery from "../services/api/auth/get-profile.api";
 
 export default function useAppNavigation() {
   //TODO: Fetch Backend usertype and use here and take

@@ -9,7 +9,7 @@ import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
-import useLoginMutation from "@/lib/services/api/services/auth/login.api";
+import useLoginMutation from "@/lib/services/api/auth/login.api";
 import { toast } from "sonner";
 
 export default function Signin() {
