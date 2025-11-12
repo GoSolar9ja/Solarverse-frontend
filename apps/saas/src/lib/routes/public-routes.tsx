@@ -18,6 +18,7 @@ const publicRoutes: RouteObject[] = [
     path: "/",
     element: <PublicOutlet />,
     children: [
+      { element: <Signin />, index: true },
       { path: ROUTE_KEYS.SIGN_IN, element: <Signin /> },
       { path: ROUTE_KEYS.SIGN_UP, element: <Signup /> },
       { path: ROUTE_KEYS.FORGOT_PASSWORD, element: <Forgotpassword /> },
