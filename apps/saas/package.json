@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "dev:prod": "vite --mode production"
-
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
@@ -21,6 +20,9 @@
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "1",
     "@sanity/vision": "3",
+    "@solarverse/theme": "workspace:*",
+    "@solarverse/ui": "workspace:*",
+    "@solarverse/utils": "workspace:*",
     "@tailwindcss/vite": "^4.1.12",
     "@tanstack/react-query": "^5.84.2",
     "axios": "^1.11.0",
@@ -47,14 +49,11 @@
     "tailwindcss": "^4.1.12",
     "usehooks-ts": "^3.1.1",
     "yup": "^1.6.1",
-    "zod": "^4.0.10",
-    "@solarverse/ui": "workspace:*",
-    "@solarverse/utils": "workspace:*",
-    "@solarverse/theme": "workspace:*"
-
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/react-toastify": "^4.1.0",

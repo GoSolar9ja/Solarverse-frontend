@@ -115,7 +115,7 @@ const HomeOwnerOnboardingForm = () => {
         profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
       };
 
-      login({ token: mockUser.token, userType: mockUser.profile });
+      login({ token: mockUser.token });
       // Save to localStorage
 
       // Update context

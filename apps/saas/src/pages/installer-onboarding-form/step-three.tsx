@@ -68,7 +68,7 @@ const InstallerOnboardingFormThree = () => {
         profile: USER_TYPE.INSTALLER,
       };
 
-      login({ token: mockUser.token, userType: mockUser.profile });
+      login({ token: mockUser.token });
 
       resetForm();
       navigate("/instller-dashboard");

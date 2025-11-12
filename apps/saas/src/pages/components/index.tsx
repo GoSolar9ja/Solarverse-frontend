@@ -717,7 +717,7 @@ export default function Components() {
                   <Typography.h4 variant="primary100" className="mb-4">
                     Multi Select
                   </Typography.h4>
-                  {projectsFormik.values.projects.map((item, index) => (
+                  {projectsFormik.values.projects.map((_, index) => (
                     <MultiSelectInput.primary
                       name={`projects.${index}.frameworks`}
                       options={frameworks}

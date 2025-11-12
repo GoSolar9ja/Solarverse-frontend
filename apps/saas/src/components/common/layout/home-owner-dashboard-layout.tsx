@@ -50,7 +50,7 @@ export const HomeOwnerDashboardLayout = () => {
       <aside className="flex flex-col items-center gap-5 w-[275px] bg-[#0A6B9E] border-r-[0.66px] border-r-[#C1C6C5] rounded-[20px] p-4 min-h-screen">
         <div className="flex w-full p-[20px] max-w-[203px] h-[58px] gap-[5px] rounded-[10px] bg-[#FFFFFF] items-center justify-between">
           <Image
-            src={IMAGE_PATHS.logoImg}
+            src={IMAGE_PATHS.transparentLogoImg}
             alt="App logo"
             sizes=""
             containerClassName="w-full max-w-[47px] h-[30px]"

@@ -8,7 +8,7 @@ import {
 } from "@/lib/utils/local-storage";
 import axiosInstance from "@/lib/services/config/axios-instance";
 import type { AuthContextType } from "../types";
-import { STORAGE_KEYS, USER_TYPE } from "@/lib/constants";
+import { STORAGE_KEYS } from "@/lib/constants";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Retrieve token from browser local storage
