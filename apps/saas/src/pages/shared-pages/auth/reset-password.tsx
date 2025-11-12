@@ -6,7 +6,6 @@ import { Typography } from "@solarverse/ui";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Toaster } from "@/components/ui/sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 
@@ -47,15 +46,15 @@ export default function Resetpassword() {
       <div className="flex flex-col md:!flex-row w-full max-w-6xl p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px] mb-6">
+          <div className="w-fit md:!mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full"
+              containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
             />
           </div>
 
-          <div className="flex flex-col gap-[25px] ">
+          <div className="flex flex-col gap-[25px] w-full">
             <div className="flex flex-col gap-[12px] w-[276px] h-fit">
               <Typography.h2
                 className="tracking-[1%] text-[#111214]"
@@ -86,9 +85,8 @@ export default function Resetpassword() {
                 />
 
                 <Button.PrimarySolid
-                  className="w-full cursor-pointer mt-13 h-12 text-white"
+                  className="w-full cursor-pointer mt-7  text-white"
                   type="submit"
-                  size="md"
                 >
                   Reset
                 </Button.PrimarySolid>
@@ -100,13 +98,13 @@ export default function Resetpassword() {
         {/* Right side - image */}
         <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
           <Image
-            containerClassName="w-full h-[850px]"
+            containerClassName="w-full  h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />
         </div>
       </div>
-      <Toaster />
     </div>
   );
 }

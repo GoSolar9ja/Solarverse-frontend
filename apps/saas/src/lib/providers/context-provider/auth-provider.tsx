@@ -6,17 +6,17 @@ import {
   getFromLocalStorage,
   storeToLocalStorage,
 } from "@/lib/utils/local-storage";
-import axiosInstance from "@/lib/services/api/config/axios-instance";
+import axiosInstance from "@/lib/services/config/axios-instance";
 import type { AuthContextType } from "../types";
-import { STORAGE_KEYS, USER_TYPE } from "@/lib/constants";
+import { STORAGE_KEYS } from "@/lib/constants";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Retrieve token from browser local storage
   const retrievedTokenFromLS = getFromLocalStorage(STORAGE_KEYS.GOSOLAR_TOKEN);
 
-  const retrievedUserTypeFromLS = getFromLocalStorage(
-    STORAGE_KEYS.GOSOLAR_USER
-  );
+  // const retrievedUserTypeFromLS = getFromLocalStorage(
+  //   STORAGE_KEYS.GOSOLAR_USER
+  // );
 
   const queryClient = useQueryClient();
 
@@ -24,34 +24,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     AuthContextType["credentials"]
   >({
     token: retrievedTokenFromLS,
-    userType: retrievedUserTypeFromLS,
+    // userType: retrievedUserTypeFromLS,
   });
 
   useEffect(() => {
     if (retrievedTokenFromLS) {
       setCredentials({
         token: retrievedTokenFromLS,
-        userType: retrievedUserTypeFromLS,
       });
     }
   }, []);
 
-  const login = ({
-    token,
-    userType,
-  }: {
-    token: string;
-    userType: USER_TYPE;
-  }) => {
+  const login = ({ token }: { token: string }) => {
     storeToLocalStorage({ key: STORAGE_KEYS.GOSOLAR_TOKEN, value: token });
-    storeToLocalStorage({ key: STORAGE_KEYS.GOSOLAR_USER, value: userType });
-    setCredentials({ token, userType });
+    // storeToLocalStorage({ key: STORAGE_KEYS.GOSOLAR_USER, value: userType });
+    setCredentials({ token });
   };
 
   const logout = () => {
     clearLocalStorage();
     axiosInstance.defaults.headers.common["Authorization"] = "";
     queryClient.clear();
+    window.location.reload();
   };
 
   return (

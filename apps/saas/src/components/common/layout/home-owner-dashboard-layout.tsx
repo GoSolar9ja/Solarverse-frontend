@@ -9,6 +9,7 @@ import { Typography } from "@solarverse/ui";
 import AppLink from "../navigation/app-nav-link";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
+import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 
 export const HomeOwnerDashboardLayout = () => {
   // const { profile } = useProfile();
@@ -37,7 +38,7 @@ export const HomeOwnerDashboardLayout = () => {
   ];
 
   const location = useLocation();
-
+  const { logout } = useAuthContext();
   const isActive = (path: string) => {
     return location.pathname.includes(path);
   };
@@ -49,7 +50,7 @@ export const HomeOwnerDashboardLayout = () => {
       <aside className="flex flex-col items-center gap-5 w-[275px] bg-[#0A6B9E] border-r-[0.66px] border-r-[#C1C6C5] rounded-[20px] p-4 min-h-screen">
         <div className="flex w-full p-[20px] max-w-[203px] h-[58px] gap-[5px] rounded-[10px] bg-[#FFFFFF] items-center justify-between">
           <Image
-            src={IMAGE_PATHS.logoImg}
+            src={IMAGE_PATHS.transparentLogoImg}
             alt="App logo"
             sizes=""
             containerClassName="w-full max-w-[47px] h-[30px]"
@@ -99,6 +100,7 @@ export const HomeOwnerDashboardLayout = () => {
 
       {/* Main Content */}
       <main className="flex-1 p-6">
+        <button onClick={logout}>Logout</button>
         {/* This is where child routes render */}
         <Outlet />
       </main>

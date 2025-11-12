@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { USER_TYPE } from "../constants";
 import { routeManager } from "../utils";
 import { HomeOwnerDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
+import useGetProfileQuery from "../services/api/auth/get-profile.api";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
@@ -11,28 +12,28 @@ export function ProtectedOutlet() {
 
 export function PublicOutlet() {
   const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
+  const { data } = useGetProfileQuery();
 
-  const redirectUrl = routeManager(userType);
+  const redirectUrl = routeManager(data?.data?.user.role);
 
   return !credentials?.token ? <Outlet /> : <Navigate to={redirectUrl} />;
 }
 
 export function HomeOwnerProtectedOutlet() {
-  const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
+  const { data } = useGetProfileQuery();
+
+  const userType = data?.data?.user.role;
 
   return userType === USER_TYPE.HOME_OWNER ? (
     <HomeOwnerDashboardLayout />
-  
   ) : (
     <p>Opps Page not found</p>
   );
 }
 
 export function InstallerProtectedOutlet() {
-  const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
+  const { data } = useGetProfileQuery();
+  const userType = data?.data?.user.role;
   return userType === USER_TYPE.INSTALLER ? (
     <Outlet />
   ) : (

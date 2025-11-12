@@ -58,5 +58,5 @@ export const formatPhoneNumber = (phoneNumber: string) => {
 export const routeManager = (userType?: USER_TYPE) => {
   if (userType === USER_TYPE.HOME_OWNER) return "/home-owner";
   if (userType === USER_TYPE.INSTALLER) return "/installer";
-  return "";
+  return "/user-option";
 };

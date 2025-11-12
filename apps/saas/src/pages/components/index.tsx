@@ -3,6 +3,8 @@ import {
   Button,
   ComponentVisibility,
   Image,
+  MultiSelectInput,
+  TextAreaField,
   UploadField,
 } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
@@ -57,6 +59,10 @@ export default function Components() {
         1,
         "At least one image is required"
       ),
+      frameworks: listSelectionValidation().min(
+        1,
+        "Select at least one framework"
+      ),
       productList: Yup.array().of(
         createValidationSchema({
           name: fieldValidation().required("Product name is required"),
@@ -73,7 +79,27 @@ export default function Components() {
 
   const { handleSubmit } = formik;
 
-  console.log(formik.values.images);
+  const frameworks = [
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "angular", label: "Angular" },
+  ];
+
+  const projectsFormik = useFormik({
+    initialValues: {
+      projects: [
+        {
+          frameworks: [],
+        },
+        {
+          frameworks: [],
+        },
+      ],
+    },
+    onSubmit: (values) => {
+      console.log("Form submitted:", values);
+    },
+  });
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:!px-8">
@@ -481,6 +507,7 @@ export default function Components() {
                     leftIcon={<UserIcon className="w-5 h-5" />}
                     validate
                   />
+                  <MultiSelectInput.primary options={frameworks} label="heyy" />
                   <InputField.primary
                     label="Email Address"
                     name="email"
@@ -688,8 +715,22 @@ export default function Components() {
                 </UploadField> */}
                 <div className="pt-4">
                   <Typography.h4 variant="primary100" className="mb-4">
-                    Product List
+                    Multi Select
                   </Typography.h4>
+                  {projectsFormik.values.projects.map((_, index) => (
+                    <MultiSelectInput.primary
+                      name={`projects.${index}.frameworks`}
+                      options={frameworks}
+                      validate
+                    />
+                  ))}
+                </div>
+                <div className="pt-4">
+                  <Typography.h4 variant="primary100" className="mb-4">
+                    Text Area
+                  </Typography.h4>
+
+                  <TextAreaField.primary />
                 </div>
 
                 <div className="flex gap-4 pt-6">

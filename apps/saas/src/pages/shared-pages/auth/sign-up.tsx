@@ -76,11 +76,11 @@ export default function Signup() {
       <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px] mb-6">
+          <div className="w-full max-w-fit h-fit md:!h-fit  mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full"
+              containerClassName="w-full max-w-[100px] md:!max-w-[200px] h-fit"
             />
           </div>
 
@@ -94,7 +94,7 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.googleImg}
                 alt="google-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign up with Google
@@ -110,7 +110,7 @@ export default function Signup() {
               <Image
                 src={IMAGE_PATHS.facebookImg}
                 alt="facebook-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign up with Facebook
@@ -118,7 +118,7 @@ export default function Signup() {
             </button>
 
             <p className="text-[18px] font-medium text-[#111214]">or</p>
-            <div className="flex flex-col gap-[25px] ">
+            <div className="flex flex-col gap-[25px] w-full">
               <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
                 <Typography.h2
                   className=" tracking-[1%] text-[#111214]"
@@ -132,7 +132,7 @@ export default function Signup() {
               </div>
 
               <FormikProvider value={formik}>
-                <Form onSubmit={handleSubmit} className="space-y-6 w-full">
+                <Form onSubmit={handleSubmit} className="space-y-4 w-full">
                   <InputField.primary
                     label="Email"
                     name="email"
@@ -150,29 +150,27 @@ export default function Signup() {
                     validate
                   />
 
-                  <Button.PrimarySolid
-                    className="w-full h-12  text-white "
-                    type="submit"
-                  >
+                  <Button.PrimarySolid className="w-full mt-6  " type="submit">
                     Continue
                   </Button.PrimarySolid>
                 </Form>
               </FormikProvider>
 
-              <h4 className="font-semibold mt-8 text-lg text-center">
+              <Typography.body1 weight={"medium"} className="text-center">
                 Already a user?{" "}
-                <Link to="/sign-in" className="text-primary font-semibold">
+                <Link to="/sign-in" className="text-primary ">
                   Login
                 </Link>
-              </h4>
+              </Typography.body1>
             </div>
           </div>
         </div>
 
         {/* Right side - image */}
-        <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
+        <div className="hidden lg:!block  w-full max-w-[875px] h-[1000px]">
           <Image
             containerClassName="w-full h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

@@ -13,13 +13,13 @@ const LoadingSpinner = () => (
 
 function App() {
   return (
-    <GlobalProvider>
-      <Router>
+    <Router>
+      <GlobalProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <AppRoutes />
         </Suspense>
-      </Router>
-    </GlobalProvider>
+      </GlobalProvider>
+    </Router>
   );
 }
 

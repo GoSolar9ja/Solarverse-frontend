@@ -6,15 +6,17 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import { USER_TYPE } from "@/lib/constants";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
+import useLoginMutation from "@/lib/services/api/auth/login.api";
+import { toast } from "sonner";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
 
   const { login } = useAuthContext();
+  const { mutateAsync: loginMutation, isPending } = useLoginMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -25,24 +27,20 @@ export default function Signin() {
       email: emailValidation(),
       password: passwordValidation().required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-
-      // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
+    onSubmit: async (values) => {
+      // console.log("Form submitted:", values);
+      const req = loginMutation({
         email: values.email,
-        token: "fake-jwt-token",
-        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
-      };
+        password: values.password,
+      });
+      const res = await req;
+      const accessToken = res.data?.tokens.access;
+      // const refreshToken = res.data?.tokens.refresh;
 
-      login({ token: mockUser.token, userType: mockUser.profile });
-      // Save to localStorage
-
-      // Update context
-
-      resetForm();
-
-      // Redirect to dashboard (Protected route)
+      if (accessToken) {
+        login({ token: accessToken });
+        toast.success("Login successful");
+      }
     },
   });
 
@@ -60,13 +58,13 @@ export default function Signin() {
   };
 
   return (
-    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white h-fit">
+    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white">
       <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
           <div className=" mb-6">
             <Image
-              src={IMAGE_PATHS.logoImg}
+              src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
               containerClassName="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px]"
             />
@@ -82,7 +80,7 @@ export default function Signin() {
               <Image
                 src={IMAGE_PATHS.googleImg}
                 alt="google-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign in with Google
@@ -98,7 +96,7 @@ export default function Signin() {
               <Image
                 src={IMAGE_PATHS.facebookImg}
                 alt="facebook-logo"
-                containerClassName="w-5 h-5"
+                containerClassName="w-full max-w-[22px] h-fit"
               />
               <span className="text-lg font-normal text-[#111214]">
                 Sign in with Facebook
@@ -106,7 +104,7 @@ export default function Signin() {
             </button>
 
             <p className="text-[18px] font-medium text-[#111214]">or</p>
-            <div className="flex flex-col gap-[25px] ">
+            <div className="flex flex-col gap-[25px] w-full">
               <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
                 <Typography.h2
                   className=" tracking-[1%] text-[#111214]"
@@ -120,13 +118,13 @@ export default function Signin() {
               </div>
 
               <FormikProvider value={formik}>
-                <Form onSubmit={handleSubmit} className="space-y-6 w-full">
+                <Form onSubmit={handleSubmit} className="space-y-4 w-full ">
                   <InputField.primary
                     label="Email"
                     name="email"
                     placeholder="Enter your email"
                     rounded="full"
-                    className="w-full h-12"
+                    className="w-full "
                     validate
                   />
                   <PasswordField
@@ -134,41 +132,45 @@ export default function Signin() {
                     name="password"
                     placeholder="Enter your password"
                     rounded="full"
-                    className="w-full h-12"
+                    className="w-full "
                     validate
                   />
-
                   <div className="flex flex-col items-center gap-6 pt-4 w-full">
                     <Button.PrimarySolid
-                      className="w-full h-12 text-white "
+                      className="w-full  text-white "
                       type="submit"
+                      loading={isPending}
                     >
-                      Submit
+                      Log in
                     </Button.PrimarySolid>
-                    <Link
-                      to="/forgot-password"
-                      className="font-semibold text-[14px] md:!text-lg underline text-[#E49F13]"
-                    >
-                      Forgot password?
+                    <Link to="/forgot-password">
+                      <Typography.body1
+                        variant={"secondary"}
+                        className="underline"
+                        weight={"medium"}
+                      >
+                        Forgot password?
+                      </Typography.body1>
                     </Link>
                   </div>
                 </Form>
               </FormikProvider>
 
-              <h4 className="font-semibol inline-flex gap-2 mt-8 text-lg text-center">
+              <Typography.body1 className=" inline-flex mx-auto  gap-2  text-lg text-center">
                 Not yet a user?
                 <Link to="/sign-up" className="text-primary font-semibold">
                   Create an Account
                 </Link>
-              </h4>
+              </Typography.body1>
             </div>
           </div>
         </div>
 
         {/* Right side - image */}
-        <div className="hidden lg:!block w-full max-w-[875px] h-[1000px]">
+        <div className="hidden lg:block!  w-full max-w-[875px] h-[1000px]">
           <Image
             containerClassName="w-full h-[850px]"
+            className="rounded-[20px]"
             src={IMAGE_PATHS.installerImg}
             alt="installer-image"
           />

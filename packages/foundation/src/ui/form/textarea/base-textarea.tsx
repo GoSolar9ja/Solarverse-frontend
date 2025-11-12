@@ -1,7 +1,7 @@
 import React from "react";
 import { textareaTheme } from "./theme";
 import { VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 import { ComponentVisibility } from "../../visibility/component-visibility";
 
 export interface IBaseTextAreaProps

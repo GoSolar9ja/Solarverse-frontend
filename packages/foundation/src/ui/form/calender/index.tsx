@@ -45,17 +45,17 @@ function Calendar({
         ),
         month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
         nav: cn(
-          "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
+          "flex items-center gap-1 w-full text-white absolute top-0 inset-x-0 justify-between",
           defaultClassNames.nav
         ),
         button_previous: cn(
-          buttonTheme({ variant: "primarySolid" }),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none text-white",
+          // buttonTheme({ variant: "primarySolid" }),
+          "size-(--cell-size) aria-disabled:opacity-50  bg-primary items-center text-center select-none text-white",
           defaultClassNames.button_previous
         ),
         button_next: cn(
-          buttonTheme({ variant: "primarySolid" }),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none text-white",
+          // buttonTheme({ variant: "primarySolid" }),
+          "size-(--cell-size) aria-disabled:opacity-50 bg-primary items-center text-center select-none text-white",
           defaultClassNames.button_next
         ),
         month_caption: cn(
@@ -136,7 +136,7 @@ function Calendar({
           if (orientation === "left") {
             return (
               <ChevronLeftIcon
-                className={cn("size-4 ", className)}
+                className={cn("size-4 mx-auto", className)}
                 {...props}
               />
             );
@@ -145,7 +145,7 @@ function Calendar({
           if (orientation === "right") {
             return (
               <ChevronRightIcon
-                className={cn("size-4", className)}
+                className={cn("size-4 mx-auto", className)}
                 {...props}
               />
             );
