@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import GlobalProvider from "./lib/providers/global-provider";
 
 import AppRoutes from "./lib/routes";
+import PageProgressIndicator from "./components/common/page-progress-indicator";
 
 // Loading component
 const LoadingSpinner = () => (
@@ -16,6 +17,7 @@ function App() {
     <Router>
       <GlobalProvider>
         <Suspense fallback={<LoadingSpinner />}>
+          <PageProgressIndicator />
           <AppRoutes />
         </Suspense>
       </GlobalProvider>
