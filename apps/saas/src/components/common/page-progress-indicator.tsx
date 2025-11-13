@@ -42,7 +42,7 @@ export default function PageProgressIndicator() {
       initial={{ width: "0%" }}
       animate={{ width: `${progress}%` }}
       transition={{ ease: "easeInOut", duration: 0.3 }}
-      className="fixed top-0 left-0 h-[3px] bg-red-500 z-[9999]"
+      className="fixed top-0 left-0 h-[3px] bg-red-500 z-9999"
     />
   );
 }
