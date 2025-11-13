@@ -10,7 +10,7 @@ export default function PageProgressIndicator() {
     let interval: ReturnType<typeof setInterval> | null = null;
 
     // Start progress on route change
-    setProgress(0);
+    setProgress(20);
 
     interval = setInterval(() => {
       setProgress((prev) => {
