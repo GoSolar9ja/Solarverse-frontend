@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getFromLocalStorage } from "../utils/local-storage";
 import { STORAGE_KEYS } from "../constants";
 import { errorToast } from "@solarverse/ui";
+import { AxiosError } from "axios";
 
 const useAxiosInterceptor = () => {
   const { logout } = useAuthContext() || {};
@@ -13,6 +14,7 @@ const useAxiosInterceptor = () => {
     const interceptor = axiosInstance.interceptors.response.use(
       (response) => response,
       async (error) => {
+        // Logout user if token is expired
         if (error.response?.status === 401) {
           const token = getFromLocalStorage(STORAGE_KEYS.GOSOLAR_TOKEN);
           if (token) {
@@ -20,10 +22,15 @@ const useAxiosInterceptor = () => {
             console.log("Log User out");
           }
         }
+
         if (error.response?.status !== 200) {
           console.log("interceptor", error.response?.data);
-          if (error.code === "ERR_NETWORK")
+
+          // Handle Nework error
+          if (error.code === AxiosError.ERR_NETWORK)
             return errorToast("There's a network error");
+
+          // Handle api error
           const errorMessage =
             error.response?.data.message ||
             error.response?.data.data?.message ||
