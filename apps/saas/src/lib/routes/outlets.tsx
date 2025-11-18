@@ -4,26 +4,40 @@ import { USER_TYPE } from "../constants";
 import { routeManager } from "../utils";
 import { HomeOwnerDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
 import useGetProfileQuery from "../services/api/auth/get-profile.api";
+import { ROUTE_KEYS } from "./routes-keys";
+import { ComponentVisibility } from "@solarverse/ui";
+import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
-  return credentials?.token ? <Outlet /> : <Navigate to={"/sign-in"} />;
+  return credentials?.token ? <Outlet /> : <Navigate to={ROUTE_KEYS.SIGN_IN} />;
 }
 
 export function PublicOutlet() {
   const { credentials } = useAuthContext();
-  const { data } = useGetProfileQuery();
+  const { data, isPending } = useGetProfileQuery();
 
   const redirectUrl = routeManager(data?.data?.user.role);
-
-  return !credentials?.token ? <Outlet /> : <Navigate to={redirectUrl} />;
+  return !credentials?.token ? (
+    <Outlet />
+  ) : (
+    <>
+      <ComponentVisibility visible={isPending}>
+        <ActivityStateTemplate>Loading</ActivityStateTemplate>{" "}
+      </ComponentVisibility>
+      <ComponentVisibility visible={!isPending}>
+        <Navigate to={redirectUrl} />
+      </ComponentVisibility>
+    </>
+  );
 }
 
 export function HomeOwnerProtectedOutlet() {
-  const { data } = useGetProfileQuery();
+  const { data, isPending } = useGetProfileQuery();
 
   const userType = data?.data?.user.role;
 
+  if (isPending) return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
   return userType === USER_TYPE.HOME_OWNER ? (
     <HomeOwnerDashboardLayout />
   ) : (
@@ -32,8 +46,9 @@ export function HomeOwnerProtectedOutlet() {
 }
 
 export function InstallerProtectedOutlet() {
-  const { data } = useGetProfileQuery();
+  const { data, isPending } = useGetProfileQuery();
   const userType = data?.data?.user.role;
+  if (isPending) return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
   return userType === USER_TYPE.INSTALLER ? (
     <Outlet />
   ) : (

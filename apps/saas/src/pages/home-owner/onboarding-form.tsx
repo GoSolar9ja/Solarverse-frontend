@@ -8,74 +8,20 @@ import { Typography } from "@solarverse/ui";
 
 import { Checkbox } from "@solarverse/ui";
 import { useState } from "react";
-import { useRef } from "react";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
-import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
+import BirthdayPicker from "@/components/common/birthday-picker";
+import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api";
 import { USER_TYPE } from "@/lib/constants";
-
-interface BirthdayPickerProps {
-  value: string;
-  onChange: (date: string) => void;
-}
-
-const BirthdayPicker: React.FC<BirthdayPickerProps> = ({ value, onChange }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const openDatePicker = () => {
-    if (inputRef.current) {
-      // Try modern way first
-      inputRef.current.showPicker?.();
-      // Fallback
-      inputRef.current.click();
-    }
-  };
-
-  const date = value ? new Date(value) : null;
-
-  return (
-    <div className="flex gap-2">
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.getDate() : "Day"}
-      </div>
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.toLocaleString("default", { month: "short" }) : "Month"}
-      </div>
-      <div
-        className="rounded-full shadow-sm h-[59px] w-full max-w-[72px] text-center p-[15px] tracking-[1.5%] bg-[#F5F5F5]"
-        onClick={openDatePicker}
-      >
-        {date ? date.getFullYear() : "Year"}
-      </div>
-
-      {/* Hidden input that triggers calendar */}
-      <input
-        ref={inputRef}
-        type="date"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="hidden"
-      />
-    </div>
-  );
-};
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 const HomeOwnerOnboardingForm = () => {
-  const { login } = useAuthContext();
-
-  const {
-    fieldValidation,
-    phoneNumberValidation,
-    booleanValidation,
-    emailValidation,
-  } = schemaValidation;
-  // const navigate = useNavigate();
+  const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
+  const { fieldValidation, phoneNumberValidation, booleanValidation } =
+    schemaValidation;
+  const navigate = useNavigate();
 
   const [generatedOtp, setGeneratedOtp] = useState("");
 
@@ -85,7 +31,7 @@ const HomeOwnerOnboardingForm = () => {
       lastName: "",
       email: "",
       gender: "",
-      birthday: "",
+      birthday: undefined as Date | undefined,
       phone: "",
       otp: "",
       acceptTerms: false,
@@ -93,7 +39,6 @@ const HomeOwnerOnboardingForm = () => {
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
       lastName: fieldValidation().required("Last name is required"),
-      email: emailValidation(),
       gender: fieldValidation().required("Gender is required"),
       birthday: fieldValidation().required("Birthday is required"),
       phone: phoneNumberValidation().required("Phone number is required"),
@@ -106,23 +51,19 @@ const HomeOwnerOnboardingForm = () => {
 
       acceptTerms: booleanValidation().required("You must accept terms"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-      // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
-        email: values.email,
-        token: "fake-jwt-token",
-        profile: USER_TYPE.HOME_OWNER, // or "home" — this would normally come from backend
-      };
+    onSubmit: async (values) => {
+      const { birthday, firstName, gender, lastName, phone } = values;
 
-      login({ token: mockUser.token });
-      // Save to localStorage
-
-      // Update context
-
-      resetForm();
-
-      // Redirect to dashboard (Protected route)
+      const dob = format(birthday || "", "yyyy-MM-dd");
+      await updateProfile({
+        dob,
+        firstName,
+        lastName,
+        gender,
+        mobile: phone,
+        role: USER_TYPE.HOME_OWNER,
+      });
+      navigate(ROUTE_KEYS.HOME_OWNER_ROOT);
     },
   });
 
@@ -168,8 +109,6 @@ const HomeOwnerOnboardingForm = () => {
                     name="firstName"
                     placeholder="Enter first name"
                     rounded="full"
-                    value={formik.values.firstName} // 👈 add
-                    onChange={formik.handleChange}
                     validate
                   />
                   <InputField.primary
@@ -179,6 +118,7 @@ const HomeOwnerOnboardingForm = () => {
                     rounded="full"
                     className="w-full h-12"
                     validate
+                    disabled
                   />
                 </div>
 
@@ -188,8 +128,6 @@ const HomeOwnerOnboardingForm = () => {
                     name="lastName"
                     placeholder="Enter last name"
                     rounded="full"
-                    value={formik.values.lastName}
-                    onChange={formik.handleChange}
                     validate
                   />
                   <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
@@ -199,9 +137,9 @@ const HomeOwnerOnboardingForm = () => {
                     {/* Male */}
                     <button
                       type="button"
-                      onClick={() => formik.setFieldValue("gender", "male")}
+                      onClick={() => formik.setFieldValue("gender", "M")}
                       className={`flex items-center gap-4 w-full px-6 py-3 rounded-full justify-center ${
-                        formik.values.gender === "male"
+                        formik.values.gender === "M"
                           ? "bg-[#FFFFFF] drop-shadow"
                           : "bg-gray-100/50 border border-[#C1C6C5]"
                       }`}
@@ -219,9 +157,9 @@ const HomeOwnerOnboardingForm = () => {
                     {/* Female */}
                     <button
                       type="button"
-                      onClick={() => formik.setFieldValue("gender", "female")}
+                      onClick={() => formik.setFieldValue("gender", "F")}
                       className={`flex items-center gap-4 w-full  px-6  py-3 rounded-full justify-center ${
-                        formik.values.gender === "female"
+                        formik.values.gender === "F"
                           ? "bg-[#FFFFFF] drop-shadow"
                           : "bg-gray-100/50 border border-[#C1C6C5]"
                       }`}
@@ -266,8 +204,6 @@ const HomeOwnerOnboardingForm = () => {
                       className="w-full max-w-[294.5px] h-[50px]"
                       placeholder="Enter phone number"
                       rounded="full"
-                      value={formik.values.phone}
-                      onChange={formik.handleChange}
                       validate
                     />
                     <InputField.primary
@@ -275,8 +211,6 @@ const HomeOwnerOnboardingForm = () => {
                       className="w-full max-w-[294.5px] h-[50px] mt-9"
                       placeholder="Enter OTP"
                       rounded="full"
-                      value={formik.values.otp}
-                      onChange={formik.handleChange}
                       maxLength={6}
                       validate
                     />
@@ -303,6 +237,8 @@ const HomeOwnerOnboardingForm = () => {
                 <Button.PrimarySolid
                   className="w-full md:!self-end max-w-[290px] h-12 text-white mt-6"
                   type="submit"
+                  disabled={!formik.values.acceptTerms}
+                  loading={isPending}
                 >
                   Submit
                 </Button.PrimarySolid>

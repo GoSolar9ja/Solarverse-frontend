@@ -24,7 +24,8 @@ const useAxiosInterceptor = () => {
           const errorMessage =
             error.response?.data.message ||
             error.response?.data.data?.message ||
-            error.response?.data?.detail;
+            error.response?.data?.detail ||
+            "Opps an error occured";
           if (errorMessage) {
             toast.error(errorMessage);
           }

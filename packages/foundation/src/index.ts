@@ -34,6 +34,9 @@ export * from "./ui/media/image";
 // Overlay Components
 export * from "./ui/overlay/popover";
 
+//Spinners
+export * from "./ui/spinners/activity-spinner";
+
 // Typography Components
 export * from "./ui/typograhy";
 
