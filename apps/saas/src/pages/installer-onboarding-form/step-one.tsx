@@ -1,11 +1,6 @@
 // import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  ComponentVisibility,
-  DatePicker,
-  UploadField,
-} from "@solarverse/ui";
+import { Button, ComponentVisibility, UploadField } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { useNavigate } from "react-router-dom";
 import {

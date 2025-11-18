@@ -1,6 +1,6 @@
 import IMAGE_PATHS from "@/assets/images";
-import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button } from "@solarverse/ui";
+import { Link } from "react-router-dom";
+import { Button } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
