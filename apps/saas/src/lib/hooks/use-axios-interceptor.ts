@@ -4,6 +4,7 @@ import axiosInstance from "../services/config/axios-instance";
 import { useEffect } from "react";
 import { getFromLocalStorage } from "../utils/local-storage";
 import { STORAGE_KEYS } from "../constants";
+import { errorToast } from "@solarverse/ui";
 
 const useAxiosInterceptor = () => {
   const { logout } = useAuthContext() || {};
@@ -21,6 +22,8 @@ const useAxiosInterceptor = () => {
         }
         if (error.response?.status !== 200) {
           console.log("interceptor", error.response?.data);
+          if (error.code === "ERR_NETWORK")
+            return errorToast("There's a network error");
           const errorMessage =
             error.response?.data.message ||
             error.response?.data.data?.message ||
