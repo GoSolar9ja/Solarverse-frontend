@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { InputField } from "@solarverse/ui";
+import { Link, useNavigate } from "react-router-dom";
+import { InputField, successToast } from "@solarverse/ui";
 import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
@@ -11,10 +11,11 @@ import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
 import useLoginMutation from "@/lib/services/api/auth/login.api";
 import { toast } from "sonner";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
-
+  const navigate = useNavigate();
   const { login } = useAuthContext();
   const { mutateAsync: loginMutation, isPending } = useLoginMutation();
 
@@ -39,7 +40,7 @@ export default function Signin() {
 
       if (accessToken) {
         login({ token: accessToken });
-        toast.success("Login successful");
+        successToast("Login successful");
       }
     },
   });
@@ -48,7 +49,7 @@ export default function Signin() {
 
   // Handlers for social login (replace with backend/OAuth integration later)
   const handleGoogleLogin = () => {
-    console.log("Google login clicked");
+    navigate(ROUTE_KEYS.GOOGLE_SIGN_IN);
     // e.g. window.location.href = "/api/auth/google";
   };
 

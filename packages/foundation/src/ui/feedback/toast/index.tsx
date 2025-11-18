@@ -37,6 +37,7 @@ export const errorToast = (
   const { description, ...rest } = data || {};
   toast.error(message, {
     description,
+
     ...rest,
   });
 };
@@ -47,6 +48,8 @@ export const warningToast = (
   const { description, ...rest } = data || {};
   toast.warning(message, {
     description,
+    className: "bg-warning",
+
     ...rest,
   });
 };

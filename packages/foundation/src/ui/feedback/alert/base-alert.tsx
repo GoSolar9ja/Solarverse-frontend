@@ -25,11 +25,13 @@ const baseAlertVariants = cva(
 function BaseAlert({
   className,
   variant,
+  vanish = false,
   ...props
 }: React.ComponentProps<typeof motion.div> &
-  VariantProps<typeof baseAlertVariants>) {
+  VariantProps<typeof baseAlertVariants> & { vanish?: boolean }) {
   const [isOpen, setIsOpen] = React.useState(true);
   React.useEffect(() => {
+    if (!vanish) return;
     setTimeout(() => {
       setIsOpen(false);
     }, 5000);

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Toaster, successToast } from "./index";
+import { Toaster, errorToast, successToast } from "./index";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -19,12 +19,23 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Component: Story = {
+export const SuccessToast: Story = {
   args: {},
   render: () => (
     <div>
-      <Toaster />
+      <Toaster richColors />
       <button onClick={() => successToast("Event has been created")}>
+        Show Toast
+      </button>
+    </div>
+  ),
+};
+export const ErrorToast: Story = {
+  args: {},
+  render: () => (
+    <div>
+      <Toaster richColors />
+      <button onClick={() => errorToast("Event has been created")}>
         Show Toast
       </button>
     </div>

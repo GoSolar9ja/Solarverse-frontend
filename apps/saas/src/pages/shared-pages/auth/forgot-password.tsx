@@ -1,18 +1,18 @@
-import { useState } from "react";
 import IMAGE_PATHS from "@/assets/images";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@solarverse/ui";
+import { Link } from "react-router-dom";
+import { Button, successToast } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { Image } from "@solarverse/ui";
+import useRequestPasswordResetMutation from "@/lib/services/api/auth/request-password-reset.api";
 
 export default function Forgotpassword() {
   const { emailValidation } = schemaValidation;
-  const [showToast, setShowToast] = useState(false);
-  const navigate = useNavigate();
+  const { mutateAsync: requestPasswordReset, isPending } =
+    useRequestPasswordResetMutation();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -20,19 +20,10 @@ export default function Forgotpassword() {
     validationSchema: createValidationSchema({
       email: emailValidation(),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       console.log("Form submitted:", values);
-
-      // Show toast
-      setShowToast(true);
-
-      // Auto-hide toast after 3 seconds
-      setTimeout(() => {
-        setShowToast(false);
-        // redirect to reset-confirm page
-        navigate("/reset-password");
-      }, 5000);
-
+      await requestPasswordReset(values);
+      successToast("Password reset link sent to your email");
       resetForm();
     },
   });
@@ -42,19 +33,6 @@ export default function Forgotpassword() {
   return (
     <div className="w-full mx-auto flex flex-col justify-center items-center bg-white h-fit">
       {/* Toast Notification */}
-      <div
-        className={`flex w-full max-w-[294px] h-[40px] md:!max-w-[383px] p-[15px] rounded-[10px] mt-[10px] border bg-[#45E26F]/12 border-[#45E26F] justify-center items-center lg:!ml-[180px]
-        transition-all duration-700 ease-in-out
-        ${showToast ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5 pointer-events-none"}
-        `}
-      >
-        <Typography.body1
-          weight={"medium"}
-          className="tracking-[1.5%] text-[#000000]"
-        >
-          Password reset link sent to your mail
-        </Typography.body1>
-      </div>
 
       <div className="flex  flex-col md:!flex-row w-full max-w-6xl p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
@@ -69,7 +47,11 @@ export default function Forgotpassword() {
           <div>
             <Link to="/sign-in">
               <button className="bg-[#F5F5F5] mb-7 rounded-[5px] border border-[#C1C6C5]/50 flex items-center justify-center w-full md:!h-[64px] max-w-[100px] h-[44px] p-[20px] cursor-pointer gap-4 md:!max-w-[143px]">
-                <Image src={IMAGE_PATHS.arrrowBackImg} alt="back arrow icon" containerClassName="w-full max-w-[20px] object-contain" />
+                <Image
+                  src={IMAGE_PATHS.arrrowBackImg}
+                  alt="back arrow icon"
+                  containerClassName="w-full max-w-[20px] object-contain"
+                />
                 <Typography.body1
                   weight={"medium"}
                   className="tracking-[1.5%] text-[#111214]"
@@ -110,6 +92,7 @@ export default function Forgotpassword() {
                   <Button.PrimarySolid
                     className="w-full h-12 font-semibold text-white "
                     type="submit"
+                    loading={isPending}
                   >
                     Reset
                   </Button.PrimarySolid>

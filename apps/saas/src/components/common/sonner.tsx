@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { Toaster as Sonner } from "sonner"
+import { Toaster } from "@solarverse/ui";
 
-export function Toaster() {
-  return <Sonner richColors position="top-right" />
+export function ToasterProvider() {
+  return <Toaster richColors position="top-right" />;
 }

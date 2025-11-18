@@ -8,9 +8,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
+import useQueryParams from "@/lib/hooks/use-query-params";
+import useResetPasswordMutation from "@/lib/services/api/auth/reset-password.api";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 export default function Resetpassword() {
+  const { getParam } = useQueryParams();
+  const token = getParam("token") || "";
   const navigate = useNavigate();
+  const { mutateAsync: resetPassword, isPending } = useResetPasswordMutation();
   const { passwordValidation, matchFieldValidation } = schemaValidation;
 
   const formik = useFormik({
@@ -25,17 +31,11 @@ export default function Resetpassword() {
         errorMessages: { fieldMatchError: "Passwords do not match" },
       }).required("Please confirm your password"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-
+    onSubmit: async (values) => {
+      await resetPassword({ token, newPassword: values.confirmPassword });
       toast.success("Password reset successful!");
-
-      resetForm();
-
+      navigate(ROUTE_KEYS.SIGN_IN);
       // Redirect after toast
-      setTimeout(() => {
-        navigate("/sign-in");
-      }, 5000);
     },
   });
 
@@ -87,6 +87,7 @@ export default function Resetpassword() {
                 <Button.PrimarySolid
                   className="w-full cursor-pointer mt-7  text-white"
                   type="submit"
+                  loading={isPending}
                 >
                   Reset
                 </Button.PrimarySolid>

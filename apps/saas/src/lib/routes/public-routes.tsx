@@ -12,6 +12,9 @@ const Components = lazy(() => import("@/pages/components"));
 const Resetpassword = lazy(
   () => import("@/pages/shared-pages/auth/reset-password")
 );
+const GoogleSignIn = lazy(
+  () => import("@/pages/shared-pages/auth/google-sign-in")
+);
 
 const publicRoutes: RouteObject[] = [
   {
@@ -20,6 +23,7 @@ const publicRoutes: RouteObject[] = [
     children: [
       { element: <Signin />, index: true },
       { path: ROUTE_KEYS.SIGN_IN, element: <Signin /> },
+      { path: ROUTE_KEYS.GOOGLE_SIGN_IN, element: <GoogleSignIn /> },
       { path: ROUTE_KEYS.SIGN_UP, element: <Signup /> },
       { path: ROUTE_KEYS.FORGOT_PASSWORD, element: <Forgotpassword /> },
       { path: ROUTE_KEYS.COMPONENTS, element: <Components /> },
