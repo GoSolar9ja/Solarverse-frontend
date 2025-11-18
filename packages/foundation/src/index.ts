@@ -8,7 +8,7 @@ export * from "./ui/data-display/ratings";
 
 // Feedback Components
 export * from "./ui/feedback/toast";
-
+export * from "./ui/feedback/alert";
 // Form Components
 export * from "./ui/form/button";
 export * from "./ui/form/calender";

@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
-import { Toaster as Sonner, toast, ToasterProps } from "sonner";
+import { ExternalToast, Toaster as Sonner, toast, ToasterProps } from "sonner";
 
-const Toaster = ({ ...props }: ToasterProps) => {
+export const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme();
 
   return (
@@ -20,14 +20,33 @@ const Toaster = ({ ...props }: ToasterProps) => {
   );
 };
 
-export const successToast = (message: string) => {
-  toast("Event has been created", {
-    description: "Sunday, December 03, 2023 at 9:00 AM",
-    action: {
-      label: "Undo",
-      onClick: () => console.log("Undo"),
-    },
+export const successToast = (
+  message: string | React.ReactNode,
+  data?: ExternalToast
+) => {
+  const { description, ...rest } = data || {};
+  toast.success(message, {
+    description,
+    ...rest,
   });
 };
-
-export { Toaster };
+export const errorToast = (
+  message: string | React.ReactNode,
+  data?: ExternalToast
+) => {
+  const { description, ...rest } = data || {};
+  toast.error(message, {
+    description,
+    ...rest,
+  });
+};
+export const warningToast = (
+  message: string | React.ReactNode,
+  data?: ExternalToast
+) => {
+  const { description, ...rest } = data || {};
+  toast.warning(message, {
+    description,
+    ...rest,
+  });
+};

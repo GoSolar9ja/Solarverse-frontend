@@ -1,20 +1,20 @@
 import IMAGE_PATHS from "@/assets/images";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@solarverse/ui";
+import { Alert, Button } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
-import { useState } from "react";
-import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import { Image } from "@solarverse/ui";
+import useRegisterMutation from "@/lib/services/api/auth/register.api";
+import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 
 export default function Signup() {
   const { passwordValidation, emailValidation } = schemaValidation;
-  const [showToast, setShowToast] = useState(false);
-  const navigate = useNavigate();
+  const { mutateAsync: registerMutation, isPending } = useRegisterMutation();
+  const { login } = useAuthContext();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,19 +24,11 @@ export default function Signup() {
       email: emailValidation(),
       password: passwordValidation().required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values) => {
       console.log("Form submitted:", values);
-      // Show toast
-      setShowToast(true);
-
-      // Auto-hide toast after 3 seconds
-      setTimeout(() => {
-        setShowToast(false);
-        // redirect to reset-confirm page
-        navigate(ROUTE_KEYS.USER_OPTION);
-      }, 5000);
-
-      resetForm();
+      const req = await registerMutation(values);
+      const token = req.data?.tokens.access;
+      if (token) login({ token: token });
     },
   });
 
@@ -56,23 +48,6 @@ export default function Signup() {
   return (
     <div className="w-full mx-auto flex flex-col justify-center items-center bg-white h-fit">
       {/* Toast Notification */}
-      <div
-        className={`flex w-full max-w-[294px] h-[40px] md:!max-w-[383px] p-[15px] rounded-[10px] mt-[10px] border bg-[#45E26F]/12 border-[#45E26F] justify-center items-center lg:!ml-[180px]
-        transition-all duration-700 ease-in-out
-        ${
-          showToast
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-5 pointer-events-none"
-        }
-        `}
-      >
-        <Typography.body1
-          weight={"medium"}
-          className="tracking-[1.5%] text-[#000000]"
-        >
-          A verification link has been sent to your email
-        </Typography.body1>
-      </div>
       <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
@@ -150,7 +125,11 @@ export default function Signup() {
                     validate
                   />
 
-                  <Button.PrimarySolid className="w-full mt-6  " type="submit">
+                  <Button.PrimarySolid
+                    loading={isPending}
+                    className="w-full mt-6  "
+                    type="submit"
+                  >
                     Continue
                   </Button.PrimarySolid>
                 </Form>
