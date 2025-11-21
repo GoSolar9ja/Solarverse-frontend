@@ -1,13 +1,13 @@
 import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button } from "@solarverse/ui";
+import { Button, ErrorMessage } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { Checkbox } from "@solarverse/ui";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import BirthdayPicker from "@/components/common/birthday-picker";
@@ -16,15 +16,26 @@ import { USER_TYPE } from "@/lib/constants";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import useGetProfileQuery from "@/lib/services/api/auth/get-profile.api";
+
+import useRequestOtpMutation from "@/lib/services/api/auth/request-otp.api";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import useVerifyOtpMutation from "@/lib/services/api/auth/verify-otp.api";
 
 const HomeOwnerOnboardingForm = () => {
-  const { mutateAsync: updateProfile, isPending } = useUpdateProfileMutation();
+  const { data } = useGetProfileQuery();
+  const profile = data?.data;
+  const { mutateAsync: updateProfile, isPending: isUpdatingProfile } =
+    useUpdateProfileMutation();
   const { fieldValidation, phoneNumberValidation, booleanValidation } =
     schemaValidation;
   const navigate = useNavigate();
 
-  const [generatedOtp, setGeneratedOtp] = useState("");
-
+  const { mutateAsync: requestOtpMutation, isPending: isRequestingOtp } =
+    useRequestOtpMutation();
+  const { mutateAsync: verifyOtpMutation, isPending: isVerifyingOtp } =
+    useVerifyOtpMutation();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -44,49 +55,74 @@ const HomeOwnerOnboardingForm = () => {
       phone: phoneNumberValidation().required("Phone number is required"),
       otp: Yup.string()
         .length(6, "OTP must be 6 digits")
-        .required("Click on Verify to generate OTP")
-        .test("match-otp", "Invalid OTP", function (value) {
-          return value === generatedOtp; // use  generatedOtp for validation
-        }),
-
+        .required("Click on Verify to generate OTP"),
       acceptTerms: booleanValidation().required("You must accept terms"),
     }),
     onSubmit: async (values) => {
       const { birthday, firstName, gender, lastName, phone } = values;
 
+      const formattedPhone = phone.replace("0", "234");
       const dob = format(birthday || "", "yyyy-MM-dd");
-      await updateProfile({
-        dob,
-        firstName,
-        lastName,
-        gender,
-        mobile: phone,
-        role: USER_TYPE.HOME_OWNER,
+
+      await verifyOtpMutation({
+        mobile: formattedPhone,
+        otp: values.otp,
       });
-      navigate(ROUTE_KEYS.HOME_OWNER_ROOT);
+
+      await updateProfile(
+        {
+          dob,
+          firstName,
+          lastName,
+          gender,
+          mobile: formattedPhone,
+          role: USER_TYPE.HOME_OWNER,
+        },
+        {
+          onSuccess() {
+            navigate(ROUTE_KEYS.HOME_OWNER_ROOT);
+          },
+        }
+      );
     },
   });
 
   const { handleSubmit } = formik;
 
-  // ✅ Generate OTP
-  const handleGenerateOtp = () => {
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(otp); // store OTP in state
-    formik.setFieldValue("otp", ""); // reset input
-    console.log("Generated OTP:", otp);
-    alert(`Your OTP is: ${otp}`); // simulate sending OTP
+  const handleGenerateOtp = async () => {
+    if (!formik.errors.phone) {
+      const formattedPhone = formik.values.phone.replace("0", "234");
+
+      const res = await requestOtpMutation({
+        mobileNumber: formattedPhone,
+      });
+      toast.success(res.message);
+      if (res.data?.message) {
+        alert(res.data?.message);
+      }
+    } else {
+      toast.error("Invalid Phone number");
+    }
   };
 
+  useEffect(() => {
+    formik.setFieldValue("email", profile?.user.email);
+    formik.setFieldValue("firstName", profile?.user.firstName);
+    formik.setFieldValue("lastName", profile?.user.lastName);
+  }, [data]);
+
+  console.log(profile?.user);
+  const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
+
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center max-w-[375px] md:!max-w-[1440px] h-[1242px] bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[345px] md:!max-w-[1076px] h-[1147px] p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto flex flex-col items-center justify-center   h-full bg-[#F4F4F4] py-10">
+      <div className="flex flex-col w-full gap-6  p-[40px] bg-[#FFFFFF] max-w-[1076px]">
         <div className="flex flex-col items-center">
-          <div className="w-fit md:!mb-6">
+          <div className="w-fit sm:!mb-6">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full  max-w-[200px] h-[90px] md:!h-[115px] md:!max-w-[295px] object-contain"
+              containerClassName="w-full  max-w-[200px] h-[90px] sm:!h-[115px] sm:!max-w-[295px] object-contain"
             />
           </div>
           <Typography.body1
@@ -101,47 +137,57 @@ const HomeOwnerOnboardingForm = () => {
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
             {/* Name & Email Section */}
-            <div className="flex flex-col gap-3  w-full max-w-[850px] h-fit lg:!py-[20px] lg:!ml-[8%]">
-              <div className="flex flex-col md:!flex-row  items-center gap-6 lg:!justify-between w-full max-w-[850px] h-fit  ">
-                <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  <InputField.primary
-                    label="First Name"
-                    name="firstName"
-                    placeholder="Enter first name"
-                    rounded="full"
-                    validate
-                  />
-                  <InputField.primary
-                    label="Email"
-                    name="email"
-                    placeholder="Enter your email"
-                    rounded="full"
-                    className="w-full h-12"
-                    validate
-                    disabled
-                  />
-                </div>
+            <div className="flex flex-col gap-3  w-full max-w-[850px] mx-auto h-fit lg:!py-[20px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2!   gap-x-20 gap-5 lg:justify-between!  w-full  h-fit  ">
+                <InputField.primary
+                  label="First Name"
+                  name="firstName"
+                  placeholder="John"
+                  rounded="full"
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                  validate
+                />
+                <InputField.primary
+                  label="Last Name"
+                  name="lastName"
+                  placeholder="Solar Pro"
+                  rounded="full"
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+                <InputField.primary
+                  label="Email"
+                  name="email"
+                  placeholder="Doe"
+                  rounded="full"
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
 
-                <div className="space-y-6 flex flex-col w-full max-w-[285px]">
-                  <InputField.primary
-                    label="Last Name"
-                    name="lastName"
-                    placeholder="Enter last name"
-                    rounded="full"
-                    validate
-                  />
+                <div
+                  className={cn(
+                    "flex flex-col h-fit w-full gap-2 max-w-[204px] ",
+                    defaultClassName
+                  )}
+                >
                   <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
                     Gender
                   </Typography.body1>
-                  <div className="flex gap-4 h-[64px] -mt-4">
+                  <div className="flex gap-4 h-[60px]">
                     {/* Male */}
                     <button
                       type="button"
-                      onClick={() => formik.setFieldValue("gender", "M")}
+                      onClick={() => formik.setFieldValue("gender", "male")}
                       className={`flex items-center gap-4 w-full px-6 py-3 rounded-full justify-center ${
-                        formik.values.gender === "M"
+                        formik.values.gender === "male"
                           ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-gray-100/50 border border-[#C1C6C5]"
+                          : "bg-[#F5F5F5]"
                       }`}
                     >
                       <Image
@@ -157,11 +203,11 @@ const HomeOwnerOnboardingForm = () => {
                     {/* Female */}
                     <button
                       type="button"
-                      onClick={() => formik.setFieldValue("gender", "F")}
+                      onClick={() => formik.setFieldValue("gender", "female")}
                       className={`flex items-center gap-4 w-full  px-6  py-3 rounded-full justify-center ${
-                        formik.values.gender === "F"
+                        formik.values.gender === "female"
                           ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-gray-100/50 border border-[#C1C6C5]"
+                          : "bg-[#F5F5F5]"
                       }`}
                     >
                       <Image
@@ -174,12 +220,11 @@ const HomeOwnerOnboardingForm = () => {
                       </Typography.body1>
                     </button>
                   </div>
+                  <ErrorMessage name="gender" />
                 </div>
-              </div>
-              {/* Birthday, Phone, Terms Section */}
-              <div className="flex gap-4  md:!items-start flex-col w-full max-w-[600px] mt-6">
-                <div className="flex flex-col w-full max-w-[223px] h-[91px] gap-[7px]">
-                  <Typography.body1 weight="medium">
+
+                <div className="  max-w-[223px]  gap-[7px] sm:col-span-2! my-3">
+                  <Typography.body1 className="mb-2">
                     Your Birthday
                   </Typography.body1>
                   <BirthdayPicker
@@ -188,71 +233,86 @@ const HomeOwnerOnboardingForm = () => {
                   />
                 </div>
 
-                <div className="flex items-center flex-col relative w-full  max-w-[375px] md:!max-w-[877px] h-fit">
-                  <Typography.body1
-                    onClick={handleGenerateOtp}
-                    className="text-[#E49F13] cursor-pointer  md:!top-4 top-3 left-[85%] md:!left-[38%] absolute"
-                    size="h6"
-                    weight="medium"
-                  >
-                    Verify
-                  </Typography.body1>
-                  <div className="grid grid-cols-1  md:!grid-cols-2   w-full max-w-[375px] md:!max-w-[600px] h-fit items-center gap-2 mt-4">
+                <div className="flex sm:col-span-2! gap-5 sm:flex-row flex-col">
+                  <div className={cn("relative sm:max-w-[294px] w-full")}>
                     <InputField.primary
                       label="Phone Number"
                       name="phone"
-                      className="w-full max-w-[294.5px] h-[50px]"
-                      placeholder="Enter phone number"
+                      placeholder="e.g 09094093040"
                       rounded="full"
+                      value={formik.values.phone}
+                      onChange={formik.handleChange}
                       validate
                     />
-                    <InputField.primary
-                      name="otp"
-                      className="w-full max-w-[294.5px] h-[50px] mt-9"
-                      placeholder="Enter OTP"
-                      rounded="full"
-                      maxLength={6}
-                      validate
-                    />
+                    <button
+                      className="cursor-pointer md:top-[1px]! sm:-top-[4px]! -top-1.5  right-0 absolute"
+                      type="button"
+                      disabled={isRequestingOtp}
+                    >
+                      <Typography.body2
+                        inline
+                        onClick={handleGenerateOtp}
+                        variant={"secondary"}
+                        weight="medium"
+                        className={isRequestingOtp ? "animate-pulse" : ""}
+                      >
+                        {isRequestingOtp ? "Processing..." : "Verify"}
+                      </Typography.body2>
+                    </button>
                   </div>
-                </div>
-
-                <div className="flex justify-center md:!items-center mt-4 mb-4 md:!mb-0 gap-2 w-full max-w-[600px] h-[19px]">
-                  <Checkbox
-                    name="acceptTerms"
-                    checked={formik.values.acceptTerms}
-                    onCheckedChange={(checked) =>
-                      formik.setFieldValue("acceptTerms", checked)
-                    }
-                    className="border-blue-600 mt-0.5 md:!mt-0"
+                  <InputField.primary
+                    name="otp"
+                    label="otp"
+                    labelProps={{ className: "invisible" }}
+                    containerProps={{ className: " w-full" }}
+                    className="w-full sm:max-w-[294px]  "
+                    placeholder="Enter OTP"
+                    rounded="full"
+                    value={formik.values.otp}
+                    onChange={formik.handleChange}
+                    maxLength={6}
+                    validate
                   />
-
-                  <Typography.body1 size="h6" weight="medium">
-                    By signing up, you agree to our{" "}
-                    <span className="text-red-500">Terms of Service</span> and{" "}
-                    <span className="text-red-500">Privacy Policy</span>
-                  </Typography.body1>
                 </div>
-
-                <Button.PrimarySolid
-                  className="w-full md:!self-end max-w-[290px] h-12 text-white mt-6"
-                  type="submit"
-                  disabled={!formik.values.acceptTerms}
-                  loading={isPending}
-                >
-                  Submit
-                </Button.PrimarySolid>
               </div>
-            </div>
-            {/* <div className="flex items-center gap-6">
-            <pre className="text-xs bg-gray-100 p-2 mt-4">
-  {JSON.stringify(formik.values, null, 2)}
-</pre>
-<pre className="text-xs text-red-500">
-  {JSON.stringify(formik.errors, null, 2)}
-</pre>
 
-            </div> */}
+              {/* Birthday, Phone, Terms Section */}
+
+              <div className="flex items-center mt-4 mb-4 sm:mb-0! gap-2 w-fit">
+                <Checkbox
+                  name="acceptTerms"
+                  checked={formik.values.acceptTerms}
+                  onCheckedChange={(checked) =>
+                    formik.setFieldValue("acceptTerms", checked)
+                  }
+                  className="border-blue-600 "
+                />
+
+                <Typography.body1
+                  variant={"fadedDark"}
+                  weight="medium"
+                  className="mt-1"
+                >
+                  By signing up, you agree to our{" "}
+                  <Typography.body1 inline variant={"secondary"}>
+                    Terms of Service
+                  </Typography.body1>{" "}
+                  and{" "}
+                  <Typography.body1 inline variant={"secondary"}>
+                    Privacy Policy
+                  </Typography.body1>
+                </Typography.body1>
+              </div>
+
+              <Button.PrimarySolid
+                className="w-full mx-auto max-w-[290px] h-12 text-white mt-6"
+                type="submit"
+                disabled={!formik.values.acceptTerms}
+                loading={isUpdatingProfile || isVerifyingOtp}
+              >
+                Continue
+              </Button.PrimarySolid>
+            </div>
           </Form>
         </FormikProvider>
       </div>

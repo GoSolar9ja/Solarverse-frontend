@@ -1,12 +1,12 @@
 import { cva } from "class-variance-authority";
 
 export const inputTheme = cva(
-  "overflow-hidden relative text-xs md:text-base h-[44px] overflow-hidden transition-all duration-300  flex items-center ",
+  "overflow-hidden border  relative text-xs md:text-base h-[44px] overflow-hidden transition-all duration-300  flex items-center ",
   {
     variants: {
       variant: {
-        primary: "bg-background border border-[#1312124D]",
-        secondary: "bg-white border-[#1312121A] border",
+        primary: "bg-[#F5F5F5] border-[#F5F5F5]",
+        secondary: "bg-white border-[#1312121A] ",
       },
       rounded: {
         full: "rounded-full",

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { InputField, successToast } from "@solarverse/ui";
 import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
@@ -10,11 +10,10 @@ import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
 import useLoginMutation from "@/lib/services/api/auth/login.api";
-import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import { baseURL } from "@/lib/services/config/axios-instance";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
-  const navigate = useNavigate();
   const { login } = useAuthContext();
   const { mutateAsync: loginMutation, isPending } = useLoginMutation();
 
@@ -48,8 +47,7 @@ export default function Signin() {
 
   // Handlers for social login (replace with backend/OAuth integration later)
   const handleGoogleLogin = () => {
-    navigate(ROUTE_KEYS.GOOGLE_SIGN_IN);
-    // e.g. window.location.href = "/api/auth/google";
+    window.open(`${baseURL}/api/v1/auth/google`, "_blank");
   };
 
   const handleFacebookLogin = () => {
@@ -58,123 +56,99 @@ export default function Signin() {
   };
 
   return (
-    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white">
-      <div className="flex flex-col md:!flex-row w-full max-w-6xl h-[1004px] p-6 md:!p-10 gap-8 md:!gap-[93px]">
-        {/* Left side - form */}
-        <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
-          <div className=" mb-6">
-            <Image
-              src={IMAGE_PATHS.transparentLogoImg}
-              alt="App logo"
-              containerClassName="w-full max-w-[250px] h-[90px] md:!h-[115] md:!max-w-[295px]"
+    <div className="flex flex-col items-center gap-4 w-full">
+      {/* Google button */}
+      <button
+        type="button"
+        onClick={handleGoogleLogin}
+        className="flex items-center gap-4 w-full border border-[#C1C6C5] cursor-pointer px-6 py-3 bg-gray-100/50 rounded-full justify-center"
+      >
+        <Image
+          src={IMAGE_PATHS.googleImg}
+          alt="google-logo"
+          containerClassName="w-full max-w-[22px] h-fit"
+        />
+        <span className="text-lg font-normal text-[#111214]">
+          Sign in with Google
+        </span>
+      </button>
+
+      {/* Facebook button */}
+      <button
+        type="button"
+        onClick={handleFacebookLogin}
+        className="flex items-center gap-4 w-full border border-[#C1C6C5]/50 cursor-pointer px-6 py-3 bg-[#1877F2]/10 rounded-full justify-center"
+      >
+        <Image
+          src={IMAGE_PATHS.facebookImg}
+          alt="facebook-logo"
+          containerClassName="w-full max-w-[22px] h-fit"
+        />
+        <span className="text-lg font-normal text-[#111214]">
+          Sign in with Facebook
+        </span>
+      </button>
+
+      <p className="text-[18px] font-medium text-[#111214]">or</p>
+
+      <div className="flex flex-col gap-[25px] w-full">
+        <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
+          <Typography.h2
+            className=" tracking-[1%] text-[#111214]"
+            weight={"bold"}
+          >
+            Login with Email
+          </Typography.h2>
+          <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
+            Please enter email and password to login to your account
+          </Typography.body1>
+        </div>
+
+        <FormikProvider value={formik}>
+          <Form onSubmit={handleSubmit} className="space-y-4 w-full ">
+            <InputField.primary
+              label="Email"
+              name="email"
+              placeholder="Enter your email"
+              rounded="full"
+              className="w-full "
+              validate
             />
-          </div>
-
-          <div className="flex flex-col items-center gap-4 w-full">
-            {/* Google button */}
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              className="flex items-center gap-4 w-full border border-[#C1C6C5] cursor-pointer px-6 py-3 bg-gray-100/50 rounded-full justify-center"
-            >
-              <Image
-                src={IMAGE_PATHS.googleImg}
-                alt="google-logo"
-                containerClassName="w-full max-w-[22px] h-fit"
-              />
-              <span className="text-lg font-normal text-[#111214]">
-                Sign in with Google
-              </span>
-            </button>
-
-            {/* Facebook button */}
-            <button
-              type="button"
-              onClick={handleFacebookLogin}
-              className="flex items-center gap-4 w-full border border-[#C1C6C5]/50 cursor-pointer px-6 py-3 bg-[#1877F2]/10 rounded-full justify-center"
-            >
-              <Image
-                src={IMAGE_PATHS.facebookImg}
-                alt="facebook-logo"
-                containerClassName="w-full max-w-[22px] h-fit"
-              />
-              <span className="text-lg font-normal text-[#111214]">
-                Sign in with Facebook
-              </span>
-            </button>
-
-            <p className="text-[18px] font-medium text-[#111214]">or</p>
-            <div className="flex flex-col gap-[25px] w-full">
-              <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
-                <Typography.h2
-                  className=" tracking-[1%] text-[#111214]"
-                  weight={"bold"}
+            <PasswordField
+              label="Password"
+              name="password"
+              placeholder="Enter your password"
+              rounded="full"
+              className="w-full "
+              validate
+            />
+            <div className="flex flex-col items-center gap-6 pt-4 w-full">
+              <Button.PrimarySolid
+                className="w-full  text-white "
+                type="submit"
+                loading={isPending}
+              >
+                Log in
+              </Button.PrimarySolid>
+              <Link to="/forgot-password">
+                <Typography.body1
+                  variant={"secondary"}
+                  className="underline"
+                  weight={"medium"}
                 >
-                  Login with Email
-                </Typography.h2>
-                <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
-                  Please enter email and password to login to your account
+                  Forgot password?
                 </Typography.body1>
-              </div>
-
-              <FormikProvider value={formik}>
-                <Form onSubmit={handleSubmit} className="space-y-4 w-full ">
-                  <InputField.primary
-                    label="Email"
-                    name="email"
-                    placeholder="Enter your email"
-                    rounded="full"
-                    className="w-full "
-                    validate
-                  />
-                  <PasswordField
-                    label="Password"
-                    name="password"
-                    placeholder="Enter your password"
-                    rounded="full"
-                    className="w-full "
-                    validate
-                  />
-                  <div className="flex flex-col items-center gap-6 pt-4 w-full">
-                    <Button.PrimarySolid
-                      className="w-full  text-white "
-                      type="submit"
-                      loading={isPending}
-                    >
-                      Log in
-                    </Button.PrimarySolid>
-                    <Link to="/forgot-password">
-                      <Typography.body1
-                        variant={"secondary"}
-                        className="underline"
-                        weight={"medium"}
-                      >
-                        Forgot password?
-                      </Typography.body1>
-                    </Link>
-                  </div>
-                </Form>
-              </FormikProvider>
-
-              <Typography.body1 className=" inline-flex mx-auto  gap-2  text-lg text-center">
-                Not yet a user?
-                <Link to="/sign-up" className="text-primary font-semibold">
-                  Create an Account
-                </Link>
-              </Typography.body1>
+              </Link>
             </div>
-          </div>
-        </div>
+          </Form>
+        </FormikProvider>
 
-        {/* Right side - image */}
-        <div className="hidden lg:block!  w-full max-w-[875px] h-[1000px]">
-          <Image
-            containerClassName="w-full h-[850px]"
-            className="rounded-[20px]"
-            src={IMAGE_PATHS.installerImg}
-            alt="installer-image"
-          />
-        </div>
+        <Typography.body1 className=" inline-flex mx-auto  gap-2  text-lg text-center">
+          Not yet a user?
+          <Link to="/sign-up" className="text-primary font-semibold">
+            Create an Account
+          </Link>
+        </Typography.body1>
       </div>
     </div>
   );

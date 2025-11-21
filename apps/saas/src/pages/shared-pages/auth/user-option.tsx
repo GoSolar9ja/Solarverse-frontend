@@ -26,11 +26,11 @@ export default function Usersoption() {
     console.log("Selected profile:", active); // 👈 send this to backend later
   };
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center  max-w-[1440px] h-screen bg-[#F4F4F4]">
-      <div className="flex flex-col w-full h-[747px] gap-16 max-w-[400px] md:!max-w-[1027px] items-center bg-[#FFFFFF] p-[30px]">
+    <div className="w-full mx-auto flex flex-col items-center justify-center  max-w-[1440px] bg-[#F4F4F4] h-screen ">
+      <div className="flex flex-col w-full  gap-16  md:!max-w-[1027px] items-center bg-[#FFFFFF] p-[30px]">
         {/* Logo and Title */}
         <div className="flex flex-col items-center">
-        <div className="w-fit md:!mb-6">
+          <div className="w-fit md:!mb-6">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
@@ -47,7 +47,7 @@ export default function Usersoption() {
         </div>
 
         {/* Options */}
-        <div className="flex flex-col md:!flex-row gap-6 items-center w-full max-w-[898px] h-fit">
+        <div className="flex flex-col sm:!flex-row gap-6 items-center w-full max-w-[898px] h-fit">
           {/* Home/Business Owner */}
           <button
             type="button"
@@ -97,8 +97,9 @@ export default function Usersoption() {
 
         {/* Continue Button */}
         <Button.PrimarySolid
+          size={"md"}
           onClick={handleContinue}
-          className=" w-full max-w-[300px] h-12 cursor-pointer text-white "
+          className=" w-full max-w-[300px]  cursor-pointer text-white "
           type="submit"
         >
           Continue

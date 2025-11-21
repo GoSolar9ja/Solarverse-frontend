@@ -6,4 +6,5 @@ export enum STORAGE_KEYS {
 export enum USER_TYPE {
   HOME_OWNER = "HOMEOWNER",
   INSTALLER = "INSTALLER",
+  USER = "USER",
 }

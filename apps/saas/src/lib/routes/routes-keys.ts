@@ -1,7 +1,9 @@
 // Define page routes here
 export enum ROUTE_KEYS {
   SIGN_IN = "/sign-in",
-  GOOGLE_SIGN_IN = "/google-sign-in",
+  SUCCESSFUL_GOOGLE_AUTH = "/oauth/callback",
+  FAILED_GOOGLE_AUTH = "/auth/error",
+  ACCOUNT_ACTIVATION = "/verify",
   SIGN_UP = "/sign-up",
   RESET_PASSWORD = "/reset-password",
   FORGOT_PASSWORD = "/forgot-password",

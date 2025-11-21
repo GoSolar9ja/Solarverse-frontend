@@ -7,6 +7,7 @@ import useGetProfileQuery from "../services/api/auth/get-profile.api";
 import { ROUTE_KEYS } from "./routes-keys";
 import { ComponentVisibility } from "@solarverse/ui";
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
+import AuthContainer from "@/components/auth/auth-container";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
@@ -19,7 +20,9 @@ export function PublicOutlet() {
 
   const redirectUrl = routeManager(data?.data?.user.role);
   return !credentials?.token ? (
-    <Outlet />
+    <AuthContainer>
+      <Outlet />
+    </AuthContainer>
   ) : (
     <>
       <ComponentVisibility visible={isPending}>
@@ -28,6 +31,8 @@ export function PublicOutlet() {
       <ComponentVisibility visible={!isPending}>
         <Navigate to={redirectUrl} />
       </ComponentVisibility>
+
+      <Outlet />
     </>
   );
 }
@@ -37,7 +42,8 @@ export function HomeOwnerProtectedOutlet() {
 
   const userType = data?.data?.user.role;
 
-  if (isPending) return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
+  if (isPending || userType === USER_TYPE.USER)
+    return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
   return userType === USER_TYPE.HOME_OWNER ? (
     <HomeOwnerDashboardLayout />
   ) : (
@@ -48,7 +54,8 @@ export function HomeOwnerProtectedOutlet() {
 export function InstallerProtectedOutlet() {
   const { data, isPending } = useGetProfileQuery();
   const userType = data?.data?.user.role;
-  if (isPending) return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
+  if (isPending || userType === USER_TYPE.USER)
+    return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
   return userType === USER_TYPE.INSTALLER ? (
     <Outlet />
   ) : (

@@ -2,6 +2,7 @@ import { RouteObject, useRoutes } from "react-router-dom";
 import publicRoutes from "./public-routes";
 import protectedRoutes from "./protected-routes";
 import useAxiosInterceptor from "../hooks/use-axios-interceptor";
+import ErrorStateTemplate from "@/components/common/templates/error-state-template";
 
 export default function AppRoutes() {
   useAxiosInterceptor();
@@ -11,6 +12,6 @@ export default function AppRoutes() {
 const notFoundRoute: RouteObject[] = [
   {
     path: "*",
-    element: <div>Not Found</div>,
+    element: <ErrorStateTemplate title="404" message="Page Not Found" />,
   },
 ];

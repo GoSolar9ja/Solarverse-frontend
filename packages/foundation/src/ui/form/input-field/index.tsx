@@ -3,6 +3,7 @@ import BaseInput, { IBaseInputProps } from "./base-input";
 import { ErrorMessage } from "../error-message";
 import { useField } from "formik";
 import { ComponentVisibility } from "../../visibility/component-visibility";
+import { cn } from "@/lib/utils";
 
 export interface IInputFieldProps extends IBaseInputProps {
   label?: string;
@@ -42,13 +43,18 @@ const ValidatedInput = ({
   const [field, meta] = useField({ name: name, type: props.type });
   const error = meta.error;
   const touched = meta.touched;
+  const { className: labelClassName, ...restLabelProps } = labelProps || {};
 
   return (
     <div {...containerProps}>
-      <Label className="mb-2 md:mb-0" htmlFor={name} {...labelProps}>
+      <Label
+        className={cn("mb-2 md:mb-0", labelClassName)}
+        htmlFor={name}
+        {...restLabelProps}
+      >
         {label}
       </Label>
-      <BaseInput {...props} {...field} error={error} touched={touched} />
+      <BaseInput {...field} error={error} touched={touched} {...props} />
       <ErrorMessage name={name || ""} />
     </div>
   );
@@ -60,10 +66,17 @@ const UnvalidatedInput = ({
   labelProps,
   ...props
 }: IInputFieldProps) => {
+  const { className: labelClassName, ...restLabelProps } = labelProps || {};
+
   return (
     <div {...containerProps}>
       <ComponentVisibility visible={!!label}>
-        <Label className="mb-2 md:mb-0" htmlFor={props.name} {...labelProps}>
+        <Label
+          className={cn("mb-2 md:mb-0", labelClassName)}
+          htmlFor={props.name}
+          {...restLabelProps}
+        >
+          {" "}
           {label}
         </Label>
       </ComponentVisibility>
