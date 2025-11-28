@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 // import { useProfile } from "@/context/ProfileContext";
 
-import SidebarNavigation from "../navigation/sidebar-navigation";
 import HomeOwnerTopbar from "../navigation/homeowner-topbar";
 
 export const HomeOwnerDashboardLayout = () => {
