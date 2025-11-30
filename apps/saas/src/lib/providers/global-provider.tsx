@@ -16,7 +16,11 @@ export default function GlobalProvider({
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [pathname]);
-
+  console.log(
+    "global loading",
+    queryClient.isFetching(),
+    queryClient.isMutating()
+  );
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>{children}</AuthProvider>

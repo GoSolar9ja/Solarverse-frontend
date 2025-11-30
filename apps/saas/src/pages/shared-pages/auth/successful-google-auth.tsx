@@ -27,5 +27,7 @@ export default function SuccessfulGoogleAuth() {
       />
     );
 
-  return <ActivityStateTemplate children="Please wait while we log you in" />;
+  return (
+    <ActivityStateTemplate show children="Please wait while we log you in" />
+  );
 }

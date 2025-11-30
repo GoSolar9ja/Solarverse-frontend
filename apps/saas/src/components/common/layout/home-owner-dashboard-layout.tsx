@@ -10,7 +10,6 @@ export const HomeOwnerDashboardLayout = () => {
     <main className=" lg:p-6  lg:ml-[275px] ">
       <div className="bg-white min-h-[95vh]">
         <HomeOwnerTopbar />
-        {/* <button onClick={logout}>Logout</button> */}
         {/* This is where child routes render */}
         <div className="px-5 pb-5">
           <Outlet />

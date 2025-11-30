@@ -3,8 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { ApiResponseType } from "@/types";
 import { QueryKeys } from "../../config/query-keys";
-import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import { USER_TYPE } from "@/lib/constants";
+import { STORAGE_KEYS, USER_TYPE } from "@/lib/constants";
 
 export interface IUserProfile {
   user: {
@@ -38,11 +37,10 @@ const getProfile = async ({ queryKey }: { queryKey: [string] }) => {
 };
 
 const useGetProfileQuery = () => {
-  const context = useAuthContext();
   return useQuery({
     queryKey: [QueryKeys.PROFILE],
     queryFn: getProfile,
-    enabled: !!context?.credentials?.token,
+    enabled: !!localStorage.getItem(STORAGE_KEYS.GOSOLAR_TOKEN),
   });
 };
 

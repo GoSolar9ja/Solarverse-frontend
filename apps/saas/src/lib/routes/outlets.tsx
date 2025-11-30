@@ -11,6 +11,12 @@ import AuthContainer from "@/components/auth/auth-container";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
+  const { isPending } = useGetProfileQuery();
+
+  if (isPending)
+    return (
+      <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
+    );
   return credentials?.token ? <Outlet /> : <Navigate to={ROUTE_KEYS.SIGN_IN} />;
 }
 
@@ -25,14 +31,10 @@ export function PublicOutlet() {
     </AuthContainer>
   ) : (
     <>
-      <ComponentVisibility visible={isPending}>
-        <ActivityStateTemplate>Loading</ActivityStateTemplate>{" "}
-      </ComponentVisibility>
+      <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
       <ComponentVisibility visible={!isPending}>
         <Navigate to={redirectUrl} />
       </ComponentVisibility>
-
-      <Outlet />
     </>
   );
 }
@@ -43,7 +45,9 @@ export function HomeOwnerProtectedOutlet() {
   const userType = data?.data?.user.role;
 
   if (isPending || userType === USER_TYPE.USER)
-    return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
+    return (
+      <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
+    );
   return userType === USER_TYPE.HOME_OWNER ? (
     <HomeOwnerDashboardLayout />
   ) : (
@@ -55,7 +59,9 @@ export function InstallerProtectedOutlet() {
   const { data, isPending } = useGetProfileQuery();
   const userType = data?.data?.user.role;
   if (isPending || userType === USER_TYPE.USER)
-    return <ActivityStateTemplate>Loading</ActivityStateTemplate>;
+    return (
+      <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
+    );
   return userType === USER_TYPE.INSTALLER ? (
     <Outlet />
   ) : (

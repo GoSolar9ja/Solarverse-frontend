@@ -32,7 +32,10 @@ export default function AccountActivation() {
 
   if (isActivatingUser)
     return (
-      <ActivityStateTemplate children="Please wait while we activate your account" />
+      <ActivityStateTemplate
+        show={isActivatingUser}
+        children="Please wait while we activate your account"
+      />
     );
 
   if (!isActivatingUser && isSuccess) return <SuccessMessage />;

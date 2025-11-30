@@ -18,7 +18,7 @@ const InputErrorMessage = (props: IInputMessageProps) => {
   // console.log('touch', touch);
   // console.log('dirty', dirty);
   return touch && error && submitCount > 0 ? (
-    <p className="text-red-500 text-sm mt-[3px]">{error}</p>
+    <p className="text-red-500 text-sm mt-3">{error}</p>
   ) : null;
 };
 

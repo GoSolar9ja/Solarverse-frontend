@@ -4,9 +4,10 @@ import { ErrorMessage } from "../error-message";
 import { useField } from "formik";
 import { ComponentVisibility } from "../../visibility/component-visibility";
 import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
 
 export interface IInputFieldProps extends IBaseInputProps {
-  label?: string;
+  label?: string | ReactNode;
   validate?: boolean;
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
   labelProps?: React.HTMLAttributes<HTMLLabelElement>;
@@ -76,7 +77,6 @@ const UnvalidatedInput = ({
           htmlFor={props.name}
           {...restLabelProps}
         >
-          {" "}
           {label}
         </Label>
       </ComponentVisibility>

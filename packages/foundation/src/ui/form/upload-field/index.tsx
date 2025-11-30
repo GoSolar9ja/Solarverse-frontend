@@ -58,7 +58,7 @@ const ValidatedUploadField = (props: IUploadFieldProps) => {
                     helper.setValue([files[0]]);
                   }
                 },
-                multiple: multiple,
+                multiple,
                 ...restFieldProps,
               }}
               // eslint-disable-next-line react/no-children-prop

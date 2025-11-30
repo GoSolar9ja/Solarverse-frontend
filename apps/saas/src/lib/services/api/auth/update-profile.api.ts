@@ -12,6 +12,10 @@ export interface IUpdateProfileRequest {
   dob: string;
   mobile: string;
   role: USER_TYPE;
+  businessName?: string;
+  cacRegistrationNumber?: string;
+  address?: string;
+  nin?: string;
 }
 
 export interface IUpdateProfileResponse {

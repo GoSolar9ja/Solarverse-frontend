@@ -53,7 +53,7 @@ const HomeOwnerOnboardingForm = () => {
       gender: fieldValidation().required("Gender is required"),
       birthday: fieldValidation().required("Birthday is required"),
       phone: phoneNumberValidation().required("Phone number is required"),
-      otp: Yup.string()
+      otp: fieldValidation()
         .length(6, "OTP must be 6 digits")
         .required("Click on Verify to generate OTP"),
       acceptTerms: booleanValidation().required("You must accept terms"),

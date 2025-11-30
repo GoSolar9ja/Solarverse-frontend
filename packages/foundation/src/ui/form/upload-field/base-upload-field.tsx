@@ -33,7 +33,7 @@ const BaseUploadField = (props: {
   return (
     <>
       <input ref={ref} type="file" accept={accept} {...rest} hidden />
-      <ComponentVisibility visible={!props.children}>
+      <ComponentVisibility visible={!props?.children}>
         <div
           onClick={handleClick}
           className={cn(
@@ -50,8 +50,8 @@ const BaseUploadField = (props: {
           </Label>
         </div>
       </ComponentVisibility>
-      <ComponentVisibility visible={!!props.children}>
-        {props.children?.({ onClick: handleClick })}
+      <ComponentVisibility visible={!!props?.children}>
+        {props?.children?.({ onClick: handleClick })}
       </ComponentVisibility>
     </>
   );

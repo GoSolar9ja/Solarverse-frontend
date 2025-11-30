@@ -1,6 +1,12 @@
 // import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
-import { Button, ComponentVisibility, UploadField } from "@solarverse/ui";
+import {
+  Button,
+  ComponentVisibility,
+  errorToast,
+  successToast,
+  UploadField,
+} from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { useNavigate } from "react-router-dom";
 import {
@@ -12,7 +18,6 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { Checkbox } from "@solarverse/ui";
-import { useState } from "react";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
@@ -20,6 +25,12 @@ import IMAGE_PATHS from "@/assets/images";
 import UploadIcon from "@/components/common/icons/upload-icon";
 import { cn } from "@/lib/utils";
 import BirthdayPicker from "@/components/common/birthday-picker";
+import useRequestOtpMutation from "@/lib/services/api/auth/request-otp.api";
+import { format } from "date-fns";
+import { USER_TYPE } from "@/lib/constants";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api";
+import useBusinessLogoUploadMutation from "@/lib/services/api/file-uploads/business-logo-upload.api";
 // import { XIcon } from "lucide-react";
 
 const InstallerOnboardingForm = () => {
@@ -29,12 +40,20 @@ const InstallerOnboardingForm = () => {
     fieldValidation,
     phoneNumberValidation,
     booleanValidation,
-    numberFieldValidation,
     listSelectionValidation,
   } = schemaValidation;
   const navigate = useNavigate();
 
-  const [generatedOtp, setGeneratedOtp] = useState("");
+  const { mutateAsync: requestOtpMutation, isPending: isRequestingOtp } =
+    useRequestOtpMutation();
+
+  const { mutateAsync: updateProfile, isPending: isUpdatingProfile } =
+    useUpdateProfileMutation();
+
+  const {
+    mutateAsync: uploadBusinessLogo,
+    isPending: isUploadingBusinessLogo,
+  } = useBusinessLogoUploadMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +68,9 @@ const InstallerOnboardingForm = () => {
       phone: "",
       otp: "",
       acceptTerms: false,
-      images: [] as Array<File & { url: string }>,
+      businessLogo: undefined as
+        | Array<{ file: File; base64Url: string }>
+        | undefined,
     },
     validationSchema: createValidationSchema({
       firstName: fieldValidation().required("First name is required"),
@@ -58,12 +79,12 @@ const InstallerOnboardingForm = () => {
         .length(11, "NIN must be 11 digits")
         .required("nin is required"),
       businessName: fieldValidation().required("Business name is required"),
-      businessRegNum: numberFieldValidation().optional(),
+      businessRegNum: fieldValidation().optional(),
       businessLocation: fieldValidation().required(
         "Business location is required"
       ),
       gender: fieldValidation().required("Gender is required"),
-      images: listSelectionValidation().min(
+      businessLogo: listSelectionValidation().min(
         1,
         "At least one image is required"
       ),
@@ -71,49 +92,54 @@ const InstallerOnboardingForm = () => {
       phone: phoneNumberValidation().required("Phone number is required"),
       otp: fieldValidation()
         .length(6, "OTP must be 6 digits")
-        .required("Click on Verify to generate OTP")
-        .test("match-otp", "Invalid OTP", function (value) {
-          return value === generatedOtp; // use  generatedOtp for validation
-        }),
+        .required("Click on Verify to generate OTP"),
 
       acceptTerms: booleanValidation().required("You must accept terms"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-      console.group("Missing fields", [
-        "businessLogo",
-        "businessName",
-        "businessRegNum",
-        "businessLocation",
-        "Nin",
-        "Otp field",
+    onSubmit: async (values) => {
+      const { birthday, firstName, gender, lastName, phone, nin } = values;
+      const formData = new FormData();
+      const formattedPhone = phone.replace("0", "234");
+      const dob = format(birthday || "", "yyyy-MM-dd");
+
+      formData.append("file", values.businessLogo?.[0].file || "");
+
+      await Promise.all([
+        updateProfile({
+          dob,
+          firstName,
+          lastName,
+          gender,
+          nin,
+          mobile: formattedPhone,
+          role: USER_TYPE.INSTALLER,
+          businessName: values.businessName,
+          cacRegistrationNumber: values.businessRegNum,
+          address: values.businessLocation,
+        }),
+        uploadBusinessLogo(formData),
       ]);
-      // 🔹 Mock backend auth (replace with API call later)
-      // const mockUser = {
-      //   token: "fake-jwt-token",
-      //   profile: USER_TYPE.INSTALLER, // or "home" — this would normally come from backend
-      // };
 
-      // login({ token: mockUser.token, userType: mockUser.profile });
-      // Save to localStorage
-
-      // Update context
-
-      resetForm();
-      navigate("/installer-form-two");
-      // Redirect to dashboard (Protected route)
+      navigate(ROUTE_KEYS.INSTALLER_FORM_TWO);
     },
   });
 
   const { handleSubmit } = formik;
 
-  // ✅ Generate OTP
-  const handleGenerateOtp = () => {
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(otp); // store OTP in state
-    formik.setFieldValue("otp", ""); // reset input
-    console.log("Generated OTP:", otp);
-    alert(`Your OTP is: ${otp}`); // simulate sending OTP
+  const handleGenerateOtp = async () => {
+    if (!formik.errors.phone) {
+      const formattedPhone = formik.values.phone.replace("0", "234");
+
+      const res = await requestOtpMutation({
+        mobileNumber: formattedPhone,
+      });
+      successToast(res.message);
+      if (res.data?.message) {
+        alert(res.data?.message);
+      }
+    } else {
+      errorToast("Invalid Phone number");
+    }
   };
 
   const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
@@ -131,7 +157,7 @@ const InstallerOnboardingForm = () => {
           </div>
           <Typography.body1
             size={"h2"}
-            weight={"semibold"}
+            weight={"medium"}
             className="tracking-[1%] text-center   text-[#5A5F61]"
           >
             Help us learn more about you!
@@ -154,16 +180,6 @@ const InstallerOnboardingForm = () => {
                   validate
                 />
                 <InputField.primary
-                  label=" Business Name"
-                  name="businessName"
-                  placeholder="Solar Pro"
-                  rounded="full"
-                  validate
-                  containerProps={{
-                    className: defaultClassName,
-                  }}
-                />
-                <InputField.primary
                   label="Last Name"
                   name="lastName"
                   placeholder="Doe"
@@ -174,7 +190,22 @@ const InstallerOnboardingForm = () => {
                   }}
                 />
                 <InputField.primary
-                  label="Business Reg.No"
+                  label=" Business Name"
+                  name="businessName"
+                  placeholder="Solar Pro"
+                  rounded="full"
+                  validate
+                  containerProps={{
+                    className: defaultClassName,
+                  }}
+                />
+                <InputField.primary
+                  label={
+                    <span>
+                      Business Reg.No{" "}
+                      <span className="text-gray-400">(optional)</span>{" "}
+                    </span>
+                  }
                   name="businessRegNum"
                   placeholder="RC123456"
                   rounded="full"
@@ -217,17 +248,17 @@ const InstallerOnboardingForm = () => {
 
                   <UploadField
                     fieldProps={{
-                      name: "images",
+                      name: "businessLogo",
                       accept: "image/*",
-                      onChange: (e) => {
-                        Array.from(e.target.files || []).map((item) => ({
-                          name: item.name,
-                          url: fileToBase64(item).then((base64) => {
-                            formik.setFieldValue("images", [
-                              { name: item.name, url: base64 },
-                            ]);
-                          }),
-                        }));
+                      multiple: true,
+                      onChange: async (e) => {
+                        const file = e.target.files?.[0];
+                        formik.setFieldValue("businessLogo", [
+                          {
+                            base64Url: await fileToBase64(file),
+                            file,
+                          },
+                        ]);
                       },
                     }}
                     validate
@@ -236,17 +267,19 @@ const InstallerOnboardingForm = () => {
                     {({ onClick }) => (
                       <div onClick={onClick} className="h-full">
                         <ComponentVisibility
-                          visible={!!formik.values.images.length}
+                          visible={!!formik.values.businessLogo?.[0].base64Url}
                         >
                           <Image
                             containerClassName="h-full w-full max-w-[200px]"
                             className="rounded-full"
-                            src={formik.values.images[0]?.url || ""}
+                            src={
+                              formik.values.businessLogo?.[0].base64Url || ""
+                            }
                           />
                         </ComponentVisibility>
 
                         <ComponentVisibility
-                          visible={!formik.values.images.length}
+                          visible={!formik.values.businessLogo?.[0].base64Url}
                         >
                           <div className="flex rounded-full cursor-pointer bg-[#F5F5F5] items-center h-[59px] w-full p-[20px] max-w-[185px] gap-[8px] ">
                             <UploadIcon />
@@ -337,14 +370,21 @@ const InstallerOnboardingForm = () => {
                       onChange={formik.handleChange}
                       validate
                     />
-                    <Typography.body2
-                      onClick={handleGenerateOtp}
-                      variant={"secondary"}
-                      className="cursor-pointer sm:top-1.5 top-0  right-0 absolute"
-                      weight="medium"
+                    <button
+                      className="cursor-pointer md:top-[1px]! sm:-top-[4px]! -top-1.5  right-0 absolute"
+                      type="button"
+                      disabled={isRequestingOtp}
                     >
-                      Verify
-                    </Typography.body2>
+                      <Typography.body2
+                        inline
+                        onClick={handleGenerateOtp}
+                        variant={"secondary"}
+                        weight="medium"
+                        className={isRequestingOtp ? "animate-pulse" : ""}
+                      >
+                        {isRequestingOtp ? "Processing..." : "Verify"}
+                      </Typography.body2>
+                    </button>
                   </div>
                   <InputField.primary
                     name="otp"
@@ -393,6 +433,7 @@ const InstallerOnboardingForm = () => {
               <Button.PrimarySolid
                 className="w-full mx-auto max-w-[290px] h-12 text-white mt-6"
                 type="submit"
+                loading={isUpdatingProfile || isUploadingBusinessLogo}
               >
                 Continue
               </Button.PrimarySolid>
