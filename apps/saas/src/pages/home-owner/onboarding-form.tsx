@@ -1,4 +1,3 @@
-import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
 import { Button, ErrorMessage } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";

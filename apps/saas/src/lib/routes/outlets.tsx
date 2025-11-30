@@ -8,16 +8,20 @@ import { ROUTE_KEYS } from "./routes-keys";
 import { ComponentVisibility } from "@solarverse/ui";
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 import AuthContainer from "@/components/auth/auth-container";
+import React from "react";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
   const { isPending } = useGetProfileQuery();
 
-  if (isPending)
-    return (
+  return credentials?.token ? (
+    <React.Fragment>
+      <Outlet />
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
-    );
-  return credentials?.token ? <Outlet /> : <Navigate to={ROUTE_KEYS.SIGN_IN} />;
+    </React.Fragment>
+  ) : (
+    <Navigate to={ROUTE_KEYS.SIGN_IN} />
+  );
 }
 
 export function PublicOutlet() {
@@ -30,12 +34,12 @@ export function PublicOutlet() {
       <Outlet />
     </AuthContainer>
   ) : (
-    <>
+    <React.Fragment>
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
       <ComponentVisibility visible={!isPending}>
         <Navigate to={redirectUrl} />
       </ComponentVisibility>
-    </>
+    </React.Fragment>
   );
 }
 

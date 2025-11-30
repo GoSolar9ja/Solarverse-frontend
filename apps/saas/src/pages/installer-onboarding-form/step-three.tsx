@@ -84,8 +84,8 @@ const InstallerOnboardingFormThree = () => {
   ];
 
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center  h-fit bg-[#F4F4F4]">
-      <div className="flex flex-col w-full gap-6 max-w-[1076px] h-fit  p-[40px] bg-[#FFFFFF]">
+    <div className="w-full mx-auto my-auto flex flex-col items-center justify-center  min-h-screen bg-[#F4F4F4] ">
+      <div className="flex flex-col gap-6 max-w-[1076px] w-full h-fit  p-[40px] bg-[#FFFFFF]">
         <div className="flex flex-col items-center">
           <div className="w-fit md:!mb-6">
             <Image
@@ -104,14 +104,14 @@ const InstallerOnboardingFormThree = () => {
 
         <FormikProvider value={formik}>
           <Form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-3  w-full max-w-[300px] md:!max-w-[850px] mx-auto h-fit lg:!py-[20px]">
+            <div className="flex flex-col gap-3  w-full  md:!max-w-[850px] mx-auto h-fit lg:!py-[20px]">
               <FieldArray name="projects">
                 {({ push, remove }) => (
-                  <div className="flex flex-col md:!ml-[13%]  gap-[10px] w-full max-w-[345px] md:!max-w-[700px]">
+                  <div className="flex flex-col   gap-[10px] w-full ">
                     {formik.values.projects.map((project, index) => (
                       <div
                         key={index}
-                        className="flex flex-col md:!flex-row gap-[10px]"
+                        className="flex flex-col md:!flex-row gap-[20px] md:!w-[90%] w-full mx-auto"
                       >
                         <div className="flex flex-col border border-[#C1C6C5]/50 pt-[40px] pr-[20px] pb-[40px] pl-[20px] gap-[30px] md:!gap-[50px] rounded-[10px] w-full h-fit md:!max-w-[688px] mt-4">
                           {/* Fields */}
@@ -157,7 +157,7 @@ const InstallerOnboardingFormThree = () => {
                                   <UploadField
                                     containerProps={{
                                       className:
-                                        "flex-1 w-full max-w-[277px] md!h-[61px]",
+                                        "flex-1 w-full md:max-w-[277px] md!h-[61px]",
                                     }}
                                     showUploadList={false}
                                     fieldProps={{

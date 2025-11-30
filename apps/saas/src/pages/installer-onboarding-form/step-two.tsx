@@ -12,16 +12,17 @@ import { Typography } from "@solarverse/ui";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
-import { XIcon } from "lucide-react";
+import { File, XIcon } from "lucide-react";
 import useBusinessDocumentUploadMutation from "@/lib/services/api/file-uploads/business-document-upload.api";
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 import { BUSINESS_DOCUMENT_TYPE } from "@/lib/constants";
+import useGetBusinessProfileQuery from "@/lib/services/api/auth/get-business-profile.api";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 // import { USER_TYPE } from "@/lib/constants";
 
 const InstallerOnboardingFormTwo = () => {
   // const { login } = useAuthContext();
-
+  const { data: businessProfileData } = useGetBusinessProfileQuery();
   const { listSelectionValidation } = schemaValidation;
   const navigate = useNavigate();
   const { mutateAsync, isPending } = useBusinessDocumentUploadMutation();
@@ -38,31 +39,39 @@ const InstallerOnboardingFormTwo = () => {
 
     onSubmit: async (values) => {
       const cacLicenseFormData = new FormData();
-      const cacCertFormData = new FormData();
-
-      for (let i = 0; i < values.cac.length; i++) {
-        cacLicenseFormData.append("file", values.cac[i].file);
-      }
-      for (let i = 0; i < values.certifications.length; i++) {
-        cacCertFormData.append("file", values.cac[i].file);
-      }
 
       cacLicenseFormData.append(
         "documentType",
         BUSINESS_DOCUMENT_TYPE.CAC_LICENSE
       );
-      cacCertFormData.append(
-        "documentType",
-        BUSINESS_DOCUMENT_TYPE.CAC_CERTIFICATE
+
+      cacLicenseFormData.append(
+        "businessName",
+        businessProfileData?.data?.business.name || ""
       );
 
-      cacLicenseFormData.append("businessName", "My Buss");
-      cacCertFormData.append("businessName", "My Buss");
+      cacLicenseFormData.append("file", values.cac[0].file);
 
-      await Promise.all([
-        mutateAsync(cacLicenseFormData),
-        mutateAsync(cacCertFormData),
-      ]);
+      const certifications = values.certifications.map((value) => {
+        const certFormData = new FormData();
+
+        certFormData.append(
+          "documentType",
+          BUSINESS_DOCUMENT_TYPE.CAC_CERTIFICATE
+        );
+        certFormData.append(
+          "businessName",
+          businessProfileData?.data?.business.name || ""
+        );
+
+        certFormData.append("file", value.file);
+
+        return mutateAsync(certFormData);
+      });
+
+      await Promise.all(
+        [mutateAsync(cacLicenseFormData)].concat(certifications)
+      );
 
       navigate("/installer-form-three");
 
@@ -82,9 +91,9 @@ const InstallerOnboardingFormTwo = () => {
     },
   });
 
-  const { handleSubmit } = formik;
+  const { handleSubmit, errors } = formik;
   // const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
-
+  console.log(errors);
   return (
     <div className="h-screen flex flex-col">
       <ActivityStateTemplate
@@ -118,58 +127,59 @@ const InstallerOnboardingFormTwo = () => {
                 </Typography.body1>
 
                 <div className="flex gap-5 flex-wrap flex-col items-center mx-auto  w-full">
-                  <FieldArray name="cac">
-                    {({ push, remove }) => (
-                      <>
-                        <UploadField
-                          containerProps={{
-                            className: " w-full flex-shrink-0 max-w-[282px]",
-                          }}
-                          showUploadList={false}
-                          fieldProps={{
-                            name: "cac",
-                            multiple: true,
-                            accept: "image/*",
-                            onChange: (e) => {
-                              Array.from(e.target.files || []).map((file) => {
-                                fileToBase64(file).then((base64Url) => {
-                                  push({ base64Url, file });
-                                });
-                              });
+                  {/* <FieldArray name="cac">
+                    {({ push, remove }) => ( */}
+                  <>
+                    <UploadField
+                      containerProps={{
+                        className: " w-full flex-shrink-0 max-w-[282px]",
+                      }}
+                      showUploadList={false}
+                      fieldProps={{
+                        name: "cac",
+                        // multiple: true,
+                        accept: "image/*",
+                        onChange: async (e) => {
+                          const file = e.target.files?.[0];
+                          formik.setFieldValue("cac", [
+                            {
+                              base64Url: await fileToBase64(file),
+                              file,
                             },
-                          }}
-                          validate
-                        />
-
-                        <ComponentVisibility
-                          visible={formik.values.cac.length > 0}
-                        >
-                          <div className="flex gap-5 flex-wrap">
-                            {formik.values.cac.map((image, index) => (
-                              <div className="relative">
-                                <Image
-                                  containerClassName="size-[60px]"
-                                  key={index}
-                                  src={image.base64Url || ""}
-                                />
-                                <button
-                                  type="button"
-                                  onClick={() => remove(index)}
-                                  className="absolute -top-3 -right-3 bg-gray-100 rounded-full p-1"
-                                >
-                                  <XIcon className="w-4 h-4 text-red-500" />
-                                </button>
-                              </div>
-                            ))}
+                          ]);
+                        },
+                      }}
+                      validate
+                    />
+                    <Typography.body2 className="tracking-[1%] text-[#5A5F61]">
+                      PNG, JPG, PDF Only
+                    </Typography.body2>
+                    <ComponentVisibility visible={formik.values.cac.length > 0}>
+                      <div className="flex gap-5 flex-wrap">
+                        {formik.values.cac.map((cac, index) => (
+                          <div key={index} className="relative max-w-[60px]">
+                            <File
+                              size={50}
+                              className="fill-primary stroke-transparent"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => formik.setFieldValue("cac", [])}
+                              className="absolute -top-3 -right-0 bg-gray-100 rounded-full p-1"
+                            >
+                              <XIcon className="w-4 h-4 text-red-500" />
+                            </button>
+                            <Typography.body2 className="truncate">
+                              {cac.file.name}
+                            </Typography.body2>
                           </div>
-                        </ComponentVisibility>
-                      </>
-                    )}
-                  </FieldArray>
+                        ))}
+                      </div>
+                    </ComponentVisibility>
+                  </>
+                  {/* )}
+                  </FieldArray> */}
                 </div>
-                <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-2">
-                  PNG, JPG, PDF Only
-                </Typography.body2>
               </div>
 
               <div className="flex flex-col  text-center w-full">
@@ -202,38 +212,41 @@ const InstallerOnboardingFormTwo = () => {
                           }}
                           validate
                         />
+                        <Typography.body2 className="tracking-[1%] text-[#5A5F61] ">
+                          PNG, JPG, PDF Only
+                        </Typography.body2>
 
                         <ComponentVisibility
                           visible={formik.values.certifications.length > 0}
                         >
                           <div className="flex gap-5  ">
-                            {formik.values.certifications.map(
-                              (image, index) => (
-                                <div className="relative">
-                                  <Image
-                                    containerClassName="size-[60px]"
-                                    key={index}
-                                    src={image.base64Url || ""}
-                                  />
-                                  <button
-                                    type="button"
-                                    onClick={() => remove(index)}
-                                    className="absolute -top-3 -right-3 bg-gray-100 rounded-full p-1"
-                                  >
-                                    <XIcon className="w-4 h-4 text-red-500" />
-                                  </button>
-                                </div>
-                              )
-                            )}
+                            {formik.values.certifications.map((cert, index) => (
+                              <div
+                                key={index}
+                                className="relative max-w-[60px]"
+                              >
+                                <File
+                                  size={50}
+                                  className="fill-primary stroke-transparent"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                  className="absolute -top-3 -right-0 bg-gray-100 rounded-full p-1"
+                                >
+                                  <XIcon className="w-4 h-4 text-red-500" />
+                                </button>
+                                <Typography.body2 className="truncate">
+                                  {cert.file.name}
+                                </Typography.body2>
+                              </div>
+                            ))}
                           </div>
                         </ComponentVisibility>
                       </>
                     )}
                   </FieldArray>
                 </div>
-                <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-2">
-                  PNG, JPG, PDF Only
-                </Typography.body2>
               </div>
             </div>
             <Button.PrimarySolid

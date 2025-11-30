@@ -3,6 +3,7 @@
 import {
   Button,
   ComponentVisibility,
+  ErrorMessage,
   errorToast,
   successToast,
   UploadField,
@@ -144,6 +145,7 @@ const InstallerOnboardingForm = () => {
 
   const defaultClassName = "sm:even:ml-auto w-full sm:max-w-[285px]";
 
+  console.log(formik.errors);
   return (
     <div className="w-full mx-auto flex flex-col items-center justify-center  sm:!h-[1242px] h-full bg-[#F4F4F4]">
       <div className="flex flex-col w-full gap-6  p-[40px] bg-[#FFFFFF] max-w-[1076px]">
@@ -347,6 +349,7 @@ const InstallerOnboardingForm = () => {
                       </Typography.body1>
                     </button>
                   </div>
+                  <ErrorMessage name="gender" />
                 </div>
 
                 <div className="  max-w-[223px]  gap-[7px] sm:col-span-2! my-3">
