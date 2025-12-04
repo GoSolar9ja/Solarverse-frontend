@@ -223,9 +223,10 @@ const InstallerOnboardingFormThree = () => {
                               Caption
                             </Typography.body1>
                             <TextAreaField.primary
-                              className="w-full h-[90px]"
                               name={`projects.${index}.caption`}
+                              className="w-full h-[90px]"
                               placeholder="Write a caption"
+                              validate
                             />
                           </div>
                         </div>
