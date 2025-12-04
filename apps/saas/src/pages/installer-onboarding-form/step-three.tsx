@@ -19,23 +19,24 @@ import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { XIcon } from "lucide-react";
 import CrossIcon from "@/components/common/icons/cross-icon";
-import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import { USER_TYPE } from "@/lib/constants";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import usePastProjectUploadMutation from "@/lib/services/api/file-uploads/past-project-upload.api";
 
 const InstallerOnboardingFormThree = () => {
-  const { login } = useAuthContext();
   const { listSelectionValidation, fieldValidation } = schemaValidation;
   const navigate = useNavigate();
+  const { mutateAsync: uploadPastProject, isPending } =
+    usePastProjectUploadMutation();
 
   const formik = useFormik({
     initialValues: {
       projects: [
         {
           projectLocation: "",
-          loads: "",
+          // loads: "",
           caption: "",
-          frameworks: [],
-          images: [] as Array<File & { url: string }>,
+          energyConsumptionPreference: [],
+          images: [] as Array<{ url: string; file: File }>,
         },
       ],
     },
@@ -46,9 +47,9 @@ const InstallerOnboardingFormThree = () => {
           projectLocation: fieldValidation().required(
             "Project location is required"
           ),
-          loads: fieldValidation().required("Please enter loads"),
+          // loads: fieldValidation().required("Please enter loads"),
           caption: fieldValidation().optional(),
-          frameworks: listSelectionValidation().min(
+          energyConsumptionPreference: listSelectionValidation().min(
             1,
             "Select at least one framework"
           ),
@@ -60,24 +61,31 @@ const InstallerOnboardingFormThree = () => {
       ),
     }),
 
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       console.log("Form submitted:", values);
+      const pastProjects = values.projects.map((project) => {
+        const formData = new FormData();
+        formData.append("projectLocation ", project.projectLocation);
+        formData.append(
+          "energyConsumptionPreference  ",
+          project.energyConsumptionPreference.join(",")
+        );
+        formData.append("caption", project.caption);
+        for (let i = 0; i < project.images.length; i++) {
+          formData.append("file", project.images[i].file);
+        }
+        return uploadPastProject(formData);
+      });
 
-      const mockUser = {
-        token: "fake-jwt-token",
-        profile: USER_TYPE.INSTALLER,
-      };
+      Promise.all(pastProjects);
 
-      login({ token: mockUser.token });
-
-      resetForm();
-      navigate("/instller-dashboard");
+      // navigate(ROUTE_KEYS.INSTALLER_ROOT);
     },
   });
 
   const { handleSubmit } = formik;
 
-  const frameworks = [
+  const energyConsumptionPreference = [
     { value: "fan", label: "Fan" },
     { value: "fridge", label: "Fridge" },
     { value: "oven", label: "Oven" },
@@ -139,8 +147,8 @@ const InstallerOnboardingFormThree = () => {
                               <MultiSelectInput.primary
                                 placeholder="Fan, Fridge, Oven"
                                 rounded={"full"}
-                                name={`projects.${index}.frameworks`}
-                                options={frameworks}
+                                name={`projects.${index}.energyConsumptionPreference`}
+                                options={energyConsumptionPreference}
                                 validate
                               />
                             </div>
@@ -170,7 +178,7 @@ const InstallerOnboardingFormThree = () => {
                                         ).forEach((file) => {
                                           fileToBase64(file).then((base64) => {
                                             pushImage({
-                                              name: file.name,
+                                              file,
                                               url: base64,
                                             });
                                           });
@@ -231,7 +239,7 @@ const InstallerOnboardingFormThree = () => {
                                   projectLocation: "",
                                   loads: "",
                                   caption: "",
-                                  frameworks: [],
+                                  energyConsumptionPreference: [],
                                   images: [],
                                 })
                               }
@@ -261,6 +269,7 @@ const InstallerOnboardingFormThree = () => {
               <Button.PrimarySolid
                 className="w-full max-w-[150px] self-center mx-auto  md:!max-w-[290px] h-12 text-white mt-6"
                 type="submit"
+                loading={isPending}
               >
                 Continue
               </Button.PrimarySolid>
