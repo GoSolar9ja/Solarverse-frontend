@@ -8,7 +8,7 @@ import BiddingIcon from "@/components/common/icons/bidding-icon";
 import SchedulingIcon from "@/components/common/icons/scheduling-icon";
 import DashboardIcon from "@/components/common/icons/dashboard-icon";
 import ArrowDownIcon from "@/components/common/icons/arrowdown-icon";
-import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
+// import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 interface IProps {
@@ -43,7 +43,7 @@ export default function SidebarNavigation({
   openSidebar,
   toggleOpenSidebar,
 }: IProps) {
-  const { logout } = useAuthContext();
+  // const { logout } = useAuthContext();
   const location = useLocation();
 
   const isActive = (path: string) => {
