@@ -6,7 +6,7 @@ import {
   TextAreaField,
   UploadField,
 } from "@solarverse/ui";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   createValidationSchema,
   fileToBase64,
@@ -19,12 +19,12 @@ import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { XIcon } from "lucide-react";
 import CrossIcon from "@/components/common/icons/cross-icon";
-import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+// import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import usePastProjectUploadMutation from "@/lib/services/api/file-uploads/past-project-upload.api";
 
 const InstallerOnboardingFormThree = () => {
   const { listSelectionValidation, fieldValidation } = schemaValidation;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { mutateAsync: uploadPastProject, isPending } =
     usePastProjectUploadMutation();
 
