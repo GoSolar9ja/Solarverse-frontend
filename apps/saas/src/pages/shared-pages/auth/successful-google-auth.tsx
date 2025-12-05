@@ -1,5 +1,5 @@
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
-import useQueryParams from "@/lib/hooks/use-query-params";
+import { useQueryParams } from "@solarverse/hooks";
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { useEffect } from "react";
 import { jwtDecode, JwtPayload } from "jwt-decode";

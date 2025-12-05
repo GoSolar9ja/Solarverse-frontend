@@ -8,12 +8,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
-import { Toaster } from "@/components/ui/sonner";
+import { useQueryParams } from "@solarverse/hooks";
+import useResetPasswordMutation from "@/lib/services/api/auth/reset-password.api";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 export default function Resetpassword() {
+  const { getParam } = useQueryParams();
+
   const navigate = useNavigate();
   const { passwordValidation, matchFieldValidation } = schemaValidation;
-
+  const token = getParam("token") || "";
+  const { mutateAsync: resetPassword, isPending } = useResetPasswordMutation();
   const formik = useFormik({
     initialValues: {
       currentPassword: "",
@@ -32,17 +37,11 @@ export default function Resetpassword() {
         errorMessages: { fieldMatchError: "Passwords do not match" },
       }).required("Please confirm new password"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-
+    onSubmit: async (values) => {
+      await resetPassword({ token, newPassword: values.confirmPassword });
       toast.success("Password reset successful!");
-
-      resetForm();
-
+      navigate(ROUTE_KEYS.SIGN_IN);
       // Redirect after toast
-      setTimeout(() => {
-        navigate("/sign-in");
-      }, 5000);
     },
   });
 
@@ -50,7 +49,7 @@ export default function Resetpassword() {
 
   return (
     <div
-      className="w-full mx-auto flex items-center justify-center bg-[#FFFFFF] max-w-[1440px] p-6 h-screen md:!h-[942px] relative bg-cover bg-center"
+      className="w-full mx-auto flex items-center justify-center bg-[#FFFFFF]  p-6 min-h-screen relative bg-cover bg-center"
       style={{ backgroundImage: `url(${IMAGE_PATHS.adminLoginBackgroundImg})` }}
     >
       <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
@@ -71,7 +70,7 @@ export default function Resetpassword() {
             >
               Reset Password
             </Typography.h2>
-            <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
+            <Typography.body1 className="font-normal text-[18px] tracking-[1%] text-[#5A5F61] pb-5 pt-2">
               Kindly fill in the information below to reset your password
             </Typography.body1>
           </div>
@@ -110,6 +109,7 @@ export default function Resetpassword() {
                 <Button.PrimarySolid
                   className="w-full h-12 text-white"
                   type="submit"
+                  loading={isPending}
                 >
                   Login
                 </Button.PrimarySolid>

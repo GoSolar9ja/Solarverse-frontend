@@ -1,11 +1,8 @@
 import { STORAGE_KEYS } from "@/lib/constants";
-import {
-  getFromLocalStorage,
-  removeFromLocalStorage,
-} from "@/lib/utils/local-storage";
+import { getFromLocalStorage } from "@/lib/utils/local-storage";
 import axios from "axios";
 
-export const baseURL = "/";
+export const baseURL = import.meta.env.VITE_BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL,
@@ -23,17 +20,5 @@ axiosInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
-
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response?.status === 401) {
-      // Clear the token
-      removeFromLocalStorage("token");
-      // Redirect to login
-    }
-    return Promise.reject(error);
-  }
-);
 
 export default axiosInstance;

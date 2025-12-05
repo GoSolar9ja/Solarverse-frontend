@@ -64,4 +64,4 @@ const useQueryParams = () => {
   };
 };
 
-export default useQueryParams;
+export { useQueryParams };

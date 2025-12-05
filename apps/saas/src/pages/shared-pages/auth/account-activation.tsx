@@ -1,6 +1,6 @@
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 
-import useQueryParams from "@/lib/hooks/use-query-params";
+import { useQueryParams } from "@solarverse/hooks";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useActivateAccountMutation from "@/lib/services/api/auth/activate-account.api";
 import { Button, Typography } from "@solarverse/ui";

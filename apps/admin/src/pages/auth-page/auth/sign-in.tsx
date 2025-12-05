@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { InputField } from "@solarverse/ui";
+import { InputField, successToast } from "@solarverse/ui";
 import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
@@ -10,11 +10,13 @@ import { USER_TYPE } from "@/lib/constants";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
+import useLoginMutation from "@/lib/services/api/auth/login.api";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
 
   const { login } = useAuthContext();
+  const { mutateAsync: loginMutation, isPending } = useLoginMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -25,43 +27,27 @@ export default function Signin() {
       email: emailValidation(),
       password: passwordValidation().required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      console.log("Form submitted:", values);
-
-      // 🔹 Mock backend auth (replace with API call later)
-      const mockUser = {
+    onSubmit: async (values) => {
+      const req = loginMutation({
         email: values.email,
-        token: "fake-jwt-token",
-        profile: USER_TYPE.ADMIN, // or "home" — this would normally come from backend
-      };
+        password: values.password,
+      });
+      const res = await req;
+      const accessToken = res.data?.tokens.access;
+      // const refreshToken = res.data?.tokens.refresh;
 
-      login({ token: mockUser.token, userType: mockUser.profile });
-      // Save to localStorage
-
-      // Update context
-
-      resetForm();
-
-      // Redirect to dashboard (Protected route)
+      if (accessToken) {
+        login({ token: accessToken, userType: USER_TYPE.ADMIN });
+        successToast("Login successful");
+      }
     },
   });
 
   const { handleSubmit } = formik;
 
-  // Handlers for social login (replace with backend/OAuth integration later)
-  const handleGoogleLogin = () => {
-    console.log("Google login clicked");
-    // e.g. window.location.href = "/api/auth/google";
-  };
-
-  const handleFacebookLogin = () => {
-    console.log("Facebook login clicked");
-    // e.g. window.location.href = "/api/auth/facebook";
-  };
-
   return (
     <div
-      className="w-full mx-auto flex items-center justify-center bg-[#FFFFFF] max-w-[1440px] p-6 h-screen md:!h-[942px] relative bg-cover bg-center"
+      className="w-full mx-auto flex items-center justify-center bg-[#FFFFFF]  p-6 min-h-screen relative bg-cover bg-center"
       style={{ backgroundImage: `url(${IMAGE_PATHS.adminLoginBackgroundImg})` }}
     >
       <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
@@ -82,7 +68,7 @@ export default function Signin() {
             >
               Login with Email
             </Typography.h2>
-            <Typography.body1 className="font-normal text-center text-[18px] tracking-[1%] text-[#5A5F61]">
+            <Typography.body1 className="font-normal pt-2 pb-5 text-[18px] tracking-[1%] text-[#5A5F61]">
               Please enter email and password to login to your account
             </Typography.body1>
           </div>
@@ -113,6 +99,7 @@ export default function Signin() {
                 <Button.PrimarySolid
                   className="w-full h-12 text-white"
                   type="submit"
+                  loading={isPending}
                 >
                   Log in
                 </Button.PrimarySolid>

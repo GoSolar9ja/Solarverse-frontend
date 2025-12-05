@@ -7,7 +7,7 @@ import { Typography } from "@solarverse/ui";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-import useQueryParams from "@/lib/hooks/use-query-params";
+import { useQueryParams } from "@solarverse/hooks";
 import useResetPasswordMutation from "@/lib/services/api/auth/reset-password.api";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 

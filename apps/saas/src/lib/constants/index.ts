@@ -1,6 +1,6 @@
 export enum STORAGE_KEYS {
-  GOSOLAR_TOKEN = "@token@gosolar",
-  GOSOLAR_USER = "@user@gosolar",
+  GOSOLAR_TOKEN = "@token@solarverse",
+  GOSOLAR_USER = "@user@solarverse",
 }
 
 export enum USER_TYPE {

@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   ComponentVisibility,
   InputField,
@@ -6,7 +7,7 @@ import {
   TextAreaField,
   UploadField,
 } from "@solarverse/ui";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   createValidationSchema,
   fileToBase64,
@@ -19,15 +20,17 @@ import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { XIcon } from "lucide-react";
 import CrossIcon from "@/components/common/icons/cross-icon";
-// import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import usePastProjectUploadMutation from "@/lib/services/api/file-uploads/past-project-upload.api";
 
 const InstallerOnboardingFormThree = () => {
   const { listSelectionValidation, fieldValidation } = schemaValidation;
-  // const navigate = useNavigate();
-  const { mutateAsync: uploadPastProject, isPending } =
-    usePastProjectUploadMutation();
-
+  const navigate = useNavigate();
+  const {
+    mutateAsync: uploadPastProject,
+    isPending,
+    failureCount,
+  } = usePastProjectUploadMutation();
   const formik = useFormik({
     initialValues: {
       projects: [
@@ -37,6 +40,7 @@ const InstallerOnboardingFormThree = () => {
           caption: "",
           energyConsumptionPreference: [],
           images: [] as Array<{ url: string; file: File }>,
+          uploaded: false,
         },
       ],
     },
@@ -61,25 +65,27 @@ const InstallerOnboardingFormThree = () => {
       ),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log("Form submitted:", values);
-      const pastProjects = values.projects.map((project) => {
+      const pastProjects = values.projects.map((project, index) => {
         const formData = new FormData();
-        formData.append("projectLocation ", project.projectLocation);
+        formData.append("projectLocation", project.projectLocation);
         formData.append(
-          "energyConsumptionPreference  ",
+          "energyConsumptionPreference",
           project.energyConsumptionPreference.join(",")
         );
         formData.append("caption", project.caption);
         for (let i = 0; i < project.images.length; i++) {
-          formData.append("file", project.images[i].file);
+          formData.append("files", project.images[i].file);
         }
-        return uploadPastProject(formData);
+        return uploadPastProject(formData).then(() => {
+          formik.setFieldValue(`projects.${index}.uploaded`, true);
+          // console.log(res);
+        });
       });
 
-      Promise.all(pastProjects);
-
-      // navigate(ROUTE_KEYS.INSTALLER_ROOT);
+      await Promise.all(pastProjects);
+      navigate(ROUTE_KEYS.INSTALLER_ROOT);
     },
   });
 
@@ -117,151 +123,160 @@ const InstallerOnboardingFormThree = () => {
                 {({ push, remove }) => (
                   <div className="flex flex-col   gap-[10px] w-full ">
                     {formik.values.projects.map((project, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col md:!flex-row gap-[20px] md:!w-[90%] w-full mx-auto"
-                      >
-                        <div className="flex flex-col border border-[#C1C6C5]/50 pt-[40px] pr-[20px] pb-[40px] pl-[20px] gap-[30px] md:!gap-[50px] rounded-[10px] w-full h-fit md:!max-w-[688px] mt-4">
-                          {/* Fields */}
-                          <div className="grid grid-cols-1 gap-[30px] md:!grid-cols-2 md:!gap-[81px] w-full md:!max-w-[688px] h-fit">
+                      <>
+                        <ComponentVisibility
+                          visible={failureCount > 0 && !project.uploaded}
+                        >
+                          <Alert.error description="Failed to upload this project" />
+                        </ComponentVisibility>
+                        <div
+                          key={index}
+                          className="flex flex-col md:!flex-row gap-[20px] md:!w-[90%] w-full mx-auto"
+                        >
+                          <div className="flex flex-col border border-[#C1C6C5]/50 pt-[40px] pr-[20px] pb-[40px] pl-[20px] gap-[30px] md:!gap-[50px] rounded-[10px] w-full h-fit md:!max-w-[688px] mt-4">
+                            {/* Fields */}
+                            <div className="grid grid-cols-1 gap-[30px] md:!grid-cols-2 md:!gap-[81px] w-full md:!max-w-[688px] h-fit">
+                              <div>
+                                <Typography.body1 weight="semibold">
+                                  Project Location
+                                </Typography.body1>
+                                <InputField.primary
+                                  rounded={"full"}
+                                  className="w-full md:!max-w-[285px]"
+                                  name={`projects.${index}.projectLocation`}
+                                  placeholder="Project Location"
+                                  validate
+                                />
+                              </div>
+
+                              <div>
+                                <Typography.body1
+                                  weight="semibold"
+                                  className="tracking-[1%]"
+                                >
+                                  Energy Consumption Preference
+                                </Typography.body1>
+                                <MultiSelectInput.primary
+                                  placeholder="Fan, Fridge, Oven"
+                                  rounded={"full"}
+                                  name={`projects.${index}.energyConsumptionPreference`}
+                                  options={energyConsumptionPreference}
+                                  validate
+                                />
+                              </div>
+                            </div>
+
+                            {/* Upload Images */}
+                            <div className="flex flex-col">
+                              <Typography.body1 weight="semibold">
+                                Upload Photos
+                              </Typography.body1>
+                              <FieldArray name={`projects[${index}].images`}>
+                                {({ push: pushImage, remove: removeImage }) => (
+                                  <>
+                                    <UploadField
+                                      containerProps={{
+                                        className:
+                                          "flex-1 w-full md:max-w-[277px] md!h-[61px]",
+                                      }}
+                                      showUploadList={false}
+                                      fieldProps={{
+                                        name: `projects.${index}.images`,
+                                        multiple: true,
+                                        accept: "image/*",
+                                        onChange: (e) => {
+                                          Array.from(
+                                            e.target.files || []
+                                          ).forEach((file) => {
+                                            fileToBase64(file).then(
+                                              (base64) => {
+                                                pushImage({
+                                                  file,
+                                                  url: base64,
+                                                });
+                                              }
+                                            );
+                                          });
+                                        },
+                                      }}
+                                      validate
+                                    />
+
+                                    <ComponentVisibility
+                                      visible={project.images?.length > 0}
+                                    >
+                                      <div className="flex gap-5 mt-2">
+                                        {project.images?.map((img, i) => (
+                                          <div key={i} className="relative">
+                                            <Image
+                                              containerClassName="size-[60px]"
+                                              src={img.url}
+                                            />
+                                            <button
+                                              type="button"
+                                              onClick={() => removeImage(i)}
+                                              className="absolute -top-2 -right-2 bg-gray-200 rounded-full p-1"
+                                            >
+                                              <XIcon className="w-4 h-4 text-red-500" />
+                                            </button>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </ComponentVisibility>
+                                    <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-5">
+                                      PNG, JPG, Only
+                                    </Typography.body2>
+                                  </>
+                                )}
+                              </FieldArray>
+                            </div>
+
+                            {/* Caption */}
                             <div>
                               <Typography.body1 weight="semibold">
-                                Project Location
+                                Caption
                               </Typography.body1>
-                              <InputField.primary
-                                rounded={"full"}
-                                className="w-full md:!max-w-[285px]"
-                                name={`projects.${index}.projectLocation`}
-                                placeholder="Project Location"
+                              <TextAreaField.primary
+                                name={`projects.${index}.caption`}
+                                className="w-full h-[90px]"
+                                placeholder="Write a caption"
                                 validate
                               />
                             </div>
-
-                            <div>
-                              <Typography.body1
-                                weight="semibold"
-                                className="tracking-[1%]"
+                          </div>
+                          {/* Add / Remove */}
+                          <div className="flex gap-4  h-[43px] md:!mt-[126px] w-full max-w-[20px]">
+                            {index === 0 ? (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  push({
+                                    projectLocation: "",
+                                    loads: "",
+                                    caption: "",
+                                    energyConsumptionPreference: [],
+                                    images: [],
+                                  })
+                                }
+                                className="border flex items-center gap-2 rounded-[50px] px-3 py-2 border-[#2495D1]"
                               >
-                                Energy Consumption Preference
-                              </Typography.body1>
-                              <MultiSelectInput.primary
-                                placeholder="Fan, Fridge, Oven"
-                                rounded={"full"}
-                                name={`projects.${index}.energyConsumptionPreference`}
-                                options={energyConsumptionPreference}
-                                validate
-                              />
-                            </div>
-                          </div>
-
-                          {/* Upload Images */}
-                          <div className="flex flex-col">
-                            <Typography.body1 weight="semibold">
-                              Upload Photos
-                            </Typography.body1>
-                            <FieldArray name={`projects[${index}].images`}>
-                              {({ push: pushImage, remove: removeImage }) => (
-                                <>
-                                  <UploadField
-                                    containerProps={{
-                                      className:
-                                        "flex-1 w-full md:max-w-[277px] md!h-[61px]",
-                                    }}
-                                    showUploadList={false}
-                                    fieldProps={{
-                                      name: `projects.${index}.images`,
-                                      multiple: true,
-                                      accept: "image/*",
-                                      onChange: (e) => {
-                                        Array.from(
-                                          e.target.files || []
-                                        ).forEach((file) => {
-                                          fileToBase64(file).then((base64) => {
-                                            pushImage({
-                                              file,
-                                              url: base64,
-                                            });
-                                          });
-                                        });
-                                      },
-                                    }}
-                                    validate
-                                  />
-
-                                  <ComponentVisibility
-                                    visible={project.images?.length > 0}
-                                  >
-                                    <div className="flex gap-5 mt-2">
-                                      {project.images?.map((img, i) => (
-                                        <div key={i} className="relative">
-                                          <Image
-                                            containerClassName="size-[60px]"
-                                            src={img.url}
-                                          />
-                                          <button
-                                            type="button"
-                                            onClick={() => removeImage(i)}
-                                            className="absolute -top-2 -right-2 bg-gray-200 rounded-full p-1"
-                                          >
-                                            <XIcon className="w-4 h-4 text-red-500" />
-                                          </button>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </ComponentVisibility>
-                                  <Typography.body2 className="tracking-[1%] text-[#5A5F61] mt-5">
-                                    PNG, JPG, Only
-                                  </Typography.body2>
-                                </>
-                              )}
-                            </FieldArray>
-                          </div>
-
-                          {/* Caption */}
-                          <div>
-                            <Typography.body1 weight="semibold">
-                              Caption
-                            </Typography.body1>
-                            <TextAreaField.primary
-                              name={`projects.${index}.caption`}
-                              className="w-full h-[90px]"
-                              placeholder="Write a caption"
-                              validate
-                            />
+                                <CrossIcon />
+                                <Typography.body1 className="text-[#2495D1]">
+                                  Add
+                                </Typography.body1>
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => remove(index)}
+                                className="border flex items-center justify-center rounded-[50px] px-3 py-2 border-[#E3140F]"
+                              >
+                                <DeleteIcon />
+                              </button>
+                            )}
                           </div>
                         </div>
-                        {/* Add / Remove */}
-                        <div className="flex gap-4  h-[43px] md:!mt-[126px] w-full max-w-[20px]">
-                          {index === 0 ? (
-                            <button
-                              type="button"
-                              onClick={() =>
-                                push({
-                                  projectLocation: "",
-                                  loads: "",
-                                  caption: "",
-                                  energyConsumptionPreference: [],
-                                  images: [],
-                                })
-                              }
-                              className="border flex items-center gap-2 rounded-[50px] px-3 py-2 border-[#2495D1]"
-                            >
-                              <CrossIcon />
-                              <Typography.body1 className="text-[#2495D1]">
-                                Add
-                              </Typography.body1>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => remove(index)}
-                              className="border flex items-center justify-center rounded-[50px] px-3 py-2 border-[#E3140F]"
-                            >
-                              <DeleteIcon />
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                      </>
                     ))}
                   </div>
                 )}
