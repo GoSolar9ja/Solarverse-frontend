@@ -123,7 +123,7 @@ export default function InstallerTopbar() {
             </PopoverTrigger>
             <PopoverContent align="end" className="max-w-[200px]">
               <ul>
-                <li className="p-2">ROSELN AKUBUO</li>
+                <li className="p-2">{userName}</li>
                 {actions.map((action) => (
                   <li key={action.label}>
                     <button className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background">

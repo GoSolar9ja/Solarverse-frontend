@@ -61,7 +61,8 @@ export default function HomeOwnerTopbar() {
   const path = location.pathname;
   const activePath = navigationLinks.find((link) => path.includes(link.to));
   const title = activePath?.title;
-  const userName = data?.data?.user?.firstName || "";
+  const userName =
+    data?.data?.user?.firstName + " " + data?.data?.user?.lastName || "";
   const logoUrl = data?.data?.user?.profilePictureUrl;
 
   const actions = [
@@ -128,7 +129,9 @@ export default function HomeOwnerTopbar() {
             </PopoverTrigger>
             <PopoverContent align="end" className="max-w-[200px]">
               <ul>
-                <li className="p-2">ROSELN AKUBUO</li>
+                <li className="p-2">
+                  <Typography.body1>{userName}</Typography.body1>
+                </li>
                 {actions.map((action) => (
                   <li key={action.label}>
                     <button className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background">
@@ -140,7 +143,8 @@ export default function HomeOwnerTopbar() {
                 <li>
                   <Button.SecondarySolid
                     size={"xs"}
-                    className="max-w-[190px] flex md:hidden!"
+                    fullWidth
+                    className=" flex md:hidden!"
                     rounded={"lg"}
                   >
                     + Request Installer
