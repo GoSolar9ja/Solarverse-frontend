@@ -96,7 +96,7 @@ export default function HomeOwnerTopbar() {
         <div className="md:gap-5 gap-3 flex items-center">
           <Button.SecondarySolid
             size={"xs"}
-            className="max-w-[190px]"
+            className="max-w-[190px] hidden md:flex!"
             rounded={"lg"}
           >
             + Request Installer
@@ -137,6 +137,15 @@ export default function HomeOwnerTopbar() {
                     </button>
                   </li>
                 ))}
+                <li>
+                  <Button.SecondarySolid
+                    size={"xs"}
+                    className="max-w-[190px] flex md:hidden!"
+                    rounded={"lg"}
+                  >
+                    + Request Installer
+                  </Button.SecondarySolid>
+                </li>
               </ul>
             </PopoverContent>
           </Popover>
