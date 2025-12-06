@@ -53,12 +53,12 @@ export default function Signin() {
     >
       <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
       <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 h-[620px] md:!h-[756px] max-w-[679px] p-6 rounded-[25px] md:!rounded-[50px] shadow-lg">
-        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 h-[320px] max-w-[628px]">
+        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 h-[320px] !max-w-[295px]">
           <div className="w-fit">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
               alt="App logo"
-              containerClassName="w-full max-w-[200px] h-[90px] sm:!h-[115px] sm:!max-w-[295px] object-contain"
+              containerClassName="w-full max-w-[200px] h-[90px] sm:!h-[115px]  object-contain"
             />
           </div>
 
