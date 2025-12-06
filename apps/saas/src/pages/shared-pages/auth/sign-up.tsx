@@ -1,4 +1,3 @@
-import IMAGE_PATHS from "@/assets/images";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
@@ -7,7 +6,6 @@ import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
-import { Image } from "@solarverse/ui";
 import useRegisterMutation from "@/lib/services/api/auth/register.api";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import { baseURL } from "@/lib/services/config/axios-instance";
