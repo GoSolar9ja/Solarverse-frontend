@@ -134,7 +134,10 @@ export default function HomeOwnerTopbar() {
                 </li>
                 {actions.map((action) => (
                   <li key={action.label}>
-                    <button className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background">
+                    <button
+                      onClick={action.onClick}
+                      className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background"
+                    >
                       <Typography.body2 inline>{action.label}</Typography.body2>
                       <ChevronRight className="text-gray-400" />
                     </button>
