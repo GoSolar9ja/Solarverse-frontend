@@ -42,7 +42,7 @@ export default function Resetpassword() {
 
   return (
     <div className="flex flex-col gap-[25px] w-full">
-      <div className="flex flex-col gap-[12px] w-[276px] h-fit">
+      <div className="flex flex-col gap-[12px]  h-fit">
         <Typography.h2 className="tracking-[1%] text-[#111214]" weight={"bold"}>
           Reset Password
         </Typography.h2>

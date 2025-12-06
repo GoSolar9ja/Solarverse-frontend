@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 export default function AuthContainer({ children }: { children: ReactNode }) {
   return (
-    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white">
-      <div className="flex flex-col md:flex-row! w-full max-w-6xl h-[1004px] p-6 md:p-10! gap-8 md:gap-[93px]!">
+    <div className="w-full mx-auto flex flex-1 justify-center items-center bg-white min-h-screen overflow-y-auto">
+      <div className="flex flex-col md:flex-row! w-full max-w-6xl  p-6 md:p-10! gap-8 md:gap-[93px]!">
         {/* Left side - form */}
         <div className="flex flex-col w-full max-w-[320px] mx-auto items-center">
           <div className=" mb-6">
@@ -19,14 +19,12 @@ export default function AuthContainer({ children }: { children: ReactNode }) {
             {children}
           </div>
         </div>
-        <div className="hidden lg:block!  w-full max-w-[875px] h-[1000px]">
-          <Image
-            containerClassName="w-full h-[850px]"
-            className="rounded-[20px]"
-            src={IMAGE_PATHS.installerImg}
-            alt="installer-image"
-          />
-        </div>
+        <Image
+          containerClassName="hidden lg:block!   w-full max-w-[875px]  h-fit"
+          className="rounded-[20px]"
+          src={IMAGE_PATHS.installerImg}
+          alt="installer-image"
+        />
       </div>
     </div>
   );

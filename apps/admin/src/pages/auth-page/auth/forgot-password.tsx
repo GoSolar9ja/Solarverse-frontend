@@ -55,7 +55,7 @@ export default function Forgotpassword() {
           </div>
 
           <FormikProvider value={formik}>
-            <div className="flex flex-col gap-[12px] w-full max-w-[276px] h-fit">
+            <div className="flex flex-col gap-[12px] w-full max- h-fit">
               <Typography.h2
                 className=" tracking-[1%] text-[#111214]"
                 weight={"bold"}

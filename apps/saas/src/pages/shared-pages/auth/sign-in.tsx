@@ -6,12 +6,11 @@ import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
 import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
-import IMAGE_PATHS from "@/assets/images";
-import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
 import useLoginMutation from "@/lib/services/api/auth/login.api";
 import { baseURL } from "@/lib/services/config/axios-instance";
-
+import GoogleIcon from "@/assets/svgs/google-icon.svg?react";
+import FacebookIcon from "@/assets/svgs/facebook-icon.svg?react";
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
   const { login } = useAuthContext();
@@ -63,11 +62,8 @@ export default function Signin() {
         onClick={handleGoogleLogin}
         className="flex items-center gap-4 w-full border border-[#C1C6C5] cursor-pointer px-6 py-3 bg-gray-100/50 rounded-full justify-center"
       >
-        <Image
-          src={IMAGE_PATHS.googleImg}
-          alt="google-logo"
-          containerClassName="w-full max-w-[22px] h-fit"
-        />
+        <GoogleIcon />
+
         <span className="text-lg font-normal text-[#111214]">
           Sign in with Google
         </span>
@@ -79,11 +75,7 @@ export default function Signin() {
         onClick={handleFacebookLogin}
         className="flex items-center gap-4 w-full border border-[#C1C6C5]/50 cursor-pointer px-6 py-3 bg-[#1877F2]/10 rounded-full justify-center"
       >
-        <Image
-          src={IMAGE_PATHS.facebookImg}
-          alt="facebook-logo"
-          containerClassName="w-full max-w-[22px] h-fit"
-        />
+        <FacebookIcon />
         <span className="text-lg font-normal text-[#111214]">
           Sign in with Facebook
         </span>
@@ -92,7 +84,7 @@ export default function Signin() {
       <p className="text-[18px] font-medium text-[#111214]">or</p>
 
       <div className="flex flex-col gap-[25px] w-full">
-        <div className="flex items-center flex-col gap-[12px] w-[276px] h-fit">
+        <div className="flex text-center items-center flex-col gap-[12px]  h-fit">
           <Typography.h2
             className=" tracking-[1%] text-[#111214]"
             weight={"bold"}

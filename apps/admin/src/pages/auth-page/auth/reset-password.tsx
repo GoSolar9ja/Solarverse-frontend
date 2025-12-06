@@ -63,7 +63,7 @@ export default function Resetpassword() {
             />
           </div>
 
-          <div className="flex items-center flex-col  w-[276px] h-fit">
+          <div className="flex items-center flex-col   h-fit">
             <Typography.h2
               className="tracking-[1%] text-[#111214]"
               weight={"bold"}

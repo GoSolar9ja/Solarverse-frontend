@@ -1,4 +1,3 @@
-import IMAGE_PATHS from "@/assets/images";
 import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, successToast } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
@@ -6,9 +5,9 @@ import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
-import { Image } from "@solarverse/ui";
 import useRequestPasswordResetMutation from "@/lib/services/api/auth/request-password-reset.api";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
+import { ArrowLeft } from "lucide-react";
 
 export default function Forgotpassword() {
   const { emailValidation } = schemaValidation;
@@ -51,11 +50,7 @@ export default function Forgotpassword() {
       <div>
         <Link to="/sign-in">
           <button className="bg-[#F5F5F5] mb-7 rounded-[5px] border border-[#C1C6C5]/50 flex items-center justify-center w-full md:!h-[64px] max-w-[100px] h-[44px] p-[20px] cursor-pointer gap-4 md:!max-w-[143px]">
-            <Image
-              src={IMAGE_PATHS.arrrowBackImg}
-              alt="back arrow icon"
-              containerClassName="w-full max-w-[20px] object-contain"
-            />
+            <ArrowLeft />
             <Typography.body1
               weight={"medium"}
               className="tracking-[1.5%] text-[#111214]"
@@ -67,7 +62,7 @@ export default function Forgotpassword() {
       </div>
 
       <div className="flex flex-col gap-[25px] w-full max-w-[295px]">
-        <div className="flex flex-col gap-[12px] w-full max-w-[276px] h-fit">
+        <div className="flex flex-col gap-[12px] w-full  max- h-fit">
           <Typography.h2
             className=" tracking-[1%] text-[#111214]"
             weight={"bold"}

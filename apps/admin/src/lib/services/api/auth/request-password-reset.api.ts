@@ -9,7 +9,7 @@ const requestPasswordReset = async (data: IRequestPasswordResetRequest) => {
   const request = await axiosInstance.post<
     IRequestPasswordResetRequest,
     AxiosResponse<ApiResponseType<string>>
-  >("/api/v1/auth/send-password-reset", data);
+  >("/api/v1/auth/request-reset-password", data);
   return request.data;
 };
 
