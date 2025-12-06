@@ -66,7 +66,7 @@ export function HomeOwnerProtectedOutlet() {
   return userType === USER_TYPE.HOME_OWNER ? (
     <HomeOwnerDashboardLayout />
   ) : (
-    <p>Opps Page not found</p>
+    <></>
   );
 }
 
@@ -80,6 +80,6 @@ export function InstallerProtectedOutlet() {
   return userType === USER_TYPE.INSTALLER ? (
     <InstallerDashboardLayout />
   ) : (
-    <p>Opps Page Not Found</p>
+    <></>
   );
 }
