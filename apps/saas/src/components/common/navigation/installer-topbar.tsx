@@ -1,6 +1,7 @@
 import {
   BellIcon,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   MailIcon,
   MenuIcon,
@@ -13,10 +14,10 @@ import BiddingIcon from "@/components/common/icons/bidding-icon";
 import SchedulingIcon from "@/components/common/icons/scheduling-icon";
 import DashboardIcon from "@/components/common/icons/dashboard-icon";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
-import useGetProfileQuery from "@/lib/services/api/auth/get-profile.api";
+import WalletIcon from "../icons/wallet-icon";
+import useGetBusinessProfileQuery from "@/lib/services/api/auth/get-business-profile.api";
 import {
   Avatar,
-  Button,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -31,6 +32,7 @@ const navigationLinks = [
     icon: DashboardIcon,
     label: "Dashboard",
     title: "Dashboard Overview",
+    index: true,
   },
   {
     to: ROUTE_KEYS.BIDDING,
@@ -42,27 +44,31 @@ const navigationLinks = [
     to: ROUTE_KEYS.SCHEDULING,
     icon: SchedulingIcon,
     label: "Scheduling",
-
     title: "Scheduling",
   },
   {
-    to: ROUTE_KEYS.PROJECT_TRACKER,
+    to: ROUTE_KEYS.PROJECT_MANAGER,
     icon: BuildingIcon,
-    label: "Project Tracker",
-    title: "Project Tracker",
+    label: "Project Manager",
+  },
+  {
+    to: ROUTE_KEYS.WALLET,
+    icon: WalletIcon,
+    label: "Wallet",
   },
 ];
 
-export default function HomeOwnerTopbar() {
+export default function InstallerTopbar() {
   const [openSidebar, toggleOpenSidebar] = useToggle(false);
   const { logout } = useAuthContext();
-  const { data } = useGetProfileQuery();
+  const { data } = useGetBusinessProfileQuery();
   const location = useLocation();
   const path = location.pathname;
   const activePath = navigationLinks.find((link) => path.includes(link.to));
   const title = activePath?.title;
-  const userName = data?.data?.user?.firstName || "";
-  const logoUrl = data?.data?.user?.profilePictureUrl;
+
+  const userName = data?.data?.business.name;
+  const logoUrl = data?.data?.business.businessLogoUrl;
 
   const actions = [
     {
@@ -78,36 +84,26 @@ export default function HomeOwnerTopbar() {
       onClick: () => {},
     },
   ];
-
   return (
     <>
       <SidebarNavigation
         openSidebar={openSidebar}
         toggleOpenSidebar={toggleOpenSidebar}
         navigationLinks={navigationLinks}
-        userName={data?.data?.user.firstName || ""}
-        userImage={data?.data?.user.profilePictureUrl || ""}
+        userName={data?.data?.business.name || ""}
+        userImage={data?.data?.business.businessLogoUrl || ""}
       />
-
       <div className="sticky top-0 bg-white p-5 flex justify-between gap-3 items-center">
         <Typography.h6>{title}</Typography.h6>
         {/* <button onClick={logout}>Logout</button> */}
 
         <div className="md:gap-5 gap-3 flex items-center">
-          <Button.SecondarySolid
-            size={"xs"}
-            className="max-w-[190px]"
-            rounded={"lg"}
-          >
-            + Request Installer
-          </Button.SecondarySolid>
           <div className="rounded-full bg-[#F2F2F2] p-2">
             <MailIcon size={16} />
           </div>
           <div className="rounded-full bg-[#F2F2F2] p-2">
             <BellIcon size={16} />
           </div>
-
           <Popover>
             <PopoverTrigger>
               <button className="flex w-full max-w-[203px] cursor-pointer md:gap-[5px] gap-1  items-center justify-between rounded-xl">

@@ -1,15 +1,14 @@
 import { Outlet } from "react-router-dom";
+import InstallerTopbar from "../navigation/installer-topbar";
 // import { useProfile } from "@/context/ProfileContext";
 
-import HomeOwnerTopbar from "../navigation/homeowner-topbar";
-
-export const HomeOwnerDashboardLayout = () => {
+export const InstallerDashboardLayout = () => {
   // const { profile } = useProfile();
 
   return (
     <main className=" lg:p-6  lg:ml-[275px] ">
       <div className="bg-white min-h-[95vh]">
-        <HomeOwnerTopbar />
+        <InstallerTopbar />
         {/* This is where child routes render */}
         <div className="px-5 pb-5">
           <Outlet />

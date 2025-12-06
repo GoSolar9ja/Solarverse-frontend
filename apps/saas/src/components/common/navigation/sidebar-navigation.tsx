@@ -3,45 +3,25 @@ import { ComponentVisibility, Typography } from "@solarverse/ui";
 import AppLink from "../navigation/app-nav-link";
 import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
-import BuildingIcon from "@/components/common/icons/building-icon";
-import BiddingIcon from "@/components/common/icons/bidding-icon";
-import SchedulingIcon from "@/components/common/icons/scheduling-icon";
-import DashboardIcon from "@/components/common/icons/dashboard-icon";
-import ArrowDownIcon from "@/components/common/icons/arrowdown-icon";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 interface IProps {
   openSidebar: boolean;
   toggleOpenSidebar(): void;
+  navigationLinks: {
+    to: string;
+    icon: (props: React.ComponentProps<"svg">) => React.JSX.Element;
+    label: string;
+  }[];
+  userName: string;
+  userImage: string;
 }
-
-const navigationLinks = [
-  {
-    to: "/overview",
-    icon: DashboardIcon,
-    label: "Dashboard",
-  },
-  {
-    to: "/orders",
-    icon: BiddingIcon,
-    label: "Bidding",
-  },
-  {
-    to: "/jobs",
-    icon: SchedulingIcon,
-    label: "Scheduling",
-  },
-  {
-    to: "/settings",
-    icon: BuildingIcon,
-    label: "Project Tracker",
-  },
-];
 
 export default function SidebarNavigation({
   openSidebar,
   toggleOpenSidebar,
+  navigationLinks,
 }: IProps) {
   // const { logout } = useAuthContext();
   const location = useLocation();
@@ -56,7 +36,7 @@ export default function SidebarNavigation({
       <ComponentVisibility visible={openSidebar}>
         <div
           onClick={toggleOpenSidebar}
-          className="fixed right-0 top-0 z-20 bg-black/20  backdrop-blur-xs inset-0 size-svw lg:hidden"
+          className="fixed right-0 top-0 z-20 bg-black/20  backdrop-blur-xs inset-0 size-full lg:hidden"
         />
       </ComponentVisibility>
       <nav
@@ -65,24 +45,12 @@ export default function SidebarNavigation({
           openSidebar ? "left-0" : "-left-full"
         )}
       >
-        <div className="flex w-full p-5 max-w-[203px] h-[58px] gap-[5px]  bg-[#FFFFFF] items-center justify-between">
+        <div className="bg-white rounded-full p-3">
           <Image
             src={IMAGE_PATHS.transparentLogoImg}
             alt="App logo"
-            sizes=""
-            containerClassName="w-full max-w-[47px] h-[30px]"
+            containerClassName="w-full max-w-[107px] h-[100px]"
           />
-          <div className="flex items-center justify-center w-fit h-fit gap-[3.68px]">
-            <Image
-              src={IMAGE_PATHS.avatarImg}
-              alt="App logo"
-              containerClassName="w-full max-w-[29.43px] h-[29.43px]"
-            />
-            <Typography.body1 className=" tracking-[1%] text-[#111214]">
-              Roselyn
-            </Typography.body1>
-          </div>
-          <ArrowDownIcon />
         </div>
 
         <ul className=" flex flex-col gap-[21px] w-full h-fit max-w-[203px] ">

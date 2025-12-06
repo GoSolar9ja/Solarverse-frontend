@@ -17,6 +17,7 @@ export interface IUserProfile {
     isVerified: boolean;
     createdAt: string;
     updatedAt: string;
+    profilePictureUrl: string;
     roles: Array<{
       role: USER_TYPE;
       assignedAt: string;

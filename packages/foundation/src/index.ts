@@ -30,6 +30,7 @@ export * from "./ui/layouts/default-layout";
 
 // Media Components
 export * from "./ui/media/image";
+export * from "./ui/media/avatar";
 
 // Overlay Components
 export * from "./ui/overlay/popover";

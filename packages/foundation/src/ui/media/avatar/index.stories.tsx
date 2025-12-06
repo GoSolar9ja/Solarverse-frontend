@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Image } from "./image";
+import Avatar from ".";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
-const meta: Meta<typeof Image> = {
-  title: "UI/Media/Image",
-  component: Image,
+const meta: Meta<typeof Avatar> = {
+  title: "UI/Media/Avatar",
+  component: Avatar,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -14,11 +14,9 @@ const meta: Meta<typeof Image> = {
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     src: { control: "text" },
-    alt: { control: "text" },
-    width: { control: "text" },
-    height: { control: "text" },
+    size: { control: "select", options: ["2xl", "xl", "lg", "md", "sm", "xs"] },
   },
-} satisfies Meta<typeof Image>;
+} satisfies Meta<typeof Avatar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -26,9 +24,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Component: Story = {
   args: {
-    src: "https://placehold.co/600x400",
-    alt: "Placeholder image",
-    width: "300",
-    height: "200",
+    src: "https://github.com/shadcn.png",
+    size: "md",
   },
 };

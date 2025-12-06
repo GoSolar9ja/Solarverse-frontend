@@ -1,6 +1,7 @@
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 import { HomeOwnerProtectedOutlet } from "./outlets";
 import { ROUTE_KEYS } from "./routes-keys";
+import ComingSoonTemplate from "@/components/common/templates/coming-soon-template";
 
 const homeOwnerRoutes: RouteObject[] = [
   {
@@ -9,23 +10,31 @@ const homeOwnerRoutes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <p>home owner</p>,
+        element: <Navigate to={ROUTE_KEYS.OVERVIEW} />,
       },
       {
         path: ROUTE_KEYS.OVERVIEW,
-        element: <p>home overview</p>,
+        element: <ComingSoonTemplate title="Dashboard Overview" />,
       },
       {
-        path: ROUTE_KEYS.ORDERS,
-        element: <p>home orders</p>,
+        path: ROUTE_KEYS.BIDDING,
+        element: <ComingSoonTemplate title="Bidding" />,
       },
       {
-        path: ROUTE_KEYS.JOBS,
-        element: <p>home jobs</p>,
+        path: ROUTE_KEYS.SCHEDULING,
+        element: <ComingSoonTemplate title="Scheduling" />,
+      },
+      {
+        path: ROUTE_KEYS.PROJECT_TRACKER,
+        element: <ComingSoonTemplate title="Project Tracker" />,
       },
       {
         path: ROUTE_KEYS.SETTINGS,
-        element: <p>home settings</p>,
+        element: <ComingSoonTemplate title="Settings" />,
+      },
+      {
+        path: ROUTE_KEYS.NOTIFICATIONS,
+        element: <ComingSoonTemplate title="Notifications" />,
       },
     ],
   },
