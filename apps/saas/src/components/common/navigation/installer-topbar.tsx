@@ -75,7 +75,7 @@ export default function InstallerTopbar() {
       onClick: logout,
     },
     {
-      label: "Switch to homeowner",
+      label: "Switch to Homeowner",
       onClick: () => {},
     },
     {
