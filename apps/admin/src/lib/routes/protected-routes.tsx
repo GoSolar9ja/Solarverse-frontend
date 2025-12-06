@@ -9,7 +9,7 @@ const protectedRoutes: RouteObject[] = [
     children: [
       {
         path: ROUTE_KEYS.OVERVIEW,
-        element: <ComingSoonTemplate title="Overview" />,
+        element: <ComingSoonTemplate title="Overview" showLogoutButton />,
       },
     ],
   },

@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     clearLocalStorage();
     axiosInstance.defaults.headers.common["Authorization"] = "";
     queryClient.clear();
+    window.location.reload();
   };
 
   return (
