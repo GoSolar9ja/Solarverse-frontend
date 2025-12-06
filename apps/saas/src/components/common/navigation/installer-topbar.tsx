@@ -1,7 +1,6 @@
 import {
   BellIcon,
   ChevronDown,
-  ChevronLeft,
   ChevronRight,
   MailIcon,
   MenuIcon,
