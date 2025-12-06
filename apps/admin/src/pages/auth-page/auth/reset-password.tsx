@@ -54,7 +54,7 @@ export default function Resetpassword() {
     >
       <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
       <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 max-w-[679px] p-6 rounded-[25px] md:!rounded-[50px] shadow-lg">
-        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10  py-20 max-w-[628px]">
+        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10  py-20 max-w-[294.5px]">
           <div className="w-fit">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
@@ -76,10 +76,7 @@ export default function Resetpassword() {
           </div>
 
           <FormikProvider value={formik}>
-            <Form
-              onSubmit={handleSubmit}
-              className="space-y-6 w-full max-w-[294.5px]"
-            >
+            <Form onSubmit={handleSubmit} className="space-y-6 w-full ">
               {/* <PasswordField
                 label="Current Password"
                 name="currentPassword"

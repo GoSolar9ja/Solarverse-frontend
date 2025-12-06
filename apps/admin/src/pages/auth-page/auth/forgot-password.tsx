@@ -45,7 +45,7 @@ export default function Forgotpassword() {
     >
       <div className="absolute inset-0 bg-white opacity-[0.44]"></div>
       <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10  max-w-[679px] p-6 rounded-[25px] md:!rounded-[50px] shadow-lg">
-        <div className="flex flex-col items-center justify-center bg-[#FFFFFF] w-full z-10 py-20 max-w-[628px]">
+        <div className="flex flex-col items-center justify-center  w-full z-10 py-20 max-w-[294.5px]">
           <div className="w-fit">
             <Image
               src={IMAGE_PATHS.transparentLogoImg}
@@ -55,14 +55,14 @@ export default function Forgotpassword() {
           </div>
 
           <FormikProvider value={formik}>
-            <div className="flex flex-col gap-[12px] w-full max- h-fit">
+            <div className="flex flex-col gap-[12px] w-full max-w-[300px] items-center h-fit">
               <Typography.h2
-                className=" tracking-[1%] text-[#111214]"
+                className=" tracking-[1%] text-[#111214] "
                 weight={"bold"}
               >
-                Can’t remember your password?
+                Can't remember your password?
               </Typography.h2>
-              <Typography.body1 className="font-normal text-[18px] w-full max-w-[250px] tracking-[1%] leading-[100%] text-[#5A5F61] mb-5">
+              <Typography.body1 className="font-normal text-[18px] w-full  tracking-[1%] leading-[100%] text-[#5A5F61] mb-5">
                 Uh oh! Please provide your email to reset the password.
               </Typography.body1>
             </div>

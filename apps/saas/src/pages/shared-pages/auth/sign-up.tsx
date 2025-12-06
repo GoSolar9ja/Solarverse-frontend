@@ -50,8 +50,7 @@ export default function Signup() {
   };
 
   const handleFacebookLogin = () => {
-    console.log("Facebook login clicked");
-    // e.g. window.location.href = "/api/auth/facebook";
+    window.open(`${baseURL}/api/v1/auth/facebook`, "_blank");
   };
 
   return (
