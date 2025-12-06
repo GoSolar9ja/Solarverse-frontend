@@ -23,7 +23,7 @@ const login = async (data: ILoginRequest) => {
   const request = await axiosInstance.post<
     ILoginRequest,
     AxiosResponse<ApiResponseType<ILoginResponse>>
-  >("/api/v1/auth/login", data);
+  >("/api/v1/admin/login", data);
   return request.data;
 };
 

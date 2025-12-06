@@ -1,41 +1,18 @@
 import { useAuthContext } from "../providers/context-provider/auth-provider";
 import { Navigate, Outlet } from "react-router-dom";
-import { USER_TYPE } from "../constants";
-import { routeManager } from "../utils";
-import { AdminDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
+import { ROUTE_KEYS } from "./routes-keys";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
-  return credentials?.token ? <Outlet /> : <Navigate to={"/sign-in"} />;
+  return credentials?.token ? <Outlet /> : <Navigate to={ROUTE_KEYS.SIGN_IN} />;
 }
 
 export function PublicOutlet() {
   const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
 
-  const redirectUrl = routeManager(userType);
-
-  return !credentials?.token ? <Outlet /> : <Navigate to={redirectUrl} />;
-}
-
-export function HomeOwnerProtectedOutlet() {
-  const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
-
-  return userType === USER_TYPE.HOME_OWNER ? (
-    <HomeOwnerDashboardLayout />
-  
-  ) : (
-    <p>Opps Page not found</p>
-  );
-}
-
-export function InstallerProtectedOutlet() {
-  const { credentials } = useAuthContext();
-  const userType = credentials?.userType;
-  return userType === USER_TYPE.INSTALLER ? (
+  return !credentials?.token ? (
     <Outlet />
   ) : (
-    <p>Opps Page Not Found</p>
+    <Navigate to={ROUTE_KEYS.OVERVIEW} />
   );
 }

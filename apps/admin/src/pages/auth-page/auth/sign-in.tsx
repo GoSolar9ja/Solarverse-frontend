@@ -11,6 +11,7 @@ import IMAGE_PATHS from "@/assets/images";
 import { Image } from "@solarverse/ui";
 import { Button } from "@solarverse/ui";
 import useLoginMutation from "@/lib/services/api/auth/login.api";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
@@ -37,7 +38,7 @@ export default function Signin() {
       // const refreshToken = res.data?.tokens.refresh;
 
       if (accessToken) {
-        login({ token: accessToken, userType: USER_TYPE.ADMIN });
+        login({ token: accessToken, userType: USER_TYPE.SUPER_ADMIN });
         successToast("Login successful");
       }
     },
@@ -104,13 +105,13 @@ export default function Signin() {
                   Log in
                 </Button.PrimarySolid>
 
-                <Link to="/reset-password">
+                <Link to={ROUTE_KEYS.FORGOT_PASSWORD}>
                   <Typography.body1
                     variant={"secondary"}
                     className="underline "
                     weight={"medium"}
                   >
-                    Reset password?
+                    Forgot password?
                   </Typography.body1>
                 </Link>
               </div>
