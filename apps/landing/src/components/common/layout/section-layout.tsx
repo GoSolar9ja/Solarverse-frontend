@@ -1,8 +1,8 @@
 import React from "react";
 import NetFrameIllustration from "@/assets/illustrations/net-frame-illustration";
 <<<<<<< HEAD
-import { DefaultLayout } from "@solar-verse/ui";
-import { cn } from "@solar-verse/utils";
+import { DefaultLayout } from "@solarverse/ui";
+import { cn } from "@solarverse/utils";
 =======
 import { DefaultLayout } from "@solarverse/ui";
 import { cn } from "@solarverse/utils";

@@ -4,7 +4,7 @@ import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";

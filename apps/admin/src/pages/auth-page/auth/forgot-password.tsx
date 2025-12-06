@@ -1,5 +1,4 @@
 import { Button, InputField, successToast } from "@solarverse/ui";
-import { PasswordField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { Typography } from "@solarverse/ui";

@@ -3,12 +3,11 @@ import BiddingIcon from "@/components/common/icons/bidding-icon";
 import SchedulingIcon from "@/components/common/icons/scheduling-icon";
 import DashboardIcon from "@/components/common/icons/dashboard-icon";
 import ArrowDownIcon from "@/components/common/icons/arrowdown-icon";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 // import { useProfile } from "@/context/ProfileContext";
-import { Typography } from "@solar-verse/ui";
-import AppLink from "../navigation/app-nav-link";
+import { Typography } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
-import { Image } from "@solar-verse/ui";
+import { Image } from "@solarverse/ui";
 
 export const HomeOwnerDashboardLayout = () => {
   // const { profile } = useProfile();
@@ -48,12 +47,12 @@ export const HomeOwnerDashboardLayout = () => {
       {/* Sidebar */}
       <aside className="flex flex-col items-center gap-5 w-[275px] bg-[#0A6B9E] border-r-[0.66px] border-r-[#C1C6C5] rounded-[20px] p-4 min-h-screen">
         <div className="flex w-full p-[20px] max-w-[203px] h-[58px] gap-[5px] rounded-[10px] bg-[#FFFFFF] items-center justify-between">
-          <Image
+          {/* <Image
             src={IMAGE_PATHS.logoImg}
             alt="App logo"
             sizes=""
             containerClassName="w-full max-w-[47px] h-[30px]"
-          />
+          /> */}
           <div className="flex items-center justify-center w-fit h-fit gap-[3.68px]">
             <Image
               src={IMAGE_PATHS.avatarImg}
@@ -72,14 +71,14 @@ export const HomeOwnerDashboardLayout = () => {
             const IconComponent = link.icon;
             return (
               <li key={link.to}>
-                <AppLink
+                <Link
                   to={link.to}
-                  className={({ isActive }) =>
-                    "block rounded-[10px] " +
-                    (isActive
-                      ? "bg-[#F4F4F4]/77 text-[#111214]"
-                      : "text-[#FFFFFF]")
-                  }
+                  // className={({ isActive }) =>
+                  //   "block rounded-[10px] " +
+                  //   (isActive
+                  //     ? "bg-[#F4F4F4]/77 text-[#111214]"
+                  //     : "text-[#FFFFFF]")
+                  // }
                 >
                   <div className="flex items-center gap-[16px] p-[10px]">
                     <IconComponent
@@ -90,7 +89,7 @@ export const HomeOwnerDashboardLayout = () => {
                       {link.label}
                     </Typography.body1>
                   </div>
-                </AppLink>
+                </Link>
               </li>
             );
           })}

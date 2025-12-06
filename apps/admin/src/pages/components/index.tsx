@@ -1,11 +1,11 @@
 "use client";
-import { Button } from "@solar-verse/ui";
-import { InputField } from "@solar-verse/ui";
-import { PasswordField } from "@solar-verse/ui";
-import { SelectInput } from "@solar-verse/ui";
-import { Typography } from "@solar-verse/ui";
+import { Button } from "@solarverse/ui";
+import { InputField } from "@solarverse/ui";
+import { PasswordField } from "@solarverse/ui";
+import { SelectInput } from "@solarverse/ui";
+import { Typography } from "@solarverse/ui";
 
-import { createValidationSchema, schemaValidation } from "@solar-verse/utils";
+import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
 import { UserIcon, MailIcon, SearchIcon } from "lucide-react";
 import * as Yup from "yup";
