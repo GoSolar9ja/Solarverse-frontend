@@ -56,36 +56,35 @@ export function PublicOutlet() {
 }
 
 export function HomeOwnerProtectedOutlet() {
-  const { isPending } = useGetProfileQuery();
+  const { isPending, data } = useGetProfileQuery();
 
-  // const userType = data?.data?.user.role;
+  const userType = data?.data?.user.role;
 
   if (isPending)
     return (
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
     );
 
-  return <HomeOwnerDashboardLayout />;
+  if (!userType) return <Navigate to={ROUTE_KEYS.HOME_OWNER_FORM} />;
 
-  // return userType === USER_TYPE.HOME_OWNER ? (
-  //   <HomeOwnerDashboardLayout />
-  // ) : (
-  //   <></>
-  // );
+  return <HomeOwnerDashboardLayout />;
 }
 
 export function InstallerProtectedOutlet() {
   const { isPending, data } = useGetBusinessProfileQuery();
-  // const { data: profileData } = useGetProfileQuery();
+  const { data: profileData } = useGetProfileQuery();
   const cacDoc = data?.data?.business.cacCertificateUrl;
   const certDoc = data?.data?.business.certificationLicenseUrls;
   const { data: pastProjectsData } = useInstallerPastProjectsQuery();
   const pastProjectsCount = pastProjectsData?.data?.count || 0;
-  // const userType = profileData?.data?.user.role;
+  const userType = profileData?.data?.user.role;
   if (isPending)
     return (
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
     );
+
+  if (!userType) return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_ONE} />;
+
   if (!cacDoc || !certDoc)
     return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_TWO} />;
   if (pastProjectsCount === 0)

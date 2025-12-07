@@ -14,7 +14,7 @@ export enum ROUTE_KEYS {
   SETTINGS = "settings",
   NOTIFICATIONS = "notifications",
   HOME_OWNER_FORM = "/home-owner-form",
-  INSTALLER_FORM = "/installer-form-one",
+  INSTALLER_FORM_ONE = "/installer-form-one",
   INSTALLER_FORM_TWO = "/installer-form-two",
   INSTALLER_FORM_THREE = "/installer-form-three",
   COMPONENTS = "components",
