@@ -1,6 +1,5 @@
 import { useAuthContext } from "../providers/context-provider/auth-provider";
 import { Navigate, Outlet } from "react-router-dom";
-import { USER_TYPE } from "../constants";
 import { routeManager } from "../utils";
 import { HomeOwnerDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
 import useGetProfileQuery from "../services/api/auth/get-profile.api";
@@ -11,6 +10,8 @@ import AuthContainer from "@/components/auth/auth-container";
 import React from "react";
 import ErrorStateTemplate from "@/components/common/templates/error-state-template";
 import { InstallerDashboardLayout } from "@/components/common/layout/installer-dashboard-layout";
+import useGetBusinessProfileQuery from "../services/api/auth/get-business-profile.api";
+import useInstallerPastProjectsQuery from "../services/api/file-uploads/get-past-projects.api";
 
 export function ProtectedOutlet() {
   const { credentials } = useAuthContext();
@@ -55,31 +56,46 @@ export function PublicOutlet() {
 }
 
 export function HomeOwnerProtectedOutlet() {
-  const { data, isPending } = useGetProfileQuery();
+  const { isPending } = useGetProfileQuery();
 
-  const userType = data?.data?.user.role;
+  // const userType = data?.data?.user.role;
 
   if (isPending)
     return (
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
     );
-  return userType === USER_TYPE.HOME_OWNER ? (
-    <HomeOwnerDashboardLayout />
-  ) : (
-    <></>
-  );
+
+  return <HomeOwnerDashboardLayout />;
+
+  // return userType === USER_TYPE.HOME_OWNER ? (
+  //   <HomeOwnerDashboardLayout />
+  // ) : (
+  //   <></>
+  // );
 }
 
 export function InstallerProtectedOutlet() {
-  const { data, isPending } = useGetProfileQuery();
-  const userType = data?.data?.user.role;
+  const { isPending, data } = useGetBusinessProfileQuery();
+  // const { data: profileData } = useGetProfileQuery();
+  const cacDoc = data?.data?.business.cacCertificateUrl;
+  const certDoc = data?.data?.business.certificationLicenseUrls;
+  const { data: pastProjectsData } = useInstallerPastProjectsQuery();
+  const pastProjectsCount = pastProjectsData?.data?.count || 0;
+  // const userType = profileData?.data?.user.role;
   if (isPending)
     return (
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
     );
-  return userType === USER_TYPE.INSTALLER ? (
-    <InstallerDashboardLayout />
-  ) : (
-    <></>
-  );
+  if (!cacDoc || !certDoc)
+    return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_TWO} />;
+  if (pastProjectsCount === 0)
+    return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_THREE} />;
+
+  return <InstallerDashboardLayout />;
+
+  // return userType === USER_TYPE.INSTALLER ? (
+  //   <InstallerDashboardLayout />
+  // ) : (
+  //   <></>
+  // );
 }
