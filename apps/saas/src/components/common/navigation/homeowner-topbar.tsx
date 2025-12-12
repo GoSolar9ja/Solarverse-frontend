@@ -31,6 +31,7 @@ const navigationLinks = [
     icon: DashboardIcon,
     label: "Dashboard",
     title: "Dashboard Overview",
+    index: true,
   },
   {
     to: ROUTE_KEYS.BIDDING,

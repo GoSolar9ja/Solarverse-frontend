@@ -24,6 +24,7 @@ import {
 } from "@solarverse/ui";
 import { useLocation } from "react-router-dom";
 import IMAGE_PATHS from "@/assets/images";
+import { cn } from "@/lib/utils";
 
 const navigationLinks = [
   {
@@ -64,16 +65,12 @@ export default function InstallerTopbar() {
   const location = useLocation();
   const path = location.pathname;
   const activePath = navigationLinks.find((link) => path.includes(link.to));
-  const title = activePath?.title;
+  const title = activePath?.title || navigationLinks[0].title || "";
 
   const userName = data?.data?.business.name;
   const logoUrl = data?.data?.business.businessLogoUrl;
 
   const actions = [
-    {
-      label: "Logout",
-      onClick: logout,
-    },
     {
       label: "Switch to Homeowner",
       onClick: () => {},
@@ -81,6 +78,10 @@ export default function InstallerTopbar() {
     {
       label: "Settings",
       onClick: () => {},
+    },
+    {
+      label: "Logout",
+      onClick: logout,
     },
   ];
   return (
@@ -104,7 +105,7 @@ export default function InstallerTopbar() {
             <BellIcon size={16} />
           </div>
           <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger asChild>
               <button className="flex w-full max-w-[203px] cursor-pointer md:gap-[5px] gap-1  items-center justify-between rounded-xl">
                 <div className="flex items-center justify-center w-fit h-fit gap-[3.68px]">
                   <div className="flex-shrink-0">
@@ -121,17 +122,31 @@ export default function InstallerTopbar() {
                 <ChevronDown />
               </button>
             </PopoverTrigger>
-            <PopoverContent align="end" className="max-w-[200px]">
+            <PopoverContent align="end" className="w-fit">
               <ul>
                 <li className="p-2">{userName}</li>
-                {actions.map((action) => (
+                {actions.map((action, index) => (
                   <li key={action.label}>
                     <button
                       onClick={action.onClick}
                       className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background"
                     >
-                      <Typography.body2 inline>{action.label}</Typography.body2>
-                      <ChevronRight className="text-gray-400" />
+                      <Typography.body2
+                        className={cn(
+                          "whitespace-nowrap",
+                          index === actions.length - 1 && "text-red-500"
+                        )}
+                        inline
+                      >
+                        {action.label}
+                      </Typography.body2>
+                      <ChevronRight
+                        className={cn(
+                          index === actions.length - 1
+                            ? "text-red-500"
+                            : "text-gray-400"
+                        )}
+                      />
                     </button>
                   </li>
                 ))}

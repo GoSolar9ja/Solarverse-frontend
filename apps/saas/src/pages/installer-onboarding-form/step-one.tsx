@@ -105,21 +105,20 @@ const InstallerOnboardingForm = () => {
 
       formData.append("file", values.businessLogo?.[0].file || "");
 
-      await Promise.all([
-        updateProfile({
-          dob,
-          firstName,
-          lastName,
-          gender,
-          nin,
-          mobile: formattedPhone,
-          role: USER_TYPE.INSTALLER,
-          businessName: values.businessName,
-          cacRegistrationNumber: values.businessRegNum,
-          address: values.businessLocation,
-        }),
-        uploadBusinessLogo(formData),
-      ]);
+      await updateProfile({
+        dob,
+        firstName,
+        lastName,
+        gender,
+        nin,
+        mobile: formattedPhone,
+        role: USER_TYPE.INSTALLER,
+        businessName: values.businessName,
+        cacRegistrationNumber: values.businessRegNum,
+        address: values.businessLocation,
+      });
+
+      await uploadBusinessLogo(formData);
 
       navigate(ROUTE_KEYS.INSTALLER_FORM_TWO);
     },

@@ -9,28 +9,6 @@ import ActivityStateTemplate from "@/components/common/templates/activity-state-
 import AuthContainer from "@/components/auth/auth-container";
 import React from "react";
 import ErrorStateTemplate from "@/components/common/templates/error-state-template";
-import { InstallerDashboardLayout } from "@/components/common/layout/installer-dashboard-layout";
-import useGetBusinessProfileQuery from "../services/api/auth/get-business-profile.api";
-import useInstallerPastProjectsQuery from "../services/api/file-uploads/get-past-projects.api";
-
-export function ProtectedOutlet() {
-  const { credentials } = useAuthContext();
-  const { isPending, error } = useGetProfileQuery();
-
-  return credentials?.token ? (
-    <React.Fragment>
-      <Outlet />
-      <ActivityStateTemplate show={isPending && !error}>
-        Loading
-      </ActivityStateTemplate>
-      <ComponentVisibility visible={!isPending && !!error}>
-        <ErrorStateTemplate />
-      </ComponentVisibility>
-    </React.Fragment>
-  ) : (
-    <Navigate to={ROUTE_KEYS.SIGN_IN} />
-  );
-}
 
 export function PublicOutlet() {
   const { credentials } = useAuthContext();
@@ -55,6 +33,25 @@ export function PublicOutlet() {
   );
 }
 
+export function ProtectedOutlet() {
+  const { credentials } = useAuthContext();
+  const { isPending, error } = useGetProfileQuery();
+
+  return credentials?.token ? (
+    <React.Fragment>
+      <Outlet />
+      <ActivityStateTemplate show={isPending && !error}>
+        Loading
+      </ActivityStateTemplate>
+      <ComponentVisibility visible={!isPending && !!error}>
+        <ErrorStateTemplate />
+      </ComponentVisibility>
+    </React.Fragment>
+  ) : (
+    <Navigate to={ROUTE_KEYS.SIGN_IN} />
+  );
+}
+
 export function HomeOwnerProtectedOutlet() {
   const { isPending, data } = useGetProfileQuery();
 
@@ -65,36 +62,24 @@ export function HomeOwnerProtectedOutlet() {
       <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
     );
 
-  if (!userType) return <Navigate to={ROUTE_KEYS.HOME_OWNER_FORM} />;
+  if (!userType) return <Navigate to={ROUTE_KEYS.USER_OPTION} />;
 
   return <HomeOwnerDashboardLayout />;
 }
 
 export function InstallerProtectedOutlet() {
-  const { isPending, data } = useGetBusinessProfileQuery();
-  const { data: profileData } = useGetProfileQuery();
-  const cacDoc = data?.data?.business.cacCertificateUrl;
-  const certDoc = data?.data?.business.certificationLicenseUrls;
-  const { data: pastProjectsData } = useInstallerPastProjectsQuery();
-  const pastProjectsCount = pastProjectsData?.data?.count || 0;
+  const { data: profileData, isLoading: loadingProfileData } =
+    useGetProfileQuery();
+
   const userType = profileData?.data?.user.role;
-  if (isPending)
+
+  if (loadingProfileData)
     return (
-      <ActivityStateTemplate show={isPending}>Loading</ActivityStateTemplate>
+      <ActivityStateTemplate show={loadingProfileData}>
+        Loading
+      </ActivityStateTemplate>
     );
 
-  if (!userType) return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_ONE} />;
-
-  if (!cacDoc || !certDoc)
-    return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_TWO} />;
-  if (pastProjectsCount === 0)
-    return <Navigate to={ROUTE_KEYS.INSTALLER_FORM_THREE} />;
-
-  return <InstallerDashboardLayout />;
-
-  // return userType === USER_TYPE.INSTALLER ? (
-  //   <InstallerDashboardLayout />
-  // ) : (
-  //   <></>
-  // );
+  if (!userType) return <Navigate to={ROUTE_KEYS.USER_OPTION} />;
+  return <Outlet />;
 }

@@ -6,6 +6,7 @@ import { Image } from "@solarverse/ui";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 interface IProps {
   openSidebar: boolean;
   toggleOpenSidebar(): void;
@@ -13,6 +14,7 @@ interface IProps {
     to: string;
     icon: (props: React.ComponentProps<"svg">) => React.JSX.Element;
     label: string;
+    index?: boolean;
   }[];
   userName: string;
   userImage: string;
@@ -63,14 +65,21 @@ export default function SidebarNavigation({
                   onClick={toggleOpenSidebar}
                   className={({ isActive }) =>
                     "block rounded-[10px] " +
-                    (isActive
+                    (isActive ||
+                    (link.index &&
+                      location.pathname === ROUTE_KEYS.INSTALLER_ROOT)
                       ? "bg-[#F4F4F4]/77 text-[#111214]"
                       : "text-[#FFFFFF]")
                   }
                 >
                   <div className="flex items-center gap-[16px] p-[10px]">
                     <IconComponent
-                      stroke={activeColor(link.to)}
+                      stroke={
+                        (link.index &&
+                          location.pathname === ROUTE_KEYS.INSTALLER_ROOT &&
+                          "#111214") ||
+                        activeColor(link.to)
+                      }
                       color={activeColor(link.to)}
                     />
                     <Typography.body1 className=" tracking-[1%]">

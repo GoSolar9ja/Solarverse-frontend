@@ -19,7 +19,7 @@ export default function Usersoption() {
       const url =
         active === USER_TYPE.HOME_OWNER
           ? ROUTE_KEYS.HOME_OWNER_FORM
-          : ROUTE_KEYS.INSTALLER_FORM;
+          : ROUTE_KEYS.INSTALLER_FORM_ONE;
 
       navigate(url);
     }

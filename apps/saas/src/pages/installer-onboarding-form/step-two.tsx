@@ -17,6 +17,8 @@ import useBusinessDocumentUploadMutation from "@/lib/services/api/file-uploads/b
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 import { BUSINESS_DOCUMENT_TYPE } from "@/lib/constants";
 import useGetBusinessProfileQuery from "@/lib/services/api/auth/get-business-profile.api";
+import useCacDocumentUploadMutation from "@/lib/services/api/file-uploads/cac-document-upload.api";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 // import { useAuthContext } from "@/lib/providers/context-provider/auth-provider";
 // import { USER_TYPE } from "@/lib/constants";
 
@@ -25,40 +27,40 @@ const InstallerOnboardingFormTwo = () => {
   const { data: businessProfileData } = useGetBusinessProfileQuery();
   const { listSelectionValidation } = schemaValidation;
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useBusinessDocumentUploadMutation();
+  const { mutateAsync: businessDocumentUpload, isPending: businessIsPending } =
+    useBusinessDocumentUploadMutation();
+  const { mutateAsync: cacDocumentUpload, isPending: cacIsPending } =
+    useCacDocumentUploadMutation();
 
   const formik = useFormik({
     initialValues: {
-      certifications: [] as Array<{ base64Url: string; file: File }>,
+      license: [] as Array<{ base64Url: string; file: File }>,
       cac: [] as Array<{ base64Url: string; file: File }>,
     },
     validationSchema: createValidationSchema({
-      // certifications: listSelectionValidation(),
+      // license: listSelectionValidation(),
       cac: listSelectionValidation().min(1, "At least one image is required"),
     }),
 
     onSubmit: async (values) => {
-      const cacLicenseFormData = new FormData();
+      const cacCertFormData = new FormData();
 
-      cacLicenseFormData.append(
+      cacCertFormData.append(
         "documentType",
-        BUSINESS_DOCUMENT_TYPE.CAC_LICENSE
+        BUSINESS_DOCUMENT_TYPE.CAC_CERTIFICATE
       );
 
-      cacLicenseFormData.append(
+      cacCertFormData.append(
         "businessName",
         businessProfileData?.data?.business.name || ""
       );
 
-      cacLicenseFormData.append("file", values.cac[0].file);
+      cacCertFormData.append("file", values.cac[0].file);
 
-      const certifications = values.certifications.map((value) => {
+      const licenses = values.license.map((value) => {
         const certFormData = new FormData();
 
-        certFormData.append(
-          "documentType",
-          BUSINESS_DOCUMENT_TYPE.CAC_CERTIFICATE
-        );
+        certFormData.append("documentType", BUSINESS_DOCUMENT_TYPE.CAC_LICENSE);
         certFormData.append(
           "businessName",
           businessProfileData?.data?.business.name || ""
@@ -66,14 +68,12 @@ const InstallerOnboardingFormTwo = () => {
 
         certFormData.append("file", value.file);
 
-        return mutateAsync(certFormData);
+        return businessDocumentUpload(certFormData);
       });
 
-      await Promise.all(
-        [mutateAsync(cacLicenseFormData)].concat(certifications)
-      );
+      await Promise.all([cacDocumentUpload(cacCertFormData)].concat(licenses));
 
-      navigate("/installer-form-three");
+      navigate(ROUTE_KEYS.INSTALLER_FORM_THREE);
 
       console.log("Form submitted:", values);
       // 🔹 Mock backend auth (replace with API call later)
@@ -97,7 +97,7 @@ const InstallerOnboardingFormTwo = () => {
   return (
     <div className="h-screen flex flex-col">
       <ActivityStateTemplate
-        show={isPending}
+        show={businessIsPending || cacIsPending}
         children="Uploading documents..."
       />
       <div className=" w-full space-y-6  p-10 pb-20 bg-[#FFFFFF]  max-w-[1076px] mx-auto my-auto   ">
@@ -190,7 +190,7 @@ const InstallerOnboardingFormTwo = () => {
                   </span>
                 </Typography.body1>
                 <div className="flex gap-5 flex-wrap flex-col items-center mx-auto  w-full">
-                  <FieldArray name="certifications">
+                  <FieldArray name="license">
                     {({ push, remove }) => (
                       <>
                         <UploadField
@@ -199,7 +199,7 @@ const InstallerOnboardingFormTwo = () => {
                           }}
                           showUploadList={false}
                           fieldProps={{
-                            name: "certifications",
+                            name: "license",
                             multiple: true,
                             accept: "image/*",
                             onChange: (e) => {
@@ -217,10 +217,10 @@ const InstallerOnboardingFormTwo = () => {
                         </Typography.body2>
 
                         <ComponentVisibility
-                          visible={formik.values.certifications.length > 0}
+                          visible={formik.values.license.length > 0}
                         >
                           <div className="flex gap-5  ">
-                            {formik.values.certifications.map((cert, index) => (
+                            {formik.values.license.map((cert, index) => (
                               <div
                                 key={index}
                                 className="relative max-w-[60px]"

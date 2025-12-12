@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import { USER_TYPE } from "../constants";
+import { ROUTE_KEYS } from "../routes/routes-keys";
 
 // const twMergeCustom = extendTailwindMerge({
 //   extend: {
@@ -56,7 +57,7 @@ export const formatPhoneNumber = (phoneNumber: string) => {
 };
 
 export const routeManager = (userType?: USER_TYPE) => {
-  if (userType === USER_TYPE.HOME_OWNER) return "/home-owner";
-  if (userType === USER_TYPE.INSTALLER) return "/installer";
-  return "/user-option";
+  if (userType === USER_TYPE.HOME_OWNER) return ROUTE_KEYS.HOME_OWNER_ROOT;
+  if (userType === USER_TYPE.INSTALLER) return ROUTE_KEYS.INSTALLER_ROOT;
+  return ROUTE_KEYS.USER_OPTION;
 };

@@ -7,7 +7,6 @@ import {
   TextAreaField,
   UploadField,
 } from "@solarverse/ui";
-import { useNavigate } from "react-router-dom";
 import {
   createValidationSchema,
   fileToBase64,
@@ -20,17 +19,19 @@ import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { XIcon } from "lucide-react";
 import CrossIcon from "@/components/common/icons/cross-icon";
-import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import usePastProjectUploadMutation from "@/lib/services/api/file-uploads/past-project-upload.api";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 
 const InstallerOnboardingFormThree = () => {
-  const { listSelectionValidation, fieldValidation } = schemaValidation;
   const navigate = useNavigate();
+  const { listSelectionValidation, fieldValidation } = schemaValidation;
   const {
     mutateAsync: uploadPastProject,
     isPending,
     failureCount,
   } = usePastProjectUploadMutation();
+
   const formik = useFormik({
     initialValues: {
       projects: [
@@ -55,7 +56,7 @@ const InstallerOnboardingFormThree = () => {
           caption: fieldValidation().optional(),
           energyConsumptionPreference: listSelectionValidation().min(
             1,
-            "Select at least one framework"
+            "Select at least one item"
           ),
           images: listSelectionValidation().min(
             1,
@@ -80,12 +81,13 @@ const InstallerOnboardingFormThree = () => {
         }
         return uploadPastProject(formData).then(() => {
           formik.setFieldValue(`projects.${index}.uploaded`, true);
-          // console.log(res);
         });
       });
 
       await Promise.all(pastProjects);
-      navigate(ROUTE_KEYS.INSTALLER_ROOT);
+      navigate(
+        ROUTE_KEYS.INSTALLER_ROOT + `?proj_count=${values.projects.length}`
+      );
     },
   });
 
@@ -95,6 +97,13 @@ const InstallerOnboardingFormThree = () => {
     { value: "fan", label: "Fan" },
     { value: "fridge", label: "Fridge" },
     { value: "oven", label: "Oven" },
+    { value: "ac", label: "Air Conditioner" },
+    { value: "washing_machine", label: "Washing Machine" },
+    { value: "tv", label: "Television" },
+    { value: "computer", label: "Computer" },
+    { value: "microwave", label: "Microwave" },
+    { value: "water_heater", label: "Water Heater" },
+    { value: "dishwasher", label: "Dishwasher" },
   ];
 
   return (

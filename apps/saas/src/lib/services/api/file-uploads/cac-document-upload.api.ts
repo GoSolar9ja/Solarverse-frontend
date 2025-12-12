@@ -4,24 +4,24 @@ import { AxiosResponse } from "axios";
 import { ApiResponseType } from "@/types";
 import { QueryKeys } from "../../config/query-keys";
 
-const businessDocumentUpload = async (data: FormData) => {
+const cacDocumentUpload = async (data: FormData) => {
   const request = await axiosInstance.post<
     FormData,
     AxiosResponse<ApiResponseType>
-  >("/api/v1/files/business-document", data, {
+  >("/api/v1/files/cac-certificate", data, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return request.data;
 };
 
-const useBusinessDocumentUploadMutation = () => {
+const useCacDocumentUploadMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: businessDocumentUpload,
+    mutationFn: cacDocumentUpload,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.BUSINESS_PROFILE] });
     },
   });
 };
 
-export default useBusinessDocumentUploadMutation;
+export default useCacDocumentUploadMutation;

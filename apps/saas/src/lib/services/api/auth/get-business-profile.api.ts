@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { ApiResponseType } from "@/types";
 import { QueryKeys } from "../../config/query-keys";
-import { STORAGE_KEYS } from "@/lib/constants";
 
 export interface IBusinessUserProfile {
   business: {
@@ -36,7 +35,6 @@ const useGetBusinessProfileQuery = () => {
   return useQuery({
     queryKey: [QueryKeys.BUSINESS_PROFILE],
     queryFn: getBusinessProfile,
-    enabled: !!localStorage.getItem(STORAGE_KEYS.GOSOLAR_TOKEN),
   });
 };
 

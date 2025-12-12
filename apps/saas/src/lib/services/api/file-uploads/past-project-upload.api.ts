@@ -1,29 +1,34 @@
 import axiosInstance from "../../config/axios-instance";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosResponse, isAxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 import { ApiResponseType } from "@/types";
-
+import { QueryKeys } from "../../config/query-keys";
+interface IPastProjectUploadResponse {
+  message: string;
+  jobId: string;
+  fileCount: number;
+  status: string;
+}
 const pastProjectUpload = async (data: FormData) => {
-  try {
-    const request = await axiosInstance.post<
-      FormData,
-      AxiosResponse<ApiResponseType>
-    >("/api/v1/files/installer-past-projects", data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+  const request = await axiosInstance.post<
+    FormData,
+    AxiosResponse<ApiResponseType<IPastProjectUploadResponse>>
+  >("/api/v1/files/installer-past-projects", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 
-    return request.data;
-  } catch (e) {
-    if (isAxiosError(e)) {
-      return e.message;
-    }
-    return e;
-  }
+  return request.data;
 };
 
 const usePastProjectUploadMutation = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: pastProjectUpload,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.INSTALLER_PAST_PROJECTS],
+      });
+    },
   });
 };
 

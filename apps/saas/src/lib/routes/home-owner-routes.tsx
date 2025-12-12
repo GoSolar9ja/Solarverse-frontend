@@ -2,7 +2,10 @@ import { Navigate, RouteObject } from "react-router-dom";
 import { HomeOwnerProtectedOutlet } from "./outlets";
 import { ROUTE_KEYS } from "./routes-keys";
 import ComingSoonTemplate from "@/components/common/templates/coming-soon-template";
-
+import { lazy } from "react";
+const HomeOwnerOnboardingForm = lazy(
+  () => import("@/pages/home-owner/onboarding-form")
+);
 const homeOwnerRoutes: RouteObject[] = [
   {
     path: ROUTE_KEYS.HOME_OWNER_ROOT,
@@ -11,6 +14,10 @@ const homeOwnerRoutes: RouteObject[] = [
       {
         index: true,
         element: <Navigate to={ROUTE_KEYS.OVERVIEW} />,
+      },
+      {
+        path: ROUTE_KEYS.HOME_OWNER_FORM,
+        element: <HomeOwnerOnboardingForm />,
       },
       {
         path: ROUTE_KEYS.OVERVIEW,
