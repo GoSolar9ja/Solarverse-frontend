@@ -1,7 +1,6 @@
 import { useAuthContext } from "../providers/context-provider/auth-provider";
 import { Navigate, Outlet } from "react-router-dom";
 import { routeManager } from "../utils";
-import { HomeOwnerDashboardLayout } from "@/components/common/layout/home-owner-dashboard-layout";
 import useGetProfileQuery from "../services/api/auth/get-profile.api";
 import { ROUTE_KEYS } from "./routes-keys";
 import { ComponentVisibility } from "@solarverse/ui";
@@ -64,7 +63,7 @@ export function HomeOwnerProtectedOutlet() {
 
   if (!userType) return <Navigate to={ROUTE_KEYS.USER_OPTION} />;
 
-  return <HomeOwnerDashboardLayout />;
+  return <Outlet />;
 }
 
 export function InstallerProtectedOutlet() {

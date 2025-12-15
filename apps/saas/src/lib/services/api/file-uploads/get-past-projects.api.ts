@@ -34,7 +34,7 @@ export interface IGetPastProjects {
   count: number;
 }
 
-type InstallerPastProjectsResponse = ApiResponseType<IGetPastProjects>;
+export type InstallerPastProjectsResponse = ApiResponseType<IGetPastProjects>;
 
 const installerPastProjects = async ({ queryKey }: { queryKey: [string] }) => {
   const url = queryKey[0];

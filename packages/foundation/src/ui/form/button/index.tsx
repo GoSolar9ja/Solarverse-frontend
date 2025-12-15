@@ -28,6 +28,9 @@ const Button = {
   ErrorOutline: forwardRef<HTMLButtonElement, BaseButtonProps>((props, ref) => (
     <BaseButton variant="errorOutline" {...props} ref={ref} />
   )),
+  TertiarySolid: forwardRef<HTMLButtonElement, BaseButtonProps>(
+    (props, ref) => <BaseButton variant="tertiarySolid" {...props} ref={ref} />
+  ),
 };
 
 // Add display names
@@ -39,5 +42,6 @@ Button.SuccessSolid.displayName = "Button.SuccessSolid";
 Button.SuccessOutline.displayName = "Button.SuccessOutline";
 Button.ErrorSolid.displayName = "Button.ErrorSolid";
 Button.ErrorOutline.displayName = "Button.ErrorOutline";
+Button.TertiarySolid.displayName = "Button.TertiarySolid";
 
 export { Button };

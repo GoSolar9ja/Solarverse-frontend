@@ -21,6 +21,7 @@ import useRequestOtpMutation from "@/lib/services/api/auth/request-otp.api";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import useVerifyOtpMutation from "@/lib/services/api/auth/verify-otp.api";
+import { ArrowLeft } from "lucide-react";
 
 const HomeOwnerOnboardingForm = () => {
   const { data } = useGetProfileQuery();
@@ -302,15 +303,23 @@ const HomeOwnerOnboardingForm = () => {
                   </Typography.body1>
                 </Typography.body1>
               </div>
-
-              <Button.PrimarySolid
-                className="w-full mx-auto max-w-[290px] h-12 text-white mt-6"
-                type="submit"
-                disabled={!formik.values.acceptTerms}
-                loading={isUpdatingProfile || isVerifyingOtp}
-              >
-                Continue
-              </Button.PrimarySolid>
+              <div className="flex gap-5">
+                <Button.TertiarySolid
+                  onClick={() => navigate(-1)}
+                  type="button"
+                  className="w-full mx-auto max-w-[290px]  h-12  mt-6"
+                >
+                  <ArrowLeft /> Back
+                </Button.TertiarySolid>
+                <Button.PrimarySolid
+                  className="w-full mx-auto max-w-[290px]  mt-6"
+                  type="submit"
+                  disabled={!formik.values.acceptTerms}
+                  loading={isUpdatingProfile || isVerifyingOtp}
+                >
+                  Continue
+                </Button.PrimarySolid>
+              </div>
             </div>
           </Form>
         </FormikProvider>

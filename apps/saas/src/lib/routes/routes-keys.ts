@@ -13,7 +13,7 @@ export enum ROUTE_KEYS {
   BIDDING = "bidding",
   SETTINGS = "settings",
   NOTIFICATIONS = "notifications",
-  HOME_OWNER_FORM = "/home-owner-form",
+  HOME_OWNER_FORM = "/home-owner/home-owner-form",
   INSTALLER_FORM_ONE = "/installer/step-one",
   INSTALLER_FORM_TWO = "/installer/step-two",
   INSTALLER_FORM_THREE = "/installer/step-three",

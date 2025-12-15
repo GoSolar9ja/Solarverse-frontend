@@ -32,6 +32,7 @@ import { USER_TYPE } from "@/lib/constants";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api";
 import useBusinessLogoUploadMutation from "@/lib/services/api/file-uploads/business-logo-upload.api";
+import { ArrowLeft } from "lucide-react";
 // import { XIcon } from "lucide-react";
 
 const InstallerOnboardingForm = () => {
@@ -432,13 +433,22 @@ const InstallerOnboardingForm = () => {
                 </Typography.body1>
               </div>
 
-              <Button.PrimarySolid
-                className="w-full mx-auto max-w-[290px] h-12 text-white mt-6"
-                type="submit"
-                loading={isUpdatingProfile || isUploadingBusinessLogo}
-              >
-                Continue
-              </Button.PrimarySolid>
+              <div className="flex gap-5">
+                <Button.TertiarySolid
+                  onClick={() => navigate(-1)}
+                  type="button"
+                  className="w-full mx-auto max-w-[290px]  h-12  mt-6"
+                >
+                  <ArrowLeft /> Back
+                </Button.TertiarySolid>
+                <Button.PrimarySolid
+                  className="w-full mx-auto max-w-[290px]  text-white mt-6"
+                  type="submit"
+                  loading={isUpdatingProfile || isUploadingBusinessLogo}
+                >
+                  Continue
+                </Button.PrimarySolid>
+              </div>
             </div>
           </Form>
         </FormikProvider>

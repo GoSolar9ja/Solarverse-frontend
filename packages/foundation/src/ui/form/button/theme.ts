@@ -20,6 +20,8 @@ const buttonTheme = cva(
         errorSolid: "bg-error text-white border-error active:bg-red-400 ",
         errorOutline:
           "bg-transparent text-error  border-error active:border-red-400 active:opacity-50",
+        tertiarySolid:
+          "active:bg-[#C1C6C5] disabled:bg-[#C1C6C5]/30 disabled:border-[#C1C6C5]/30 text-black border-[#C1C6C5]/50! bg-[#F5F5F5]",
       },
       rounded: {
         full: "rounded-full",
@@ -62,6 +64,7 @@ const buttonSpinnerTheme = cva(
         errorSolid: "text-white border-white",
         errorOutline: "text-error  border-error",
         primaryBrightOutline: "text-primary-200  border-primary-200 ",
+        tertiarySolid: "text-black border-[#C1C6C5]/50! bg-[#F5F5F5]",
       },
       size: {
         xl: "w-6 h-6 border-2",

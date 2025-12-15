@@ -12,7 +12,7 @@ import { Typography } from "@solarverse/ui";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
-import { File, XIcon } from "lucide-react";
+import { ArrowLeft, File, XIcon } from "lucide-react";
 import useBusinessDocumentUploadMutation from "@/lib/services/api/file-uploads/business-document-upload.api";
 import ActivityStateTemplate from "@/components/common/templates/activity-state-template";
 import { BUSINESS_DOCUMENT_TYPE } from "@/lib/constants";
@@ -249,12 +249,22 @@ const InstallerOnboardingFormTwo = () => {
                 </div>
               </div>
             </div>
-            <Button.PrimarySolid
-              className="w-full  mx-auto max-w-[290px] h-12 text-white mt-6"
-              type="submit"
-            >
-              Continue
-            </Button.PrimarySolid>
+
+            <div className="flex gap-5">
+              <Button.TertiarySolid
+                onClick={() => navigate(-1)}
+                type="button"
+                className="w-full mx-auto max-w-[290px]  h-12  mt-6"
+              >
+                <ArrowLeft /> Back
+              </Button.TertiarySolid>
+              <Button.PrimarySolid
+                className="w-full  mx-auto max-w-[290px] h-12 text-white mt-6"
+                type="submit"
+              >
+                Continue
+              </Button.PrimarySolid>
+            </div>
           </Form>
         </FormikProvider>
       </div>

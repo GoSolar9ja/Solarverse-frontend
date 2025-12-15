@@ -17,7 +17,7 @@ import { Typography } from "@solarverse/ui";
 import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
-import { XIcon } from "lucide-react";
+import { ArrowLeft, XIcon } from "lucide-react";
 import CrossIcon from "@/components/common/icons/cross-icon";
 import usePastProjectUploadMutation from "@/lib/services/api/file-uploads/past-project-upload.api";
 import { useNavigate } from "react-router-dom";
@@ -291,13 +291,22 @@ const InstallerOnboardingFormThree = () => {
                 )}
               </FieldArray>
 
-              <Button.PrimarySolid
-                className="w-full max-w-[150px] self-center mx-auto  md:!max-w-[290px] h-12 text-white mt-6"
-                type="submit"
-                loading={isPending}
-              >
-                Continue
-              </Button.PrimarySolid>
+              <div className="flex gap-5">
+                <Button.TertiarySolid
+                  onClick={() => navigate(-1)}
+                  type="button"
+                  className="w-full mx-auto max-w-[290px]  h-12  mt-6"
+                >
+                  <ArrowLeft /> Back
+                </Button.TertiarySolid>
+                <Button.PrimarySolid
+                  className="w-full max-w-[150px] self-center mx-auto  md:!max-w-[290px] h-12 text-white mt-6"
+                  type="submit"
+                  loading={isPending}
+                >
+                  Continue
+                </Button.PrimarySolid>
+              </div>
             </div>
           </Form>
         </FormikProvider>
