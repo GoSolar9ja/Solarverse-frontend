@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, successToast } from "@solarverse/ui";
+import { Alert, Button } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
 import { createValidationSchema, schemaValidation } from "@solarverse/utils";
 import { Form, FormikProvider, useFormik } from "formik";
@@ -27,7 +27,7 @@ export default function Forgotpassword() {
     onSubmit: async (values) => {
       console.log("Form submitted:", values);
       const req = await requestPasswordReset(values);
-      successToast("Password reset link sent to your email");
+      // successToast("Password reset link sent to your email");
       const resetUrl = req.data;
       if (resetUrl) {
         const tokenParam = resetUrl.split("/reset-password")[1];
