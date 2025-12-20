@@ -14,6 +14,7 @@ import SchedulingIcon from "@/components/common/icons/scheduling-icon";
 import DashboardIcon from "@/components/common/icons/dashboard-icon";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useGetProfileQuery from "@/lib/services/api/auth/get-profile.api";
+import { cn } from "@/lib/utils";
 import {
   Avatar,
   Button,
@@ -68,16 +69,16 @@ export default function HomeOwnerTopbar() {
 
   const actions = [
     {
-      label: "Logout",
-      onClick: logout,
-    },
-    {
       label: "Switch to installer",
       onClick: () => {},
     },
     {
       label: "Settings",
       onClick: () => {},
+    },
+    {
+      label: "Logout",
+      onClick: logout,
     },
   ];
 
@@ -133,14 +134,28 @@ export default function HomeOwnerTopbar() {
                 <li className="p-2">
                   <Typography.body1>{userName}</Typography.body1>
                 </li>
-                {actions.map((action) => (
+                {actions.map((action, index) => (
                   <li key={action.label}>
                     <button
                       onClick={action.onClick}
                       className="border-t border-t-gray-300 p-2 gap-3 flex items-center justify-between w-full cursor-pointer hover:bg-background"
                     >
-                      <Typography.body2 inline>{action.label}</Typography.body2>
-                      <ChevronRight className="text-gray-400" />
+                      <Typography.body2
+                        className={cn(
+                          "whitespace-nowrap",
+                          index === actions.length - 1 && "text-red-500"
+                        )}
+                        inline
+                      >
+                        {action.label}
+                      </Typography.body2>
+                      <ChevronRight
+                        className={cn(
+                          index === actions.length - 1
+                            ? "text-red-500"
+                            : "text-gray-400"
+                        )}
+                      />
                     </button>
                   </li>
                 ))}

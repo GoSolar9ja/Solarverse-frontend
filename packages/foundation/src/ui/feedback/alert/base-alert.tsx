@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence } from "framer-motion";
 
 const baseAlertVariants = cva(
-  "relative w-full rounded-lg border px-3 py-1.5 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current mx-auto w-fit mt-3",
+  "relative w-full rounded-lg border px-3 py-1.5 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current mx-auto w-fit mt-3 fixed left-1/2 -translate-x-1/2 z-20 backdrop-blur-3xl",
   {
     variants: {
       variant: {
@@ -13,7 +13,7 @@ const baseAlertVariants = cva(
         destructive:
           "text-destructive bg-error/10 border-error [&>svg]:text-current *:data-[slot=alert-description]:text-error/90 *:data-[slot=alert-title]:text-error",
         success:
-          "text-success bg-success/10 border-success [&>svg]:text-current *:data-[slot=alert-description]:text-black *:data-[slot=alert-title]:text-black",
+          "text-success bg-success/10  border-success [&>svg]:text-current *:data-[slot=alert-description]:text-black *:data-[slot=alert-title]:text-black",
       },
     },
     defaultVariants: {
