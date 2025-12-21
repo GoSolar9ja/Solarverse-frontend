@@ -390,6 +390,7 @@ const InstallerOnboardingForm = () => {
                     value={formik.values.birthday}
                     onChange={(date) => formik.setFieldValue("birthday", date)}
                   />
+                  <ErrorMessage name="birthday" />
                 </div>
 
                 <div className="flex sm:col-span-2! gap-5">
