@@ -267,6 +267,58 @@ const InstallerOnboardingForm = () => {
 
                 <div
                   className={cn(
+                    "flex flex-col h-fit w-full gap-2 max-w-[204px] ",
+                    defaultClassName
+                  )}
+                >
+                  <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
+                    Gender
+                  </Typography.body1>
+                  <div className="flex gap-4 h-[60px]">
+                    {/* Male */}
+                    <button
+                      type="button"
+                      onClick={() => formik.setFieldValue("gender", "male")}
+                      className={`flex items-center gap-4 w-full px-6 py-3 rounded-full justify-center ${
+                        formik.values.gender === "male"
+                          ? "bg-[#FFFFFF] drop-shadow"
+                          : "bg-[#F5F5F5]"
+                      }`}
+                    >
+                      <Image
+                        src={IMAGE_PATHS.maleGenderImg}
+                        alt="male-icon"
+                        containerClassName="w-5 h-5"
+                      />
+                      <Typography.body1 size="h6" weight="medium">
+                        Male
+                      </Typography.body1>
+                    </button>
+
+                    {/* Female */}
+                    <button
+                      type="button"
+                      onClick={() => formik.setFieldValue("gender", "female")}
+                      className={`flex items-center gap-4 w-full  px-6  py-3 rounded-full justify-center ${
+                        formik.values.gender === "female"
+                          ? "bg-[#FFFFFF] drop-shadow"
+                          : "bg-[#F5F5F5]"
+                      }`}
+                    >
+                      <Image
+                        src={IMAGE_PATHS.femaleGenderImg}
+                        alt="female-icon"
+                        containerClassName="w-5 h-5"
+                      />
+                      <Typography.body1 size="h6" weight="medium">
+                        Female
+                      </Typography.body1>
+                    </button>
+                  </div>
+                  <ErrorMessage name="gender" />
+                </div>
+                <div
+                  className={cn(
                     "flex flex-col h-fit  gap-2 ",
                     defaultClassName
                   )}
@@ -325,61 +377,12 @@ const InstallerOnboardingForm = () => {
                     PNG, JPG only{" "}
                   </Typography.body1>
                 </div>
-
                 <div
                   className={cn(
-                    "flex flex-col h-fit w-full gap-2 max-w-[204px] ",
+                    "  max-w-[223px]  gap-[7px]  my-3",
                     defaultClassName
                   )}
                 >
-                  <Typography.body1 className="tracking-[1%] text-[#5A5F61]">
-                    Gender
-                  </Typography.body1>
-                  <div className="flex gap-4 h-[60px]">
-                    {/* Male */}
-                    <button
-                      type="button"
-                      onClick={() => formik.setFieldValue("gender", "male")}
-                      className={`flex items-center gap-4 w-full px-6 py-3 rounded-full justify-center ${
-                        formik.values.gender === "male"
-                          ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-[#F5F5F5]"
-                      }`}
-                    >
-                      <Image
-                        src={IMAGE_PATHS.maleGenderImg}
-                        alt="male-icon"
-                        containerClassName="w-5 h-5"
-                      />
-                      <Typography.body1 size="h6" weight="medium">
-                        Male
-                      </Typography.body1>
-                    </button>
-
-                    {/* Female */}
-                    <button
-                      type="button"
-                      onClick={() => formik.setFieldValue("gender", "female")}
-                      className={`flex items-center gap-4 w-full  px-6  py-3 rounded-full justify-center ${
-                        formik.values.gender === "female"
-                          ? "bg-[#FFFFFF] drop-shadow"
-                          : "bg-[#F5F5F5]"
-                      }`}
-                    >
-                      <Image
-                        src={IMAGE_PATHS.femaleGenderImg}
-                        alt="female-icon"
-                        containerClassName="w-5 h-5"
-                      />
-                      <Typography.body1 size="h6" weight="medium">
-                        Female
-                      </Typography.body1>
-                    </button>
-                  </div>
-                  <ErrorMessage name="gender" />
-                </div>
-
-                <div className="  max-w-[223px]  gap-[7px] sm:col-span-2! my-3">
                   <Typography.body1 className="mb-2">
                     Your Birthday
                   </Typography.body1>
