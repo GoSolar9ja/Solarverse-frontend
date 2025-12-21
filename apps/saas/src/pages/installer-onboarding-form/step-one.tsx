@@ -5,11 +5,12 @@ import {
   ComponentVisibility,
   ErrorMessage,
   errorToast,
+  SelectInput,
   successToast,
   UploadField,
 } from "@solarverse/ui";
 import { InputField } from "@solarverse/ui";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   createValidationSchema,
   fileToBase64,
@@ -33,6 +34,7 @@ import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api";
 import useBusinessLogoUploadMutation from "@/lib/services/api/file-uploads/business-logo-upload.api";
 import { ArrowLeft } from "lucide-react";
+import states from "@/lib/data/states.json";
 // import { XIcon } from "lucide-react";
 
 const InstallerOnboardingForm = () => {
@@ -42,7 +44,7 @@ const InstallerOnboardingForm = () => {
     fieldValidation,
     phoneNumberValidation,
     booleanValidation,
-    listSelectionValidation,
+    // listSelectionValidation,
   } = schemaValidation;
   const navigate = useNavigate();
 
@@ -63,7 +65,8 @@ const InstallerOnboardingForm = () => {
       lastName: "",
       businessName: "",
       businessRegNum: "",
-      businessLocation: "",
+      address: "",
+      state: "",
       gender: "",
       birthday: undefined,
       nin: "",
@@ -82,14 +85,13 @@ const InstallerOnboardingForm = () => {
         .required("nin is required"),
       businessName: fieldValidation().required("Business name is required"),
       businessRegNum: fieldValidation().optional(),
-      businessLocation: fieldValidation().required(
-        "Business location is required"
-      ),
+      address: fieldValidation().required("Business address is required"),
+      state: fieldValidation().required("State  is required"),
       gender: fieldValidation().required("Gender is required"),
-      businessLogo: listSelectionValidation().min(
-        1,
-        "At least one image is required"
-      ),
+      // businessLogo: listSelectionValidation().min(
+      //   1,
+      //   "At least one image is required"
+      // ),
       birthday: fieldValidation().required("Birthday is required"),
       phone: phoneNumberValidation().required("Phone number is required"),
       otp: fieldValidation()
@@ -100,11 +102,23 @@ const InstallerOnboardingForm = () => {
     }),
     onSubmit: async (values) => {
       const { birthday, firstName, gender, lastName, phone, nin } = values;
-      const formData = new FormData();
       const formattedPhone = phone.replace("0", "234");
       const dob = format(birthday || "", "yyyy-MM-dd");
+      const businessLogo = values.businessLogo?.[0].file;
+      const address = `${values.address}, ${values.state}`;
 
-      formData.append("file", values.businessLogo?.[0].file || "");
+      // console.log({
+      //   dob,
+      //   firstName,
+      //   lastName,
+      //   gender,
+      //   nin,
+      //   mobile: formattedPhone,
+      //   role: USER_TYPE.INSTALLER,
+      //   businessName: values.businessName,
+      //   cacRegistrationNumber: values.businessRegNum,
+      //   address,
+      // });
 
       await updateProfile({
         dob,
@@ -116,10 +130,14 @@ const InstallerOnboardingForm = () => {
         role: USER_TYPE.INSTALLER,
         businessName: values.businessName,
         cacRegistrationNumber: values.businessRegNum,
-        address: values.businessLocation,
+        address,
       });
 
-      await uploadBusinessLogo(formData);
+      if (businessLogo) {
+        const formData = new FormData();
+        formData.append("file", businessLogo || "");
+        await uploadBusinessLogo(formData);
+      }
 
       navigate(ROUTE_KEYS.INSTALLER_FORM_TWO);
     },
@@ -226,10 +244,19 @@ const InstallerOnboardingForm = () => {
                     className: defaultClassName,
                   }}
                 />
+                <SelectInput.primary
+                  label="State"
+                  name="state"
+                  rounded="full"
+                  placeholder="Select State"
+                  validate
+                  className={defaultClassName}
+                  options={states}
+                />
 
                 <InputField.primary
-                  label="Business Adress"
-                  name="businessLocation"
+                  label="Business Address"
+                  name="address"
                   placeholder="plot 124, Ikeja Lagos"
                   rounded="full"
                   validate
@@ -423,13 +450,23 @@ const InstallerOnboardingForm = () => {
                   className="mt-1"
                 >
                   By signing up, you agree to our{" "}
-                  <Typography.body1 inline variant={"secondary"}>
-                    Terms of Service
-                  </Typography.body1>{" "}
+                  <Link
+                    target="_blank"
+                    to={"https://solarverse.ng/terms-conditions"}
+                  >
+                    <Typography.body1 inline variant={"secondary"}>
+                      Terms of Service
+                    </Typography.body1>{" "}
+                  </Link>
                   and{" "}
-                  <Typography.body1 inline variant={"secondary"}>
-                    Privacy Policy
-                  </Typography.body1>
+                  <Link
+                    to={"https://solarverse.ng/privacy-policy"}
+                    target="_blank"
+                  >
+                    <Typography.body1 inline variant={"secondary"}>
+                      Privacy Policy
+                    </Typography.body1>
+                  </Link>
                 </Typography.body1>
               </div>
 

@@ -13,7 +13,7 @@ import BirthdayPicker from "@/components/common/birthday-picker";
 import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api";
 import { USER_TYPE } from "@/lib/constants";
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useGetProfileQuery from "@/lib/services/api/auth/get-profile.api";
 
@@ -294,13 +294,23 @@ const HomeOwnerOnboardingForm = () => {
                   className="mt-1"
                 >
                   By signing up, you agree to our{" "}
-                  <Typography.body1 inline variant={"secondary"}>
-                    Terms of Service
-                  </Typography.body1>{" "}
+                  <Link
+                    target="_blank"
+                    to={"https://solarverse.ng/terms-conditions"}
+                  >
+                    <Typography.body1 inline variant={"secondary"}>
+                      Terms of Service
+                    </Typography.body1>{" "}
+                  </Link>
                   and{" "}
-                  <Typography.body1 inline variant={"secondary"}>
-                    Privacy Policy
-                  </Typography.body1>
+                  <Link
+                    to={"https://solarverse.ng/privacy-policy"}
+                    target="_blank"
+                  >
+                    <Typography.body1 inline variant={"secondary"}>
+                      Privacy Policy
+                    </Typography.body1>
+                  </Link>
                 </Typography.body1>
               </div>
               <div className="flex gap-5">

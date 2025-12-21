@@ -29,6 +29,7 @@ const BaseSelectInput = ({
   variant,
   error,
   touched,
+  rounded,
 }: IBaseSelectInputProps) => {
   const fieldError = !!(error && touched);
   return (
@@ -40,6 +41,7 @@ const BaseSelectInput = ({
         variant={variant}
         className={className}
         fieldError={fieldError}
+        rounded={rounded}
       >
         <SelectValue
           placeholder={
