@@ -35,6 +35,7 @@ import useUpdateProfileMutation from "@/lib/services/api/auth/update-profile.api
 import useBusinessLogoUploadMutation from "@/lib/services/api/file-uploads/business-logo-upload.api";
 import { ArrowLeft } from "lucide-react";
 import states from "@/lib/data/states.json";
+import useVerifyOtpMutation from "@/lib/services/api/auth/verify-otp.api";
 // import { XIcon } from "lucide-react";
 
 const InstallerOnboardingForm = () => {
@@ -53,7 +54,8 @@ const InstallerOnboardingForm = () => {
 
   const { mutateAsync: updateProfile, isPending: isUpdatingProfile } =
     useUpdateProfileMutation();
-
+  const { mutateAsync: verifyOtpMutation, isPending: isVerifyingOtp } =
+    useVerifyOtpMutation();
   const {
     mutateAsync: uploadBusinessLogo,
     isPending: isUploadingBusinessLogo,
@@ -119,6 +121,11 @@ const InstallerOnboardingForm = () => {
       //   cacRegistrationNumber: values.businessRegNum,
       //   address,
       // });
+
+      await verifyOtpMutation({
+        mobile: formattedPhone,
+        otp: values.otp,
+      });
 
       await updateProfile({
         dob,
