@@ -492,7 +492,11 @@ const InstallerOnboardingForm = () => {
                 <Button.PrimarySolid
                   className="w-full mx-auto max-w-[290px]  text-white mt-6"
                   type="submit"
-                  loading={isUpdatingProfile || isUploadingBusinessLogo}
+                  loading={
+                    isUpdatingProfile ||
+                    isUploadingBusinessLogo ||
+                    isVerifyingOtp
+                  }
                 >
                   Continue
                 </Button.PrimarySolid>
