@@ -107,8 +107,12 @@ const HomeOwnerOnboardingForm = () => {
 
   useEffect(() => {
     formik.setFieldValue("email", profile?.user.email);
-    // formik.setFieldValue("firstName", profile?.user.firstName);
-    // formik.setFieldValue("lastName", profile?.user.lastName);
+    if (profile?.user.firstName) {
+      formik.setFieldValue("firstName", profile?.user.firstName ?? "");
+    }
+    if (profile?.user.lastName) {
+      formik.setFieldValue("lastName", profile?.user.lastName ?? "");
+    }
   }, [data]);
 
   console.log(profile?.user);
