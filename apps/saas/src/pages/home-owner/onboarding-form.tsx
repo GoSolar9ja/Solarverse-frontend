@@ -107,8 +107,8 @@ const HomeOwnerOnboardingForm = () => {
 
   useEffect(() => {
     formik.setFieldValue("email", profile?.user.email);
-    formik.setFieldValue("firstName", profile?.user.firstName);
-    formik.setFieldValue("lastName", profile?.user.lastName);
+    // formik.setFieldValue("firstName", profile?.user.firstName);
+    // formik.setFieldValue("lastName", profile?.user.lastName);
   }, [data]);
 
   console.log(profile?.user);
