@@ -270,7 +270,7 @@ const HomeOwnerOnboardingForm = () => {
                     rounded="full"
                     value={formik.values.otp}
                     onChange={formik.handleChange}
-                    maxLength={6}
+                    maxLength={8}
                     validate
                   />
                 </div>
