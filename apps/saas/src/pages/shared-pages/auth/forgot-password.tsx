@@ -8,6 +8,7 @@ import { Typography } from "@solarverse/ui";
 import useRequestPasswordResetMutation from "@/lib/services/api/auth/request-password-reset.api";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import { ArrowLeft } from "lucide-react";
+import { USER_TYPE } from "@/lib/constants";
 
 export default function Forgotpassword() {
   const { emailValidation } = schemaValidation;
@@ -26,7 +27,10 @@ export default function Forgotpassword() {
     }),
     onSubmit: async (values) => {
       console.log("Form submitted:", values);
-      const req = await requestPasswordReset(values);
+      const req = await requestPasswordReset({
+        ...values,
+        role: USER_TYPE.INSTALLER,
+      });
       // successToast("Password reset link sent to your email");
       const resetUrl = req.data;
       if (resetUrl) {

@@ -8,6 +8,7 @@ import { Image } from "@solarverse/ui";
 import IMAGE_PATHS from "@/assets/images";
 import { ROUTE_KEYS } from "@/lib/routes/routes-keys";
 import useRequestPasswordResetMutation from "@/lib/services/api/auth/request-password-reset.api";
+import { USER_TYPE } from "@/lib/constants";
 
 export default function Forgotpassword() {
   const navigate = useNavigate();
@@ -24,7 +25,10 @@ export default function Forgotpassword() {
     }),
     onSubmit: async (values) => {
       console.log("Form submitted:", values);
-      const req = await requestPasswordReset(values);
+      const req = await requestPasswordReset({
+        ...values,
+        role: USER_TYPE.ADMIN,
+      });
       successToast("Password reset link sent to your email");
       const resetUrl = req.data;
       if (resetUrl) {
