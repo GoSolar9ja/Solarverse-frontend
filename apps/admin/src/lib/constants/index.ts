@@ -4,6 +4,6 @@ export enum STORAGE_KEYS {
 }
 
 export enum USER_TYPE {
-  ADMIN = "admin",
-  SUPER_ADMIN = "super_admin",
+  ADMIN = "ADMIN",
+  SUPER_ADMIN = "SUPER_ADMIN",
 }
