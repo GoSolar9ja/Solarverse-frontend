@@ -10,7 +10,7 @@ import { Button } from "@solarverse/ui";
 import useLoginMutation from "@/lib/services/api/auth/login.api";
 import { baseURL } from "@/lib/services/config/axios-instance";
 import GoogleIcon from "@/assets/svgs/google-icon.svg?react";
-// import FacebookIcon from "@/assets/svgs/facebook-icon.svg?react";
+import FacebookIcon from "@/assets/svgs/facebook-icon.svg?react";
 export default function Signin() {
   const { passwordValidation, emailValidation } = schemaValidation;
   const { login } = useAuthContext();
@@ -49,9 +49,9 @@ export default function Signin() {
     window.open(`${baseURL}/api/v1/auth/google`, "_blank");
   };
 
-  // const handleFacebookLogin = () => {
-  //   window.open(`${baseURL}/api/v1/auth/facebook`, "_blank");
-  // };
+  const handleFacebookLogin = () => {
+    window.open(`${baseURL}/api/v1/auth/facebook`, "_blank");
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
@@ -69,7 +69,7 @@ export default function Signin() {
       </button>
 
       {/* Facebook button */}
-      {/* <button
+      <button
         type="button"
         onClick={handleFacebookLogin}
         className="flex items-center gap-4 w-full border border-[#C1C6C5]/50 cursor-pointer px-6 py-3 bg-[#1877F2]/10 rounded-full justify-center"
@@ -78,7 +78,7 @@ export default function Signin() {
         <span className="text-lg font-normal text-[#111214]">
           Sign in with Facebook
         </span>
-      </button> */}
+      </button>
 
       <p className="text-[18px] font-medium text-[#111214]">or</p>
 
