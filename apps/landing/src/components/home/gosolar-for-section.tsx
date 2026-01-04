@@ -81,7 +81,13 @@ export default function GoSolarForSection() {
         <Button.PrimarySolid className="max-w-[286px]" fullWidth>
           Get 24/7 Power
         </Button.PrimarySolid>
-        <Button.SecondarySolid className="max-w-[286px]" fullWidth>
+        <Button.SecondarySolid
+          onClick={() =>
+            window.open("https://solar-verse-saas.vercel.app/sign-up", "_blank")
+          }
+          className="max-w-[286px]"
+          fullWidth
+        >
           Join As Installer
         </Button.SecondarySolid>
       </div>

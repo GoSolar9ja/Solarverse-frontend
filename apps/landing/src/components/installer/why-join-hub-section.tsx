@@ -82,6 +82,12 @@ export default function WhyJoinHubSection() {
           <Button.PrimarySolid
             className="md:!mt-20 mt-10 max-w-[286px] mx-auto sm:!mx-0"
             fullWidth
+            onClick={() =>
+              window.open(
+                "https://solar-verse-saas.vercel.app/sign-up",
+                "_blank"
+              )
+            }
           >
             Join As Installer
           </Button.PrimarySolid>

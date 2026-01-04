@@ -25,7 +25,15 @@ export default function PowerHomeSection() {
             </Typography.h5>
           </div>
           <div className="max-w-[593px] w-full mx-auto flex gap-5 md:!gap-10">
-            <Button.PrimarySolid fullWidth>
+            <Button.PrimarySolid
+              onClick={() =>
+                window.open(
+                  "https://solar-verse-saas.vercel.app/sign-up",
+                  "_blank"
+                )
+              }
+              fullWidth
+            >
               Join As Installer
             </Button.PrimarySolid>
             <Button.SecondarySolid fullWidth>Sign In </Button.SecondarySolid>

@@ -174,6 +174,7 @@ function Steps() {
 }
 
 function Bullets() {
+  const { push } = useRouter();
   return (
     <div className="flex justify-between items-center gap-10 flex-col lg:!flex-row  text-center lg:!text-start lg:!mt-20 mt-10">
       <div>
@@ -194,12 +195,19 @@ function Bullets() {
         <div className="flex gap-5">
           <Button.SecondarySolid
             className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+            onClick={() => push("/about")}
             fullWidth
           >
             Learn More
           </Button.SecondarySolid>
           <Button.PrimarySolid
             className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
+            onClick={() =>
+              window.open(
+                "https://solar-verse-saas.vercel.app/sign-up",
+                "_blank"
+              )
+            }
             fullWidth
           >
             Join As Installer

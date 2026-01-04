@@ -5,6 +5,7 @@ import { IMAGE_URLS } from "@/assets/images";
 import Image from "@/components/common/media/image";
 import { Pin } from "lucide-react";
 import { Button } from "@solarverse/ui";
+import { useRouter } from "next/navigation";
 
 const bullets = [
   "Get matched with verified leads",
@@ -14,6 +15,7 @@ const bullets = [
 ];
 
 export default function InstallSolarSection() {
+  const { push } = useRouter();
   return (
     <SectionLayout
       sectionProps={{ className: "bg-[#FCFCFC]" }}
@@ -50,12 +52,19 @@ export default function InstallSolarSection() {
             <Button.SecondarySolid
               className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
               fullWidth
+              onClick={() => push("/about")}
             >
               Learn More
             </Button.SecondarySolid>
             <Button.PrimarySolid
               className="mt-10 max-w-[286px] mx-auto lg:!mx-0"
               fullWidth
+              onClick={() =>
+                window.open(
+                  "https://solar-verse-saas.vercel.app/sign-up",
+                  "_blank"
+                )
+              }
             >
               Join As Installer
             </Button.PrimarySolid>

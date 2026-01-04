@@ -37,10 +37,23 @@ export default function PoorElectricitySection() {
             </Typography.h4>
 
             <CenterLayout className="flex sm:!gap-8 gap-4 mt-10  mx-auto">
-              <Button.PrimarySolid className="flex-1">
+              <Button.PrimarySolid
+                className="flex-1"
+                onClick={() =>
+                  window.open("https://solar-verse-saas.vercel.app/", "_blank")
+                }
+              >
                 Find Installers
               </Button.PrimarySolid>
-              <Button.SecondarySolid className="flex-1">
+              <Button.SecondarySolid
+                className="flex-1"
+                onClick={() =>
+                  window.open(
+                    "https://solar-verse-saas.vercel.app/sign-up",
+                    "_blank"
+                  )
+                }
+              >
                 Join as Installer
               </Button.SecondarySolid>
             </CenterLayout>

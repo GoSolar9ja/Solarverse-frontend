@@ -64,10 +64,23 @@ export default function HeroSection() {
           </Typography.h5>
 
           <CenterLayout className="flex sm:!gap-8 gap-4 mt-20 max-w-[593px] mx-auto">
-            <Button.PrimarySolid className="flex-1">
+            <Button.PrimarySolid
+              onClick={() =>
+                window.open("https://solar-verse-saas.vercel.app/", "_blank")
+              }
+              className="flex-1"
+            >
               Find Installers
             </Button.PrimarySolid>
-            <Button.SecondarySolid className="flex-1">
+            <Button.SecondarySolid
+              onClick={() =>
+                window.open(
+                  "https://solar-verse-saas.vercel.app/sign-up",
+                  "_blank"
+                )
+              }
+              className="flex-1"
+            >
               Join as Installer
             </Button.SecondarySolid>
           </CenterLayout>
