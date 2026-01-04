@@ -10,6 +10,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 const MobileNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,6 +18,8 @@ const MobileNavBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -111,7 +114,10 @@ const MobileNavBar = () => {
                   <Button.PrimaryOutline
                     rounded="full"
                     className="w-full justify-center"
-                    onClick={toggleMenu}
+                    onClick={() => {
+                      router.push("https://solar-verse-saas.vercel.app/");
+                      toggleMenu();
+                    }}
                   >
                     Sign in
                   </Button.PrimaryOutline>
