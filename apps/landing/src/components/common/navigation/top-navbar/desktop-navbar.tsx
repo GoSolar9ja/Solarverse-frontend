@@ -6,12 +6,11 @@ import Image from "@/components/common/media/image";
 import { Typography } from "@solarverse/ui";
 import { navLinks } from "@/lib/routes";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const DesktopNavBar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const isActive = (path: string) => pathname === path;
   return (
     <div>
@@ -46,7 +45,7 @@ const DesktopNavBar = () => {
               <Button.PrimaryOutline
                 rounded={"full"}
                 onClick={() =>
-                  router.push("https://solar-verse-saas.vercel.app/")
+                  window.open("https://solar-verse-saas.vercel.app/", "_blank")
                 }
               >
                 Sign in

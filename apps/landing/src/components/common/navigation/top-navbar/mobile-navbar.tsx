@@ -9,8 +9,7 @@ import { navLinks } from "@/lib/routes";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+// import { motion } from "framer-motion";
 const MobileNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -18,8 +17,6 @@ const MobileNavBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -115,7 +112,10 @@ const MobileNavBar = () => {
                     rounded="full"
                     className="w-full justify-center"
                     onClick={() => {
-                      router.push("https://solar-verse-saas.vercel.app/");
+                      window.open(
+                        "https://solar-verse-saas.vercel.app/",
+                        "_blank"
+                      );
                       toggleMenu();
                     }}
                   >
