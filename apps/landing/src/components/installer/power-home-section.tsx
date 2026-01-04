@@ -36,7 +36,14 @@ export default function PowerHomeSection() {
             >
               Join As Installer
             </Button.PrimarySolid>
-            <Button.SecondarySolid fullWidth>Sign In </Button.SecondarySolid>
+            <Button.SecondarySolid
+              onClick={() =>
+                window.open("https://solar-verse-saas.vercel.app", "_blank")
+              }
+              fullWidth
+            >
+              Sign In{" "}
+            </Button.SecondarySolid>
           </div>
         </div>
       </DefaultLayout>

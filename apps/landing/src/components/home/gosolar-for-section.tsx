@@ -78,7 +78,13 @@ export default function GoSolarForSection() {
       </div>
 
       <div className="flex justify-center gap-4 mt-14 relative z-10">
-        <Button.PrimarySolid className="max-w-[286px]" fullWidth>
+        <Button.PrimarySolid
+          onClick={() =>
+            window.open("https://solar-verse-saas.vercel.app", "_blank")
+          }
+          className="max-w-[286px]"
+          fullWidth
+        >
           Get 24/7 Power
         </Button.PrimarySolid>
         <Button.SecondarySolid

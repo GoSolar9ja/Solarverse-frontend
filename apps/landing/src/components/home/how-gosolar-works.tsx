@@ -48,7 +48,7 @@ const steps = [
     description: "Go solar, save on bills, and reduce your carbon footprint!",
   },
   {
-    link: "/",
+    link: "https://solar-verse-saas.vercel.app/sign-up",
     img: IMAGE_URLS.rocketImg,
     title: "Start your Solarverse journey today",
     description: "",
@@ -143,7 +143,7 @@ function Steps() {
             "max-w-[376px] overflow-hidden hover:-translate-y-3 duration-500 rounded-2xl relative ",
             step.link && "cursor-pointer"
           )}
-          onClick={step.link ? () => push(step.link) : undefined}
+          onClick={step.link ? () => window.open(step.link) : undefined}
         >
           <BiscuitBgIllustration
             fill={step.link && "#FE8500"}
